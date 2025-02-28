@@ -1,11 +1,14 @@
 // import { Canvas } from '@react-three/fiber';
 // import { CherryBlossoms } from '@/components';
 
-import { DecryptedText, Text } from '@/components';
+import { DecryptedText, Text, Button } from '@/components';
 
 export default function Intro() {
     return (
-        <section className="flex h-screen flex-col items-center justify-center">
+        <section
+            id="home"
+            className="flex h-screen flex-col items-center justify-center"
+        >
             {/* <Canvas
                 camera={{ position: [0, 0, 5], fov: 75 }}
                 className="absolute block size-full"
@@ -17,19 +20,29 @@ export default function Intro() {
             <header className="mx-auto max-w-5xl space-y-8 pb-14 md:py-36">
                 <DecryptedText
                     text="Hi, I'm Diogo Paulo"
-                    speed={100}
                     animateOn="view"
+                    speed={100}
                     sequential
-                    maxIterations={14}
                 />
                 <div className="flex flex-row items-center gap-8">
-                    <Text as="h1" weight="bold" className="text-8xl">
-                        Software Developer
+                    <Text as="h1" weight="bold" size="8xl">
+                        Frontend Developer
                     </Text>
                     <Text as="p" size="xl">
                         Transforming ideas into interactive and seamless digital
                         experiences with cutting-edge frontend development.
                     </Text>
+                </div>
+                <div className="flex justify-start gap-2 pt-3 md:pt-6">
+                    <Button as="a" href="https://github.com/Diogo-k" size="lg">
+                        Github
+                    </Button>
+                    <Button as="a" href="https://github.com/Diogo-k" size="lg">
+                        Linked In
+                    </Button>
+                    <Button as="a" href="https://github.com/Diogo-k" size="lg">
+                        Test
+                    </Button>
                 </div>
             </header>
         </section>

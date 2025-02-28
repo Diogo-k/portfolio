@@ -8,6 +8,7 @@ import { Text, ThemeSwitcher } from '@/components';
 
 const navItems = [
     { name: 'Home', href: '', katakana: 'ホーム' },
+    { name: 'Experience', href: '#experience', katakana: 'エクスペリエンス' },
     { name: 'Projects', href: '#work', katakana: 'プロジェクト' },
     { name: 'Contact', href: '#contact', katakana: 'コンタクト' },
 ];
@@ -28,7 +29,7 @@ export default function Header() {
                         key={index}
                         onMouseEnter={() => setHoveredIndex(index)}
                         onMouseLeave={() => setHoveredIndex(null)}
-                        className="relative flex flex-col items-center px-6"
+                        className="relative flex flex-col items-center px-8"
                     >
                         <motion.span
                             className="text-2xl font-normal tracking-wide text-primary-light transition-all dark:text-text-dark"

@@ -1,8 +1,15 @@
+'use client';
+
 import { motion } from 'framer-motion';
+
+import { Text } from '@/components';
 
 export default function Projects() {
     return (
-        <section id="projects" className="bg-white px-8 py-20">
+        <section
+            id="projects"
+            className="mx-auto flex h-screen max-w-7xl flex-col items-center justify-center"
+        >
             <h2 className="text-center text-4xl font-bold text-gray-900">
                 Projects
             </h2>
@@ -10,18 +17,15 @@ export default function Projects() {
                 {[1, 2, 3, 4, 5, 6].map((project) => (
                     <motion.div
                         key={project}
-                        className="overflow-hidden rounded-lg bg-gray-200 shadow-lg transition hover:shadow-xl"
+                        className="overflow-hidden rounded-lg"
                         whileHover={{ scale: 1.05 }}
                     >
-                        <div className="h-48 bg-gray-300"></div>{' '}
-                        {/* Placeholder for project image */}
+                        <div className="h-48 w-72 bg-accent-light"></div>
                         <div className="p-4">
-                            <h3 className="text-xl font-semibold text-gray-900">
-                                Project {project}
-                            </h3>
-                            <p className="mt-2 text-gray-700">
-                                Brief description of the project.
-                            </p>
+                            <Text as="h1" size="xl" weight="semibold">
+                                Hitachi UBS
+                            </Text>
+                            <Text as="p">Creator</Text>
                         </div>
                     </motion.div>
                 ))}
