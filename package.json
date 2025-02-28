@@ -1,0 +1,55 @@
+{
+    "name": "portfolio",
+    "description": "Portfolio site for Diogo Paulo",
+    "version": "0.1.0",
+    "author": "João Diogo Paulo",
+    "repository": "https://github.com/Diogo-k/portfolio.git",
+    "private": true,
+    "scripts": {
+        "dev": "next dev --turbopack",
+        "build": "next build",
+        "start": "next start",
+        "lint": "next lint",
+        "storybook": "storybook dev -p 6006",
+        "build-storybook": "storybook build"
+    },
+    "dependencies": {
+        "@react-three/drei": "^10.0.0-rc.2",
+        "@react-three/fiber": "^9.0.0-alpha.8",
+        "clsx": "^2.1.1",
+        "framer-motion": "^12.4.2",
+        "next": "15.1.6",
+        "react": "^19.0.0",
+        "react-dom": "^19.0.0",
+        "three": "^0.173.0"
+    },
+    "devDependencies": {
+        "@chromatic-com/storybook": "^3.2.4",
+        "@eslint/eslintrc": "^3",
+        "@next/eslint-plugin-next": "^15.1.7",
+        "@storybook/addon-essentials": "^8.5.4",
+        "@storybook/addon-interactions": "^8.5.4",
+        "@storybook/addon-onboarding": "^8.5.4",
+        "@storybook/addon-themes": "^8.5.5",
+        "@storybook/blocks": "^8.5.4",
+        "@storybook/nextjs": "^8.5.4",
+        "@storybook/react": "^8.5.4",
+        "@storybook/test": "^8.5.4",
+        "eslint": "^9",
+        "eslint-config-next": "15.1.7",
+        "eslint-config-prettier": "^10.0.1",
+        "eslint-import-resolver-alias": "^1.1.2",
+        "eslint-plugin-import": "^2.31.0",
+        "eslint-plugin-prettier": "^5.2.3",
+        "eslint-plugin-storybook": "^0.11.2",
+        "eslint-plugin-tailwindcss": "^3.18.0",
+        "postcss": "^8",
+        "prettier": "3.5.0",
+        "prettier-plugin-tailwindcss": "^0.6.11",
+        "storybook": "^8.5.4",
+        "tailwindcss": "^3.4.1"
+    },
+    "engines": {
+        "node": ">=22.13.1"
+    }
+}

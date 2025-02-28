@@ -1,0 +1,11 @@
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+html {
+    font-family: var(--font-sora);
+}
+
+.story-container {
+    font-family: var(--font-sora);
+}
