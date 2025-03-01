@@ -4,7 +4,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 
-import { Text, ThemeSwitcher } from '@/components';
+import { ThemeSwitcher } from '@/components';
 
 const navItems = [
     { name: 'Home', href: '', katakana: 'ホーム' },

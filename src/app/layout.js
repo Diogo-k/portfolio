@@ -27,7 +27,7 @@ export default function RootLayout({ children }) {
         <html lang="en" className={`${sora.variable} ${notoSerifJP.variable}`}>
             <body>
                 <Header />
-                <main className="bg-surface-light transition-colors duration-200 dark:bg-surface-dark">
+                <main className="bg-background-light transition-colors duration-200 dark:bg-background-dark">
                     {children}
                 </main>
                 <Footer />

@@ -1,6 +1,6 @@
 export default function BlogCard() {
     return (
-        <div className="max-w-md overflow-hidden rounded-2xl border border-border-light bg-surface-light shadow-lg transition duration-300 dark:border-border-dark dark:bg-surface-dark">
+        <div className="max-w-md overflow-hidden rounded-2xl border border-border-light bg-background-light shadow-lg transition duration-300 dark:border-border-dark dark:bg-background-dark">
             {/* Image Placeholder */}
             <div className="flex h-48 items-center justify-center bg-primary-light dark:bg-primary-dark">
                 <span className="text-xl font-bold text-white">Blog Image</span>

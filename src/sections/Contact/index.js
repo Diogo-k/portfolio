@@ -11,7 +11,7 @@ export default function Contact() {
             </Text>
 
             <form
-                className="mt-8 w-full max-w-2xl space-y-6 rounded-lg bg-surface-light p-8 dark:bg-surface-dark"
+                className="mt-8 w-full max-w-2xl space-y-6 rounded-lg bg-background-light p-8 dark:bg-background-dark"
                 action="#"
                 method="POST"
             >
@@ -28,7 +28,7 @@ export default function Contact() {
                         name="name"
                         placeholder="Enter your full name"
                         required
-                        className="mt-2 w-full rounded-md border border-border-light bg-background-light px-4 py-2 text-base text-text-light focus:outline-none focus:ring-2 focus:ring-primary-light dark:border-border-dark dark:bg-background-dark dark:text-text-dark dark:focus:ring-primary-dark"
+                        className="mt-2 w-full rounded-md border border-border-light bg-surface-light px-4 py-2 text-base text-text-light focus:outline-none focus:ring-2 focus:ring-primary-light dark:border-border-dark dark:bg-surface-dark dark:text-text-dark dark:focus:ring-primary-dark"
                     />
                 </div>
 
@@ -45,7 +45,7 @@ export default function Contact() {
                         name="email"
                         placeholder="Enter your email"
                         required
-                        className="mt-2 w-full rounded-md border border-border-light bg-background-light px-4 py-2 text-base text-text-light focus:outline-none focus:ring-2 focus:ring-primary-light dark:border-border-dark dark:bg-background-dark dark:text-text-dark dark:focus:ring-primary-dark"
+                        className="mt-2 w-full rounded-md border border-border-light bg-surface-light px-4 py-2 text-base text-text-light focus:outline-none focus:ring-2 focus:ring-primary-light dark:border-border-dark dark:bg-surface-dark dark:text-text-dark dark:focus:ring-primary-dark"
                     />
                 </div>
 
@@ -62,7 +62,7 @@ export default function Contact() {
                         rows="6"
                         placeholder="Write your message here"
                         required
-                        className="mt-2 w-full rounded-md border border-border-light bg-background-light px-4 py-2 text-base text-text-light focus:outline-none focus:ring-2 focus:ring-primary-light dark:border-border-dark dark:bg-background-dark dark:text-text-dark dark:focus:ring-primary-dark"
+                        className="mt-2 w-full rounded-md border border-border-light bg-surface-light px-4 py-2 text-base text-text-light focus:outline-none focus:ring-2 focus:ring-primary-light dark:border-border-dark dark:bg-surface-dark dark:text-text-dark dark:focus:ring-primary-dark"
                     ></textarea>
                 </div>
 

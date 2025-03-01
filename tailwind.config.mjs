@@ -11,40 +11,32 @@ const config = {
         extend: {
             colors: {
                 primary: {
-                    light: '#B22222', // Firebrick Red
-                    dark: '#9B1C1C', // Deep Maroon Red
-                },
-                secondary: {
-                    light: '#8B0000', // Dark Red
-                    dark: '#6D1414', // A richer, muted deep red
+                    light: '#9E1A1A',
+                    dark: '#B42A2A',
                 },
                 accent: {
-                    light: '#C73737', // Crimson Red
-                    dark: '#AA1E1F', // Dark Accent Red
-                },
-                tertiary: {
-                    light: '#5E2B5C', // Deep Purple
-                    dark: '#1E3A8A', // Cool Neon Blue
+                    light: '#B42A2A',
+                    dark: '#9E1A1A',
                 },
                 background: {
-                    light: '#F8F5F0', // Warm White
-                    dark: '#0F0F10', // Cyberpunk Black with Blue Tint
+                    light: '#ECE5DA',
+                    dark: '#1B1B1D',
                 },
                 surface: {
-                    light: '#ECE5DA', // Paper Beige
-                    dark: '#1B1B1D', // Off Black with a hint of warmth
+                    light: '#E0D8CC',
+                    dark: '#232325',
                 },
                 text: {
-                    light: '#1A1A1A', // Almost Black
-                    dark: '#D9D9D9', // Softer White
+                    light: '#1A1A1A',
+                    dark: '#D9D9D9',
                 },
                 muted: {
-                    light: '#575757', // Muted Grey
-                    dark: '#737373', // Soft Grey
+                    light: '#575757',
+                    dark: '#737373',
                 },
                 border: {
-                    light: '#C4B8A8', // Stone Grey
-                    dark: '#292929', // Subtle Soft Grey
+                    light: '#C4B8A8',
+                    dark: '#292929',
                 },
             },
             fontFamily: {

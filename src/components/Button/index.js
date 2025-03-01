@@ -18,16 +18,14 @@ const Button = forwardRef(
         ref
     ) => {
         const baseStyles =
-            'relative font-bold transition-all duration-300 focus:outline-none tracking-wide uppercase overflow-hidden';
+            'relative font-semibold transition-all duration-200 focus:none tracking-wide';
 
         const variantStyles = {
             primary:
-                'bg-primary-light text-white hover:bg-accent-light dark:bg-primary-dark dark:hover:bg-accent-dark',
-            secondary:
-                'bg-secondary-light text-white hover:bg-tertiary-light dark:bg-secondary-dark dark:hover:bg-tertiary-dark',
+                'clip-button bg-primary-light text-white hover:bg-accent-light dark:bg-primary-dark dark:hover:bg-accent-dark',
             outline:
-                'border-2 border-primary-light text-primary-light hover:border-accent-light hover:text-accent-light dark:border-primary-dark dark:text-primary-dark dark:hover:border-accent-dark dark:hover:text-accent-dark',
-            ghost: 'text-primary-light hover:bg-primary-light/10 dark:text-primary-dark dark:hover:bg-primary-dark/10',
+                'border-2 border-primary-light hover:bg-primary-light/10 text-primary-light hover:border-accent-light hover:text-accent-light dark:border-primary-dark dark:text-primary-dark dark:hover:border-accent-dark dark:hover:text-accent-dark dark:hover:bg-accent-dark/30',
+            ghost: 'clip-button text-primary-light hover:bg-primary-light/10 dark:text-white dark:hover:bg-accent-dark/30',
         };
 
         const sizeStyles = {
@@ -36,12 +34,9 @@ const Button = forwardRef(
             lg: 'px-6 py-3 text-lg',
         };
 
-        const uniqueShape = 'unique-shape';
-
         const combinedStyles = clsx(
             'inline-flex items-center justify-center',
             baseStyles,
-            uniqueShape,
             variantStyles[variant],
             sizeStyles[size],
             fullWidth && 'w-full',

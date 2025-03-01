@@ -1,6 +1,6 @@
 export default function Card({ title, description }) {
     return (
-        <div className="rounded-lg border border-border-light bg-surface-light p-6 shadow-lg transition-colors duration-300 dark:border-border-dark dark:bg-surface-dark">
+        <div className="rounded-lg border border-border-light bg-background-light p-6 shadow-lg transition-colors duration-300 dark:border-border-dark dark:bg-background-dark">
             {/* Title (No accent by default, only on hover) */}
             <h2 className="text-xl font-bold text-text-light transition-colors duration-300 hover:text-accent-light dark:text-text-dark dark:hover:text-accent-dark">
                 {title}
