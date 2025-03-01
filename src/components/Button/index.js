@@ -18,13 +18,13 @@ const Button = forwardRef(
         ref
     ) => {
         const baseStyles =
-            'relative font-semibold transition-all duration-200 focus:none tracking-wide';
+            'focus:none relative font-semibold tracking-wide transition-all duration-200';
 
         const variantStyles = {
             primary:
                 'clip-button bg-primary-light text-white hover:bg-accent-light dark:bg-primary-dark dark:hover:bg-accent-dark',
             outline:
-                'border-2 border-primary-light hover:bg-primary-light/10 text-primary-light hover:border-accent-light hover:text-accent-light dark:border-primary-dark dark:text-primary-dark dark:hover:border-accent-dark dark:hover:text-accent-dark dark:hover:bg-accent-dark/30',
+                'border-2 border-primary-light text-primary-light hover:border-accent-light hover:bg-primary-light/10 hover:text-accent-light dark:border-primary-dark dark:text-white dark:hover:border-accent-dark dark:hover:bg-accent-dark/30',
             ghost: 'clip-button text-primary-light hover:bg-primary-light/10 dark:text-white dark:hover:bg-accent-dark/30',
         };
 
