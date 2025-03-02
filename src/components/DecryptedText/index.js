@@ -3,8 +3,6 @@
 import { useEffect, useState, useRef } from 'react';
 import { motion } from 'framer-motion';
 
-import { Text } from '@/components';
-
 /**
  * DecryptedText
  *
@@ -215,15 +213,15 @@ export default function DecryptedText({
             : {};
 
     return (
-        <motion.Text
+        <motion.span
             ref={containerRef}
             className={`inline-block whitespace-pre-wrap ${parentClassName}`}
             {...hoverProps}
             {...props}
         >
-            <Text className="sr-only">{displayText}</Text>
+            <span className="sr-only">{displayText}</span>
 
-            <Text aria-hidden="true">
+            <span aria-hidden="true">
                 {displayText.split('').map((char, index) => {
                     const isRevealedOrDone =
                         revealedIndices.has(index) ||
@@ -231,7 +229,7 @@ export default function DecryptedText({
                         !isHovering;
 
                     return (
-                        <Text
+                        <span
                             key={index}
                             className={
                                 isRevealedOrDone
@@ -240,10 +238,10 @@ export default function DecryptedText({
                             }
                         >
                             {char}
-                        </Text>
+                        </span>
                     );
                 })}
-            </Text>
-        </motion.Text>
+            </span>
+        </motion.span>
     );
 }

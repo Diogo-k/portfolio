@@ -2,6 +2,9 @@
 
 import { useEffect, useState } from 'react';
 
+import { Button } from '@/components';
+import { Sun, Moon } from '@/assets';
+
 export default function ThemeSwitcher() {
     const [theme, setTheme] = useState('light');
 
@@ -23,11 +26,12 @@ export default function ThemeSwitcher() {
     };
 
     return (
-        <button
+        <Button
+            className="absolute right-4 top-4"
+            variant="ghost"
             onClick={toggleTheme}
-            className="absolute right-4 top-4 rounded bg-primary-light px-4 py-2 font-bold text-white transition-colors duration-300 hover:bg-accent-light dark:bg-primary-dark dark:hover:bg-accent-dark"
         >
-            {theme === 'light' ? '🌙' : '☀️'}
-        </button>
+            {theme === 'light' ? <Moon /> : <Sun />}
+        </Button>
     );
 }

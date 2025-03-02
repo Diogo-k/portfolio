@@ -24,7 +24,10 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
     return (
-        <html lang="en" className={`${sora.variable} ${notoSerifJP.variable}`}>
+        <html
+            lang="en"
+            className={`${sora.variable} ${notoSerifJP.variable} scroll-smooth`}
+        >
             <body>
                 <Header />
                 <main className="bg-background-light transition-colors duration-200 dark:bg-background-dark">

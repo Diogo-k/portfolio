@@ -61,6 +61,7 @@ const eslintConfig = [
                     map: [
                         ['@/components', './src/components/index'],
                         ['@/styles', './src/styles'],
+                        ['@/assets', './src/assets/index'],
                     ],
                     extensions: ['.js', '.jsx'],
                 },

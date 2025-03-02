@@ -3,10 +3,6 @@ import { Text } from '@/components';
 export default function ColorPalette() {
     const colors = [
         { name: 'Primary', className: 'bg-primary-light dark:bg-primary-dark' },
-        {
-            name: 'Secondary',
-            className: 'bg-secondary-light dark:bg-secondary-dark',
-        },
         { name: 'Accent', className: 'bg-accent-light dark:bg-accent-dark' },
         {
             name: 'Background',
