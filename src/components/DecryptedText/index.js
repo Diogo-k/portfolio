@@ -3,6 +3,8 @@
 import { useEffect, useState, useRef } from 'react';
 import { motion } from 'framer-motion';
 
+import { Text } from '@/components';
+
 /**
  * DecryptedText
  *
@@ -17,7 +19,8 @@ import { motion } from 'framer-motion';
  * - className?: string          (applied to revealed/normal letters)
  * - encryptedClassName?: string (applied to encrypted letters)
  * - parentClassName?: string    (applied to the top-level span container)
- * - animateOn?: "view" | "hover"  (default: "hover")
+ * - animateOn?: "view" | "hover"  (default: "view")
+ * - delay?: number (default: false) (in milliseconds, to delay the decrypted text animation)
  */
 
 export default function DecryptedText({
@@ -31,7 +34,8 @@ export default function DecryptedText({
     className = '',
     parentClassName = '',
     encryptedClassName = '',
-    animateOn = 'hover',
+    animateOn = 'view',
+    delay = 0,
     ...props
 }) {
     const [displayText, setDisplayText] = useState(text);
@@ -175,34 +179,38 @@ export default function DecryptedText({
     useEffect(() => {
         if (animateOn !== 'view') return;
 
-        const observerCallback = (entries) => {
-            entries.forEach((entry) => {
-                if (entry.isIntersecting && !hasAnimated) {
-                    setIsHovering(true);
-                    setHasAnimated(true);
-                }
-            });
-        };
+        const timeout = setTimeout(() => {
+            const observerCallback = async (entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting && !hasAnimated) {
+                        setIsHovering(true);
+                        setHasAnimated(true);
+                    }
+                });
+            };
 
-        const observerOptions = {
-            root: null,
-            rootMargin: '0px',
-            threshold: 0.1,
-        };
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.1,
+            };
 
-        const observer = new IntersectionObserver(
-            observerCallback,
-            observerOptions
-        );
-        const currentRef = containerRef.current;
-        if (currentRef) {
-            observer.observe(currentRef);
-        }
+            const observer = new IntersectionObserver(
+                observerCallback,
+                observerOptions
+            );
+            const currentRef = containerRef.current;
+            if (currentRef) {
+                observer.observe(currentRef);
+            }
 
-        return () => {
-            if (currentRef) observer.unobserve(currentRef);
-        };
-    }, [animateOn, hasAnimated]);
+            return () => {
+                if (currentRef) observer.unobserve(currentRef);
+            };
+        }, delay); // Apply the delay before running the observer
+
+        return () => clearTimeout(timeout);
+    }, [animateOn, hasAnimated, delay]);
 
     const hoverProps =
         animateOn === 'hover'
@@ -213,15 +221,15 @@ export default function DecryptedText({
             : {};
 
     return (
-        <motion.span
+        <motion.div
             ref={containerRef}
             className={`inline-block whitespace-pre-wrap ${parentClassName}`}
             {...hoverProps}
             {...props}
         >
-            <span className="sr-only">{displayText}</span>
+            <Text className="sr-only">{displayText}</Text>
 
-            <span aria-hidden="true">
+            <Text aria-hidden="true">
                 {displayText.split('').map((char, index) => {
                     const isRevealedOrDone =
                         revealedIndices.has(index) ||
@@ -229,7 +237,7 @@ export default function DecryptedText({
                         !isHovering;
 
                     return (
-                        <span
+                        <Text
                             key={index}
                             className={
                                 isRevealedOrDone
@@ -238,10 +246,10 @@ export default function DecryptedText({
                             }
                         >
                             {char}
-                        </span>
+                        </Text>
                     );
                 })}
-            </span>
-        </motion.span>
+            </Text>
+        </motion.div>
     );
 }

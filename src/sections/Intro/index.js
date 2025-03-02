@@ -23,6 +23,12 @@ export default function Intro() {
                     animateOn="view"
                     speed={100}
                     sequential
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{
+                        delay: 0.75,
+                    }}
+                    delay={750} //* In milliseconds for setTimeout
                 />
                 <div className="flex flex-row items-center gap-8">
                     <Text as="h1" weight="bold" size="8xl">
