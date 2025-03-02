@@ -2,6 +2,8 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { useSearchParams } from 'next/navigation';
+import clsx from 'clsx';
 import { motion } from 'framer-motion';
 
 import { ThemeSwitcher } from '@/components';
@@ -16,6 +18,23 @@ const navItems = [
 export default function Header() {
     const [hoveredIndex, setHoveredIndex] = useState(null);
 
+    const [hash, setHash] = useState('');
+    const searchParams = useSearchParams();
+
+    useEffect(() => {
+        const updateHash = () => {
+            setHash(window.location.hash);
+        };
+
+        updateHash();
+
+        window.addEventListener('hashChange', updateHash);
+
+        return () => {
+            window.removeEventListener('hashChange', updateHash);
+        };
+    }, [searchParams]);
+
     const [showCursor, setShowCursor] = useState(false);
     useEffect(() => {
         const cursorInterval = setInterval(() => {
@@ -25,9 +44,6 @@ export default function Header() {
         return () => clearInterval(cursorInterval);
     }, []);
 
-    const customLocation =
-        location.hash.split('#')[1] !== 'home' && location.hash.split('#')[1];
-
     return (
         <header className="supports-[backdrop-filter]:bg-background/60 fixed z-50 flex w-full justify-around border-b-2 border-border-light p-6 backdrop-blur dark:border-b-4 dark:border-border-dark">
             <Link
@@ -35,7 +51,7 @@ export default function Header() {
                 className="focus:none absolute left-4 top-4 px-5 py-2 text-base font-semibold tracking-wide transition-all duration-200"
             >
                 <span className="overflow-hidden text-ellipsis text-nowrap text-2xl font-normal text-primary-light dark:text-text-dark">
-                    ~/{customLocation}
+                    ~/{hash !== '#home' && hash.split('#')[1]}
                     {showCursor && <span className="">|</span>}
                 </span>
             </Link>
@@ -48,7 +64,10 @@ export default function Header() {
                         className="relative flex flex-col items-center px-8"
                     >
                         <motion.span
-                            className="text-2xl font-normal tracking-wide text-primary-light transition-all dark:text-text-dark"
+                            className={clsx(
+                                'text-2xl font-normal tracking-wide text-primary-light transition-all after:absolute after:-bottom-2 after:left-0 after:h-[2px] after:w-0 after:bg-primary-light after:transition-all after:duration-300 hover:after:w-full dark:text-text-dark dark:after:bg-text-dark',
+                                item.href === hash && 'after:w-full'
+                            )}
                             animate={{
                                 opacity: hoveredIndex === index ? 0 : 1,
                             }}
@@ -59,7 +78,10 @@ export default function Header() {
                             <Link href={item.href}>{item.name}</Link>
                         </motion.span>
                         <motion.span
-                            className="absolute font-japanese text-2xl font-normal tracking-wide text-text-light transition-all dark:text-accent-light"
+                            className={clsx(
+                                'absolute font-japanese text-2xl font-normal tracking-wide text-text-light transition-all after:absolute after:-bottom-2 after:left-0 after:h-[2px] after:w-0 after:bg-text-light after:transition-all after:duration-300 hover:after:w-full dark:text-accent-light dark:after:bg-accent-light',
+                                item.href === hash && 'after:w-full'
+                            )}
                             initial={{ opacity: 0 }}
                             animate={{
                                 opacity: hoveredIndex === index ? 1 : 0,
