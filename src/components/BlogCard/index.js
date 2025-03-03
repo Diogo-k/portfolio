@@ -21,10 +21,10 @@ export default function BlogCard() {
 
                 {/* Tags */}
                 <div className="mt-4 flex flex-wrap gap-2">
-                    <span className="rounded-lg bg-tertiary-light px-3 py-1 text-xs font-semibold text-white dark:bg-tertiary-dark">
+                    <span className="bg-tertiary-light dark:bg-tertiary-dark rounded-lg px-3 py-1 text-xs font-semibold text-white">
                         Cyberpunk
                     </span>
-                    <span className="rounded-lg bg-secondary-light px-3 py-1 text-xs font-semibold text-white dark:bg-secondary-dark">
+                    <span className="bg-secondary-light dark:bg-secondary-dark rounded-lg px-3 py-1 text-xs font-semibold text-white">
                         Japan
                     </span>
                     <span className="rounded-lg bg-accent-light px-3 py-1 text-xs font-semibold text-white dark:bg-accent-dark">

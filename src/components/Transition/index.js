@@ -7,6 +7,7 @@ import { useEffect, useRef, useState } from 'react';
  * A lightweight Framer Motion `AnimatePresence` implementation of
  * `react-transition-group` to be used for simple vanilla css transitions
  */
+
 const Transition = ({
     children,
     in: show,

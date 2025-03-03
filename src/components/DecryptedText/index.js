@@ -227,9 +227,9 @@ export default function DecryptedText({
             {...hoverProps}
             {...props}
         >
-            <Text className="sr-only">{displayText}</Text>
+            <span className="sr-only">{displayText}</span>
 
-            <Text aria-hidden="true">
+            <span aria-hidden="true">
                 {displayText.split('').map((char, index) => {
                     const isRevealedOrDone =
                         revealedIndices.has(index) ||
@@ -237,7 +237,7 @@ export default function DecryptedText({
                         !isHovering;
 
                     return (
-                        <Text
+                        <span
                             key={index}
                             className={
                                 isRevealedOrDone
@@ -246,10 +246,10 @@ export default function DecryptedText({
                             }
                         >
                             {char}
-                        </Text>
+                        </span>
                     );
                 })}
-            </Text>
+            </span>
         </motion.div>
     );
 }

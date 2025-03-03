@@ -19,16 +19,19 @@ export default function Intro() {
             </Canvas> */}
             <header className="mx-auto max-w-5xl space-y-8 pb-14 md:py-36">
                 <DecryptedText
+                    className="text-text-light dark:text-text-dark"
+                    encryptedClassName="font-japanese text-text-light dark:text-text-dark"
                     text="Hi, I'm Diogo Paulo"
                     animateOn="view"
-                    speed={100}
+                    speed={75}
+                    maxIterations={50}
                     sequential
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{
-                        delay: 0.75,
+                        delay: 0.5,
                     }}
-                    delay={750} //* In milliseconds for setTimeout
+                    delay={500} //* In milliseconds for setTimeout
                 />
                 <div className="flex flex-row items-center gap-8">
                     <Text as="h1" weight="bold" size="8xl">

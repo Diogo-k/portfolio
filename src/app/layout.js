@@ -1,6 +1,8 @@
 import { Sora, Noto_Serif_JP } from 'next/font/google';
 import '@/styles/globals.css';
 
+import ThemeProvider from '../utils/ThemeProvider';
+
 import { Header, Footer } from '@/components';
 
 const sora = Sora({
@@ -11,7 +13,7 @@ const sora = Sora({
 });
 
 const notoSerifJP = Noto_Serif_JP({
-    subsets: ['japanese'],
+    subsets: ['latin'],
     variable: '--font-noto-serif-jp',
     weight: ['200', '300', '400', '500', '600', '700', '800'],
     display: 'swap',
@@ -27,13 +29,18 @@ export default function RootLayout({ children }) {
         <html
             lang="en"
             className={`${sora.variable} ${notoSerifJP.variable} scroll-smooth`}
+            suppressHydrationWarning
         >
-            <body>
-                <Header />
-                <main className="bg-background-light transition-colors duration-200 dark:bg-background-dark">
-                    {children}
-                </main>
-                <Footer />
+            <body className="bg-background-light dark:bg-background-dark">
+                <ThemeProvider
+                    attribute="data-mode"
+                    defaultTheme="system"
+                    enableSystem
+                >
+                    <Header />
+                    <main>{children}</main>
+                    <Footer />
+                </ThemeProvider>
             </body>
         </html>
     );

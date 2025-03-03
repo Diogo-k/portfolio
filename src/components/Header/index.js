@@ -48,11 +48,11 @@ export default function Header() {
         <header className="supports-[backdrop-filter]:bg-background/60 fixed z-50 flex w-full justify-around border-b-2 border-border-light p-6 backdrop-blur dark:border-b-4 dark:border-border-dark">
             <Link
                 href="/#home"
-                className="focus:none absolute left-4 top-4 px-5 py-2 text-base font-semibold tracking-wide transition-all duration-200"
+                className="focus:none absolute left-4 top-4 px-5 py-2 tracking-wide"
             >
-                <span className="overflow-hidden text-ellipsis text-nowrap text-2xl font-normal text-primary-light dark:text-text-dark">
+                <span className="text-ellipsis text-nowrap text-2xl text-primary-light dark:text-text-dark">
                     ~/{hash !== '#home' && hash.split('#')[1]}
-                    {showCursor && <span className="">|</span>}
+                    {showCursor && <span>|</span>}
                 </span>
             </Link>
             <nav className="flex space-x-16">
@@ -65,7 +65,7 @@ export default function Header() {
                     >
                         <motion.span
                             className={clsx(
-                                'text-2xl font-normal tracking-wide text-primary-light transition-all after:absolute after:-bottom-2 after:left-0 after:h-[2px] after:w-0 after:bg-primary-light after:transition-all after:duration-300 hover:after:w-full dark:text-text-dark dark:after:bg-text-dark',
+                                'after:transition-width text-2xl tracking-wide text-primary-light after:absolute after:-bottom-2 after:left-0 after:h-[2px] after:w-0 after:bg-primary-light after:duration-200 hover:after:w-full dark:text-text-dark dark:after:bg-text-dark',
                                 item.href === hash && 'after:w-full'
                             )}
                             animate={{
@@ -79,7 +79,7 @@ export default function Header() {
                         </motion.span>
                         <motion.span
                             className={clsx(
-                                'absolute font-japanese text-2xl font-normal tracking-wide text-text-light transition-all after:absolute after:-bottom-2 after:left-0 after:h-[2px] after:w-0 after:bg-text-light after:transition-all after:duration-300 hover:after:w-full dark:text-accent-light dark:after:bg-accent-light',
+                                'after:transition-width absolute font-japanese text-2xl tracking-wide text-text-light after:absolute after:-bottom-2 after:left-0 after:h-[2px] after:w-0 after:bg-text-light after:duration-200 hover:after:w-full dark:text-accent-light dark:after:bg-accent-light',
                                 item.href === hash && 'after:w-full'
                             )}
                             initial={{ opacity: 0 }}

@@ -13,7 +13,6 @@ export default function Text({
         <Component
             className={clsx(
                 `text-${size} text-${align} font-${weight} text-text-light dark:text-text-dark`,
-                'transition-colors duration-200',
                 className
             )}
             {...props}

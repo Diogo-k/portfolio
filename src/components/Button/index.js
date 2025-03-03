@@ -17,8 +17,7 @@ const Button = forwardRef(
         },
         ref
     ) => {
-        const baseStyles =
-            'focus:none font-semibold tracking-wide transition-all duration-200';
+        const baseStyles = 'focus:none font-semibold tracking-wide';
 
         const variantStyles = {
             primary:

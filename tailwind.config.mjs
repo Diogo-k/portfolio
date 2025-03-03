@@ -6,7 +6,7 @@ const config = {
         './src/sections/**/*.{js,ts,jsx,tsx,mdx}',
         './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
     ],
-    darkMode: 'class',
+    darkMode: ['selector', '[data-mode="dark"]'],
     theme: {
         extend: {
             colors: {
