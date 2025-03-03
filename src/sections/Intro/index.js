@@ -3,9 +3,13 @@
 
 'use client';
 
+import { motion } from 'framer-motion';
+
 import { DecryptedText, Text, Button } from '@/components';
 
 export default function Intro() {
+    const MotionText = motion.create(Text);
+
     return (
         <section
             id="home"
@@ -29,9 +33,28 @@ export default function Intro() {
                     sequential
                 />
                 <div className="flex flex-row items-center gap-8">
-                    <Text as="h1" weight="bold" size="9xl">
-                        Frontend Developer
-                    </Text>
+                    <motion.div
+                        initial={{ scaleX: 0, originX: 0 }}
+                        animate={{ scaleX: 1, originX: 0 }}
+                        transition={{ duration: 0.6, ease: 'easeOut' }}
+                        className="size-full bg-primary-dark p-4"
+                    >
+                        <MotionText
+                            initial={{ opacity: 0, x: -25 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            transition={{
+                                duration: 0.5,
+                                delay: 0.6,
+                                ease: 'easeOut',
+                            }}
+                            as="h1"
+                            weight="bold"
+                            size="9xl"
+                            className="text-white"
+                        >
+                            Frontend Developer
+                        </MotionText>
+                    </motion.div>
                     <Text as="p" size="xl">
                         Transforming ideas into interactive and seamless digital
                         experiences with cutting-edge frontend development.
