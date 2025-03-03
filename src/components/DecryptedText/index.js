@@ -3,8 +3,6 @@
 import { useEffect, useState, useRef } from 'react';
 import { motion } from 'framer-motion';
 
-import { Text } from '@/components';
-
 /**
  * DecryptedText
  *
@@ -20,7 +18,6 @@ import { Text } from '@/components';
  * - encryptedClassName?: string (applied to encrypted letters)
  * - parentClassName?: string    (applied to the top-level span container)
  * - animateOn?: "view" | "hover"  (default: "view")
- * - delay?: number (default: false) (in milliseconds, to delay the decrypted text animation)
  */
 
 export default function DecryptedText({
@@ -35,7 +32,6 @@ export default function DecryptedText({
     parentClassName = '',
     encryptedClassName = '',
     animateOn = 'view',
-    delay = 0,
     ...props
 }) {
     const [displayText, setDisplayText] = useState(text);
@@ -179,38 +175,34 @@ export default function DecryptedText({
     useEffect(() => {
         if (animateOn !== 'view') return;
 
-        const timeout = setTimeout(() => {
-            const observerCallback = async (entries) => {
-                entries.forEach((entry) => {
-                    if (entry.isIntersecting && !hasAnimated) {
-                        setIsHovering(true);
-                        setHasAnimated(true);
-                    }
-                });
-            };
+        const observerCallback = async (entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting && !hasAnimated) {
+                    setIsHovering(true);
+                    setHasAnimated(true);
+                }
+            });
+        };
 
-            const observerOptions = {
-                root: null,
-                rootMargin: '0px',
-                threshold: 0.1,
-            };
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1,
+        };
 
-            const observer = new IntersectionObserver(
-                observerCallback,
-                observerOptions
-            );
-            const currentRef = containerRef.current;
-            if (currentRef) {
-                observer.observe(currentRef);
-            }
+        const observer = new IntersectionObserver(
+            observerCallback,
+            observerOptions
+        );
+        const currentRef = containerRef.current;
+        if (currentRef) {
+            observer.observe(currentRef);
+        }
 
-            return () => {
-                if (currentRef) observer.unobserve(currentRef);
-            };
-        }, delay); // Apply the delay before running the observer
-
-        return () => clearTimeout(timeout);
-    }, [animateOn, hasAnimated, delay]);
+        return () => {
+            if (currentRef) observer.unobserve(currentRef);
+        };
+    }, [animateOn, hasAnimated]);
 
     const hoverProps =
         animateOn === 'hover'

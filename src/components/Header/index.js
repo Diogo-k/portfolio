@@ -51,7 +51,7 @@ export default function Header() {
                 className="focus:none absolute left-4 top-4 px-5 py-2 tracking-wide"
             >
                 <span className="text-ellipsis text-nowrap text-2xl text-primary-light dark:text-text-dark">
-                    ~/{hash !== '#home' && hash.split('#')[1]}
+                    ~/{hash !== '#home' && hash?.split('#')[1]}
                     {showCursor && <span>|</span>}
                 </span>
             </Link>

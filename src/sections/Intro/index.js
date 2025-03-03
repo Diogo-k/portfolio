@@ -1,6 +1,8 @@
 // import { Canvas } from '@react-three/fiber';
 // import { CherryBlossoms } from '@/components';
 
+'use client';
+
 import { DecryptedText, Text, Button } from '@/components';
 
 export default function Intro() {
@@ -19,22 +21,15 @@ export default function Intro() {
             </Canvas> */}
             <header className="mx-auto max-w-5xl space-y-8 pb-14 md:py-36">
                 <DecryptedText
-                    className="text-text-light dark:text-text-dark"
+                    className="font-sora text-text-light dark:text-text-dark"
                     encryptedClassName="font-japanese text-text-light dark:text-text-dark"
                     text="Hi, I'm Diogo Paulo"
                     animateOn="view"
-                    speed={75}
-                    maxIterations={50}
+                    speed={100}
                     sequential
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{
-                        delay: 0.5,
-                    }}
-                    delay={500} //* In milliseconds for setTimeout
                 />
                 <div className="flex flex-row items-center gap-8">
-                    <Text as="h1" weight="bold" size="8xl">
+                    <Text as="h1" weight="bold" size="9xl">
                         Frontend Developer
                     </Text>
                     <Text as="p" size="xl">
