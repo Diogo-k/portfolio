@@ -19,7 +19,7 @@ export default function ColorPalette() {
 
     return (
         <div className="p-6">
-            <Text as="h1" size="2xl" weight="bold" className="mb-6">
+            <Text as="h1" size="text-2xl" weight="font-bold" className="mb-6">
                 Color Palette
             </Text>
             <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">

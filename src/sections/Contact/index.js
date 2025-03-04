@@ -6,7 +6,7 @@ export default function Contact() {
             id="contact"
             className="mx-auto flex max-w-6xl flex-col items-center px-4 py-16"
         >
-            <Text as="h1" size="4xl" weight="bold" align="center">
+            <Text as="h1" size="text-4xl" weight="font-bold" align="center">
                 Contact
             </Text>
 

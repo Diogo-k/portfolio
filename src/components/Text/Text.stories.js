@@ -9,15 +9,15 @@ export default {
 export const Size = () => (
     <StoryContainer>
         <div className="flex flex-col gap-8">
-            <Text size="2xl">2XLarge</Text>
+            <Text size="text-2xl">2XLarge</Text>
 
-            <Text size="xl">XLarge</Text>
+            <Text size="text-xl">XLarge</Text>
 
-            <Text size="lg">Large</Text>
+            <Text size="text-lg">Large</Text>
 
-            <Text size="base">Base</Text>
+            <Text size="text-base">Base</Text>
 
-            <Text size="sm">Small</Text>
+            <Text size="text-sm">Small</Text>
         </div>
     </StoryContainer>
 );
@@ -25,19 +25,19 @@ export const Size = () => (
 export const Weight = () => (
     <StoryContainer>
         <div className="flex flex-col gap-8">
-            <Text weight="bold" size="xl">
+            <Text weight="font-bold" size="text-xl">
                 Bold
             </Text>
 
-            <Text weight="semibold" size="xl">
+            <Text weight="font-semibold" size="text-xl">
                 Semibold
             </Text>
 
-            <Text weight="normal" size="xl">
+            <Text weight="font-normal" size="text-xl">
                 Normal
             </Text>
 
-            <Text weight="thin" size="xl">
+            <Text weight="font-thin" size="text-xl">
                 Thin
             </Text>
         </div>
@@ -47,11 +47,11 @@ export const Weight = () => (
 export const Align = () => (
     <StoryContainer>
         <div className="flex flex-col items-stretch gap-8">
-            <Text align="start" weight="normal" size="xl">
+            <Text align="text-start" weight="font-normal" size="text-xl">
                 Start
             </Text>
 
-            <Text align="center" weight="normal" size="xl">
+            <Text align="text-center" weight="font-normal" size="text-xl">
                 Center
             </Text>
         </div>

@@ -12,7 +12,7 @@ export default function Text({
     return (
         <Component
             className={clsx(
-                `text-${size} text-${align} font-${weight} text-text-light dark:text-text-dark`,
+                `${size} ${align} ${weight} text-text-light dark:text-text-dark`,
                 className
             )}
             {...props}

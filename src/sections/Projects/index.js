@@ -22,7 +22,7 @@ export default function Projects() {
                     >
                         <div className="h-48 w-72 bg-accent-light"></div>
                         <div className="p-4">
-                            <Text as="h1" size="xl" weight="semibold">
+                            <Text as="h1" size="text-xl" weight="font-semibold">
                                 Hitachi UBS
                             </Text>
                             <Text as="p">Creator</Text>
