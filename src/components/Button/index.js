@@ -2,6 +2,7 @@ import { forwardRef } from 'react';
 import clsx from 'clsx';
 
 import './index.css';
+import Link from 'next/link';
 
 const Button = forwardRef(
     (
@@ -23,7 +24,7 @@ const Button = forwardRef(
             primary:
                 'clip-button bg-primary-light text-white hover:bg-accent-light dark:bg-primary-dark dark:hover:bg-accent-dark',
             outline:
-                'border border-primary-light text-primary-light hover:border-accent-light hover:bg-primary-light/10 hover:text-accent-light dark:border-primary-dark dark:text-white dark:hover:border-accent-dark dark:hover:bg-accent-dark/30',
+                'rounded border border-primary-light text-primary-light hover:border-accent-light hover:bg-primary-light/10 hover:text-accent-light dark:border-primary-dark dark:text-white dark:hover:border-accent-dark dark:hover:bg-accent-dark/30',
             ghost: 'clip-button text-primary-light hover:bg-primary-light/10 dark:text-white dark:hover:bg-accent-dark/30',
         };
 
@@ -41,6 +42,19 @@ const Button = forwardRef(
             fullWidth && 'w-full',
             className
         );
+
+        if (as === 'link' && href) {
+            return (
+                <Link
+                    ref={ref}
+                    href={href}
+                    className={combinedStyles}
+                    {...props}
+                >
+                    {children}
+                </Link>
+            );
+        }
 
         if (as === 'a' && href) {
             return (

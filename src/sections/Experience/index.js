@@ -1,5 +1,7 @@
 'use client';
 
+import { motion } from 'framer-motion';
+
 import { Text } from '@/components';
 import { Katana } from '@/assets';
 
@@ -33,8 +35,7 @@ export default function Experience() {
             <Text as="h1" size="text-5xl" weight="font-bold" className="mb-12">
                 Experience
             </Text>
-            <hr />
-            <ul className="mr-auto max-w-2xl">
+            <ul className="mx-auto">
                 {experiences.map((exp, index) => (
                     <li key={index} className="pl-4">
                         <Text

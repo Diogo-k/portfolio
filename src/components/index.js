@@ -12,6 +12,9 @@ import CherryBlossoms from './CherryBlossoms';
 import DecryptedText from './DecryptedText';
 import Transition from './Transition';
 
+//*
+import NextImage from './NextImage';
+
 export {
     Header,
     Footer,
@@ -20,5 +23,6 @@ export {
     ThemeSwitcher,
     CherryBlossoms,
     DecryptedText,
+    NextImage,
     Transition,
 };

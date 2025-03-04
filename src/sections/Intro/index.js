@@ -25,7 +25,7 @@ export default function Intro() {
                         as="a"
                         href="https://github.com/Diogo-k"
                         target="_blank"
-                        size="lg"
+                        size="md"
                         variant="outline"
                     >
                         <Github className="fill-primary-light" />
@@ -34,7 +34,7 @@ export default function Intro() {
                         as="a"
                         href="https://www.linkedin.com/in/jdiogop/"
                         target="_blank"
-                        size="lg"
+                        size="md"
                         variant="outline"
                     >
                         <LinkedIn className="fill-primary-light" />
