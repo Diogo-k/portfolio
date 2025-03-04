@@ -45,7 +45,18 @@ export default function Header() {
     }, []);
 
     return (
-        <header className="supports-[backdrop-filter]:bg-background/60 fixed z-50 flex w-full justify-around border-b-2 border-border-light p-6 backdrop-blur dark:border-b-4 dark:border-border-dark">
+        <motion.header
+            initial={{ y: -82, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{
+                type: 'spring',
+                stiffness: 100,
+                damping: 15,
+                duration: 0.5,
+                delay: 1.5,
+            }}
+            className="supports-[backdrop-filter]:bg-background/60 fixed z-50 flex w-full justify-around border-b-2 border-border-light p-6 backdrop-blur dark:border-b-4 dark:border-border-dark"
+        >
             <Link
                 href="/#home"
                 className="focus:none absolute left-4 top-4 px-5 py-2 tracking-wide"
@@ -96,6 +107,6 @@ export default function Header() {
                 ))}
             </nav>
             <ThemeSwitcher />
-        </header>
+        </motion.header>
     );
 }

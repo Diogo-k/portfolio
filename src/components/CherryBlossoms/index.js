@@ -241,7 +241,7 @@ const Petal = ({ canvasWidth, index, allPetals }) => {
             ) {
                 position.set(
                     (Math.random() - 0.5) * canvasWidth,
-                    Math.random() * -8 + 13, // TODO: TRULY UNDERSTAND THIS VALUES! (but right now they are adjusted for perfect spawn after the intro and first 25 petals)
+                    Math.random() * -4 + 13, // TODO: TRULY UNDERSTAND THIS VALUES! (but right now they are adjusted for perfect spawn after the intro and first 25 petals)
                     0
                 );
             }
