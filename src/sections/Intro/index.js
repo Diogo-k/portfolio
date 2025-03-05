@@ -1,3 +1,7 @@
+'use client';
+
+import { motion } from 'framer-motion';
+
 import { Github, LinkedIn } from '@/assets';
 import { CherryBlossoms, DecryptedText, Text, Button } from '@/components';
 
@@ -8,7 +12,12 @@ export default function Intro() {
             className="flex h-screen flex-col items-center justify-center"
         >
             <CherryBlossoms />
-            <div className="z-10 mx-auto max-w-5xl pb-14 md:py-36">
+            <motion.div
+                initial={{ opacity: 0, y: -25 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.35, delay: 1.5 }}
+                className="z-10 mx-auto max-w-5xl pb-14 md:py-36"
+            >
                 <DecryptedText
                     className="font-sora text-text-light dark:text-text-dark"
                     encryptedClassName="font-japanese text-text-light dark:text-text-dark"
@@ -40,7 +49,7 @@ export default function Intro() {
                         <LinkedIn className="fill-primary-light" />
                     </Button>
                 </div>
-            </div>
+            </motion.div>
         </section>
     );
 }
