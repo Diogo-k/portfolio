@@ -15,7 +15,7 @@ export default function Intro() {
             <motion.div
                 initial={{ opacity: 0, y: -25 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.35, delay: 1.5 }}
+                transition={{ duration: 0.75, delay: 1.4 }}
                 className="z-10 mx-auto max-w-5xl pb-14 md:py-36"
             >
                 <DecryptedText

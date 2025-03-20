@@ -61,7 +61,7 @@ export default function Header() {
                 href="/#home"
                 className="focus:none absolute left-4 top-4 px-5 py-2 tracking-wide"
             >
-                <span className="text-ellipsis text-nowrap text-2xl text-primary-light dark:text-text-dark">
+                <span className="text-ellipsis text-nowrap text-xl text-primary-light dark:text-text-dark">
                     ~/{hash !== '#home' && hash?.split('#')[1]}
                     {showCursor && <span>|</span>}
                 </span>
@@ -76,7 +76,7 @@ export default function Header() {
                     >
                         <motion.span
                             className={clsx(
-                                'after:transition-width text-2xl tracking-wide text-primary-light after:absolute after:-bottom-2 after:left-0 after:h-[2px] after:w-0 after:bg-primary-light after:duration-200 hover:after:w-full dark:text-text-dark dark:after:bg-text-dark',
+                                'after:transition-width text-xl tracking-wide text-primary-light after:absolute after:-bottom-1 after:left-0 after:h-[2px] after:w-0 after:bg-primary-light after:duration-200 hover:after:w-full dark:text-text-dark dark:after:bg-text-dark',
                                 item.href === hash && 'after:w-full'
                             )}
                             animate={{
@@ -90,7 +90,7 @@ export default function Header() {
                         </motion.span>
                         <motion.span
                             className={clsx(
-                                'after:transition-width absolute font-japanese text-2xl tracking-wide text-text-light after:absolute after:-bottom-2 after:left-0 after:h-[2px] after:w-0 after:bg-text-light after:duration-200 hover:after:w-full dark:text-accent-light dark:after:bg-accent-light',
+                                'after:transition-width absolute font-japanese text-xl tracking-wide text-text-light after:absolute after:-bottom-1 after:left-0 after:h-[2px] after:w-0 after:bg-text-light after:duration-200 hover:after:w-full dark:text-accent-light dark:after:bg-accent-light',
                                 item.href === hash && 'after:w-full'
                             )}
                             initial={{ opacity: 0 }}

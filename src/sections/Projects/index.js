@@ -29,7 +29,7 @@ export default function Projects() {
     return (
         <section
             id="projects"
-            className="mx-auto flex h-screen max-w-5xl flex-col items-center justify-center"
+            className="mx-auto flex h-screen max-w-5xl flex-col"
         >
             <Text as="h1" size="text-5xl" weight="font-bold" className="mb-12">
                 Projects

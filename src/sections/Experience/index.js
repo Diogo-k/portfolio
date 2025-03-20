@@ -30,7 +30,7 @@ export default function Experience() {
     return (
         <section
             id="experience"
-            className="mx-auto flex h-screen max-w-7xl flex-col items-center justify-center"
+            className="mx-auto flex h-screen max-w-7xl flex-col"
         >
             <Text as="h1" size="text-5xl" weight="font-bold" className="mb-12">
                 Experience
