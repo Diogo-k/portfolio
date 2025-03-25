@@ -4,7 +4,7 @@ const LinkedIn = (props) => (
         height="32px"
         preserveAspectRatio="xMidYMid"
         viewBox="0 0 256 256"
-        fill="#0A66C2"
+        fill="#9E1A1A"
         xmlns="http://www.w3.org/2000/svg"
         {...props}
     >

@@ -5,6 +5,7 @@ import Footer from './Footer';
 //* Storybook Components
 import Text from './Text';
 import Button from './Button';
+import Tag from './Tag';
 
 //* Specific Components
 import ThemeSwitcher from './ThemeSwitcher';
@@ -20,6 +21,7 @@ export {
     Footer,
     Text,
     Button,
+    Tag,
     ThemeSwitcher,
     CherryBlossoms,
     DecryptedText,

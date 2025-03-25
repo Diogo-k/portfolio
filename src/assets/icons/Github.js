@@ -3,7 +3,7 @@ const Github = (props) => (
         viewBox="0 0 256 250"
         width="32px"
         height="32px"
-        fill="#fff"
+        fill="#9E1A1A"
         preserveAspectRatio="xMidYMid"
         xmlns="http://www.w3.org/2000/svg"
         {...props}

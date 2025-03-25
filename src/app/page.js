@@ -1,10 +1,10 @@
-import { Experience, Intro, Projects, Contact } from '../sections';
+import { Intro, About, Projects, Contact } from '../sections';
 
 export default function Page() {
     return (
         <>
             <Intro />
-            <Experience />
+            <About />
             <Projects />
             <Contact />
         </>

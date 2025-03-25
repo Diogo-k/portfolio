@@ -2,7 +2,6 @@
 
 import { motion } from 'framer-motion';
 
-import { Github, LinkedIn } from '@/assets';
 import { CherryBlossoms, DecryptedText, Text, Button } from '@/components';
 
 export default function Intro() {
@@ -37,16 +36,7 @@ export default function Intro() {
                         size="md"
                         variant="outline"
                     >
-                        <Github className="fill-primary-light" />
-                    </Button>
-                    <Button
-                        as="a"
-                        href="https://www.linkedin.com/in/jdiogop/"
-                        target="_blank"
-                        size="md"
-                        variant="outline"
-                    >
-                        <LinkedIn className="fill-primary-light" />
+                        Contact me
                     </Button>
                 </div>
             </motion.div>
