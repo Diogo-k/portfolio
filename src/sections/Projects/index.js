@@ -133,7 +133,7 @@ export default function Projects() {
     return (
         <section
             id="projects"
-            className="mx-auto flex h-screen max-w-5xl flex-col"
+            className="mx-auto flex min-h-[60vh] max-w-5xl flex-col"
         >
             <motion.div
                 initial={{ opacity: 0, y: 20 }}
