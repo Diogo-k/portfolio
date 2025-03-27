@@ -21,7 +21,7 @@ export default function About() {
 
     return (
         <section
-            id="about"
+            id="about-me"
             className="mx-auto flex min-h-[50vh] max-w-5xl flex-col"
         >
             <motion.div

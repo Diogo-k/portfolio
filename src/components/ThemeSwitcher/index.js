@@ -22,6 +22,7 @@ export default function ThemeSwitcher() {
     return (
         mounted && (
             <Button
+                aria-label="Toggle theme"
                 className="absolute right-4 top-4"
                 variant="ghost"
                 onClick={toggleTheme}
