@@ -6,6 +6,7 @@ import Footer from './Footer';
 import Text from './Text';
 import Button from './Button';
 import Tag from './Tag';
+import SectionDivider from './SectionDivider';
 
 //* Specific Components
 import ThemeSwitcher from './ThemeSwitcher';
@@ -22,6 +23,7 @@ export {
     Text,
     Button,
     Tag,
+    SectionDivider,
     ThemeSwitcher,
     CherryBlossoms,
     DecryptedText,
