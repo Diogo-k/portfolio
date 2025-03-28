@@ -68,6 +68,66 @@ export default function Header() {
         return () => window.removeEventListener('hashchange', updateHash);
     }, [pathname, searchParams]);
 
+    // Update hash based on scroll position
+    useEffect(() => {
+        const handleScroll = () => {
+            const sections = navItems.map((item) => ({
+                id: item.href.slice(1),
+                element: document.getElementById(item.href.slice(1)),
+            }));
+
+            // Get the current scroll position and viewport height
+            const scrollPosition = window.scrollY + window.innerHeight / 2;
+            const viewportHeight = window.innerHeight;
+            const documentHeight = document.documentElement.scrollHeight;
+
+            // Check if we're at the bottom of the page
+            const isAtBottom =
+                window.scrollY + viewportHeight >= documentHeight - 50;
+
+            const currentSection = sections.find((section) => {
+                if (!section.element) return false;
+
+                const rect = section.element.getBoundingClientRect();
+                const sectionTop = window.scrollY + rect.top;
+                const sectionBottom = window.scrollY + rect.bottom;
+
+                // If we're at the bottom and this is the last section (contact), consider it active
+                if (isAtBottom && section.id === 'contact') {
+                    return true;
+                }
+
+                // Check if the section is in the middle of the viewport
+                return (
+                    scrollPosition >= sectionTop &&
+                    scrollPosition <= sectionBottom
+                );
+            });
+
+            if (currentSection && currentSection.id !== hash.slice(1)) {
+                window.history.replaceState(
+                    null,
+                    null,
+                    `#${currentSection.id}`
+                );
+                setHash(`#${currentSection.id}`);
+            }
+        };
+
+        // Add a small debounce to prevent too many updates
+        let timeoutId;
+        const debouncedHandleScroll = () => {
+            clearTimeout(timeoutId);
+            timeoutId = setTimeout(handleScroll, 50);
+        };
+
+        window.addEventListener('scroll', debouncedHandleScroll);
+        return () => {
+            window.removeEventListener('scroll', debouncedHandleScroll);
+            clearTimeout(timeoutId);
+        };
+    }, [hash]);
+
     // Close mobile menu when clicking outside
     useEffect(() => {
         const handleClickOutside = (event) => {
@@ -185,6 +245,7 @@ export default function Header() {
                                         className="relative"
                                     >
                                         <Link
+                                            variant="header"
                                             href={item.href}
                                             onClick={() =>
                                                 setIsMobileMenuOpen(false)
@@ -195,10 +256,7 @@ export default function Header() {
                                                     ? 'page'
                                                     : undefined
                                             }
-                                            className={clsx(
-                                                item.href === hash &&
-                                                    'after:w-full'
-                                            )}
+                                            active={item.href === hash}
                                         >
                                             {item.name}
                                         </Link>
