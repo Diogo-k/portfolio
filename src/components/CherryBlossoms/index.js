@@ -351,11 +351,22 @@ const CherryBlossoms = () => {
     const canvasRef = useRef();
     const [canvasWidth, setCanvasWidth] = useState(20);
     const [isIntroFinished, setIsIntroFinished] = useState(false);
+    const [showMainPetals, setShowMainPetals] = useState(false);
 
     useEffect(() => {
         allIntroPetals.current = Array(CONFIG.INTRO.PETAL_COUNT).fill(null);
         allPetals.current = Array(CONFIG.MAIN.PETAL_COUNT).fill(null);
     }, []);
+
+    useEffect(() => {
+        if (isIntroFinished) {
+            // Add a small delay before showing main petals to ensure smooth transition
+            const timer = setTimeout(() => {
+                setShowMainPetals(true);
+            }, 100);
+            return () => clearTimeout(timer);
+        }
+    }, [isIntroFinished]);
 
     useEffect(() => {
         const updateWidth = () => {
@@ -405,7 +416,7 @@ const CherryBlossoms = () => {
                 </IntroContainer>
             )}
 
-            {isIntroFinished &&
+            {showMainPetals &&
                 allPetals.current.map((_, i) => (
                     <Petal
                         key={i}
