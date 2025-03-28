@@ -36,7 +36,7 @@ export default function Intro() {
                         size="md"
                         variant="primary"
                     >
-                        Contact me{' '}
+                        Contact me
                         <svg
                             className="ml-1 size-4"
                             fill="none"

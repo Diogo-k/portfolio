@@ -5,6 +5,71 @@ import { Canvas, useFrame } from '@react-three/fiber';
 import { useGLTF } from '@react-three/drei';
 import * as THREE from 'three';
 
+// Configuration constants
+const CONFIG = {
+    INTRO: {
+        PETAL_COUNT: 150,
+        DURATION: 2750,
+        START_X: -1,
+        START_Y: 15,
+        CONTROL_X: 10,
+        CONTROL_Y: -8,
+        END_X: 25,
+        END_Y: -15,
+        Z_POSITION: 4.5,
+        ROTATION: -0.35,
+        ROTATION_SPEED: 0.03,
+    },
+    MAIN: {
+        PETAL_COUNT: 30,
+        SCALE: [0.1, 0.1, 0.1],
+        MATERIAL: {
+            COLOR: new THREE.Color(1, 0.3, 0.3),
+            OPACITY: 0.8,
+        },
+        VELOCITY: {
+            X: {
+                MIN: -0.01,
+                MAX: 0.01,
+            },
+            Y: {
+                MIN: -0.015,
+                MAX: -0.005,
+            },
+            Z: 0,
+        },
+        ROTATION: {
+            SPEED: 0.01,
+            VARIANCE: 0.5,
+        },
+        COLLISION: {
+            SPHERE_RADIUS: 0.2,
+            SLIDE_FACTOR: 0.03,
+            MIN_VELOCITY_Y: -0.02,
+            DAMPENING: 0.5,
+            CHECK_RADIUS: 2, // Only check collisions within this radius
+        },
+        FADE: {
+            TOP_Y: -2,
+            BOTTOM_Y: -6,
+        },
+        BOUNDS: {
+            TOP: 15,
+            BOTTOM: -10,
+            SPAWN_Y_MIN: 9,
+            SPAWN_Y_MAX: 13,
+        },
+    },
+    CAMERA: {
+        POSITION: [0, 0, 10],
+        FOV: 75,
+    },
+    LIGHTING: {
+        AMBIENT: { INTENSITY: 0.8 },
+        DIRECTIONAL: { POSITION: [2, 2, 2], INTENSITY: 1 },
+    },
+};
+
 // Preload the petal model
 useGLTF.preload('/petal.glb');
 
@@ -21,26 +86,25 @@ const IntroContainer = ({
     children,
 }) => {
     const group = useRef();
-
-    const startTime = useRef(performance.now()); // Track start time for animation timing
-    const duration = 2750; // 3 seconds for the curve (adjust for speed)
+    const startTime = useRef(performance.now());
 
     useFrame(() => {
-        const elapsed = (performance.now() - startTime.current) / duration;
+        const elapsed =
+            (performance.now() - startTime.current) / CONFIG.INTRO.DURATION;
 
         // Curved path: Quadratic Bezier-like curve from top-left to middle, then right
-        const startX = -canvasWidth; // Starting X (left edge, adjusted by spread)
-        const startY = 15; // Starting Y (top)
-        const controlX = 10; // Control point X (middle of screen)
-        const controlY = -8; // Control point Y (middle of screen)
-        const endX = canvasWidth + 25; // Ending X (right edge) TODO: TRULY UNDERSTAND AND ADJUST THIS VALUE
-        const endY = -15; // Ending Y (horizontal line at Y = 0)
+        const startX = -canvasWidth;
+        const startY = CONFIG.INTRO.START_Y;
+        const controlX = CONFIG.INTRO.CONTROL_X;
+        const controlY = CONFIG.INTRO.CONTROL_Y;
+        const endX = canvasWidth + CONFIG.INTRO.END_X;
+        const endY = CONFIG.INTRO.END_Y;
 
         // Quadratic Bezier curve formula
-        const t = Math.min(elapsed, 1); // Ensure t doesn’t exceed 1
+        const t = Math.min(elapsed, 1);
         const u = 1 - t;
 
-        group.current.rotation.set(0, 0, -0.35);
+        group.current.rotation.set(0, 0, CONFIG.INTRO.ROTATION);
 
         group.current.position.x =
             u * u * startX + 2 * u * t * controlX + t * t * endX;
@@ -48,14 +112,10 @@ const IntroContainer = ({
         group.current.position.y =
             u * u * startY + 2 * u * t * controlY + t * t * endY;
 
-        group.current.position.z = 4.5; // Make petals more close
+        group.current.position.z = CONFIG.INTRO.Z_POSITION;
 
         // Delete if off screen
-        if (
-            group.current.position.x >
-            canvasWidth + 20 // Right edge TODO: TRULY UNDERSTAND ADJUST THIS VALUE
-        ) {
-            //! TODO: FIND A BETTER WAY TO DO THIS
+        if (group.current.position.x > canvasWidth + 20) {
             allIntroPetals.length = 0;
             setIsIntroFinished(true);
         }
@@ -66,18 +126,17 @@ const IntroContainer = ({
 
 const IntroPetal = ({ canvasWidth, index, allIntroPetals }) => {
     const mesh = useRef();
-
+    const isInitialized = useRef(false);
     const initialPosition = useRef(
         new THREE.Vector3(
-            (Math.random() - 0.5) * canvasWidth, // Centered X Distribution
-            Math.random() * 6 + -3, // Y between 6 (top) and -3 (bottom)
+            (Math.random() - 0.5) * canvasWidth,
+            Math.random() * 6 + -3,
             0
         )
     );
 
     useEffect(() => {
         if (mesh.current) {
-            // Set random initial position and rotation
             mesh.current.position.copy(initialPosition.current);
             mesh.current.rotation.set(
                 Math.random() * Math.PI,
@@ -88,23 +147,26 @@ const IntroPetal = ({ canvasWidth, index, allIntroPetals }) => {
             // Apply Material Properties
             mesh.current.traverse((child) => {
                 if (child.isMesh) {
-                    child.material.color = new THREE.Color(1, 0.3, 0.3);
+                    child.material.color = CONFIG.MAIN.MATERIAL.COLOR;
                     child.material.transparent = true;
-                    child.material.opacity = 0.8;
+                    child.material.opacity = CONFIG.MAIN.MATERIAL.OPACITY;
                 }
             });
 
             allIntroPetals[index] = mesh.current;
+            isInitialized.current = true;
         }
     }, []); // eslint-disable-line
 
     useFrame(() => {
-        mesh.current.rotation.x += 0.03 * Math.random();
-        mesh.current.rotation.y += 0.03 * Math.random();
+        if (!isInitialized.current) return;
+
+        mesh.current.rotation.x += CONFIG.INTRO.ROTATION_SPEED * Math.random();
+        mesh.current.rotation.y += CONFIG.INTRO.ROTATION_SPEED * Math.random();
     });
 
     return (
-        <mesh ref={mesh} scale={[0.1, 0.1, 0.1]}>
+        <mesh ref={mesh} scale={CONFIG.MAIN.SCALE}>
             <PetalModel />
         </mesh>
     );
@@ -112,10 +174,14 @@ const IntroPetal = ({ canvasWidth, index, allIntroPetals }) => {
 
 const Petal = ({ canvasWidth, index, allPetals }) => {
     const mesh = useRef();
+    const isInitialized = useRef(false);
     const initialPosition = useRef(
         new THREE.Vector3(
-            (Math.random() - 0.5) * canvasWidth, // Centered X distribution // TODO: TRULY UNDERSTAND THIS VALUES!
-            Math.random() * -3 + 13, // TODO: TRULY UNDERSTAND THIS VALUES! (but they are adjusted for perfect spawn after the intro)
+            (Math.random() - 0.5) * canvasWidth,
+            Math.random() *
+                (CONFIG.MAIN.BOUNDS.SPAWN_Y_MAX -
+                    CONFIG.MAIN.BOUNDS.SPAWN_Y_MIN) +
+                CONFIG.MAIN.BOUNDS.SPAWN_Y_MIN,
             0
         )
     );
@@ -126,13 +192,21 @@ const Petal = ({ canvasWidth, index, allPetals }) => {
 
             mesh.current.userData = {
                 velocity: new THREE.Vector3(
-                    (Math.random() - 0.5) * 0.05,
-                    -Math.random() * 0.03 - 0.01,
-                    0
+                    THREE.MathUtils.lerp(
+                        CONFIG.MAIN.VELOCITY.X.MIN,
+                        CONFIG.MAIN.VELOCITY.X.MAX,
+                        Math.random()
+                    ),
+                    THREE.MathUtils.lerp(
+                        CONFIG.MAIN.VELOCITY.Y.MIN,
+                        CONFIG.MAIN.VELOCITY.Y.MAX,
+                        Math.random()
+                    ),
+                    CONFIG.MAIN.VELOCITY.Z
                 ),
                 boundingSphere: new THREE.Sphere(
                     mesh.current.position,
-                    0.2 // Collision detection Sphere
+                    CONFIG.MAIN.COLLISION.SPHERE_RADIUS
                 ),
             };
 
@@ -146,82 +220,93 @@ const Petal = ({ canvasWidth, index, allPetals }) => {
             mesh.current.traverse((child) => {
                 if (child.isMesh) {
                     child.material = child.material.clone();
-                    child.material.color = new THREE.Color(1, 0.3, 0.3);
+                    child.material.color = CONFIG.MAIN.MATERIAL.COLOR;
                     child.material.transparent = true;
-                    child.material.opacity = 0.8;
+                    child.material.opacity = CONFIG.MAIN.MATERIAL.OPACITY;
                 }
             });
 
             allPetals[index] = mesh.current;
+            isInitialized.current = true;
         }
     }, []); // eslint-disable-line
 
     useFrame(() => {
+        if (!isInitialized.current) return;
+
         if (mesh.current?.userData?.velocity) {
-            const { position, userData } = mesh.current; //* Get data that was defined in useEffect
+            const { position, userData } = mesh.current;
 
             // Update position and rotation
             position.add(userData.velocity);
-            mesh.current.rotation.x += 0.01 * Math.random();
-            mesh.current.rotation.y += 0.01 * Math.random();
+            mesh.current.rotation.x +=
+                CONFIG.MAIN.ROTATION.SPEED *
+                (1 + Math.random() * CONFIG.MAIN.ROTATION.VARIANCE);
+            mesh.current.rotation.y +=
+                CONFIG.MAIN.ROTATION.SPEED *
+                (1 + Math.random() * CONFIG.MAIN.ROTATION.VARIANCE);
 
             // Update bounding sphere
             userData.boundingSphere.center.copy(position);
 
-            // Slide-based collision response
+            // Optimized collision detection
+            const checkRadius = CONFIG.MAIN.COLLISION.CHECK_RADIUS;
             allPetals.forEach((otherPetal, i) => {
                 if (i !== index && otherPetal) {
-                    const otherSphere = otherPetal.userData.boundingSphere;
                     const distance = position.distanceTo(otherPetal.position);
+                    if (distance > checkRadius) return; // Skip distant petals
+
+                    const otherSphere = otherPetal.userData.boundingSphere;
                     const minDistance =
                         userData.boundingSphere.radius + otherSphere.radius;
 
                     if (distance < minDistance) {
-                        // Calculate direction of collision
                         const collisionDir = position
                             .clone()
                             .sub(otherPetal.position)
                             .normalize();
+                        const slideFactor =
+                            collisionDir.x > 0
+                                ? CONFIG.MAIN.COLLISION.SLIDE_FACTOR
+                                : -CONFIG.MAIN.COLLISION.SLIDE_FACTOR;
 
-                        // Determine slide direction (left or right based on relative X position)
-                        const slideFactor = collisionDir.x > 0 ? 0.03 : -0.03; // Slide right or left
-
-                        // Adjust velocities for a sliding effect
-                        userData.velocity.x += slideFactor; // Slide this petal
+                        userData.velocity.x += slideFactor;
                         userData.velocity.y = Math.min(
                             userData.velocity.y,
-                            -0.02
-                        ); // Ensure downward motion
-
-                        otherPetal.userData.velocity.x -= slideFactor; // Slide other petal oppositely
-                        otherPetal.userData.velocity.y = Math.min(
-                            otherPetal.userData.velocity.y,
-                            -0.02
+                            CONFIG.MAIN.COLLISION.MIN_VELOCITY_Y
                         );
 
-                        // Dampen velocities to avoid chaos
-                        userData.velocity.multiplyScalar(0.5);
-                        otherPetal.userData.velocity.multiplyScalar(0.5);
+                        otherPetal.userData.velocity.x -= slideFactor;
+                        otherPetal.userData.velocity.y = Math.min(
+                            otherPetal.userData.velocity.y,
+                            CONFIG.MAIN.COLLISION.MIN_VELOCITY_Y
+                        );
+
+                        userData.velocity.multiplyScalar(
+                            CONFIG.MAIN.COLLISION.DAMPENING
+                        );
+                        otherPetal.userData.velocity.multiplyScalar(
+                            CONFIG.MAIN.COLLISION.DAMPENING
+                        );
                     }
                 }
             });
 
-            let opacity = 0.8; // Default opacity
-            const topY = -2; // Start decreasing opacity from this position
-            const bottomY = -6; // Make sure that at this position the opacity is 0
-            const fadeRange = topY - bottomY;
+            let opacity = CONFIG.MAIN.MATERIAL.OPACITY;
+            const { TOP_Y, BOTTOM_Y } = CONFIG.MAIN.FADE;
+            const fadeRange = TOP_Y - BOTTOM_Y;
 
-            if (position.y <= topY) {
-                // Start fading immediately after reaching topY
-                const progress = (topY - position.y) / fadeRange; // 0 at Y = 13, 1 at Y = -6
+            if (position.y <= TOP_Y) {
+                const progress = (TOP_Y - position.y) / fadeRange;
                 opacity = THREE.MathUtils.clamp(
-                    0.8 * (1 - Math.pow(progress, 0.5)),
+                    CONFIG.MAIN.MATERIAL.OPACITY *
+                        (1 - Math.pow(progress, 0.5)),
                     0,
-                    0.8
-                ); // Slow fade using square root
+                    CONFIG.MAIN.MATERIAL.OPACITY
+                );
             }
 
-            if (position.y < bottomY) {
+            if (position.y < BOTTOM_Y) {
                 opacity = 0;
             }
 
@@ -234,14 +319,17 @@ const Petal = ({ canvasWidth, index, allPetals }) => {
 
             // Reset if off screen
             if (
-                position.y < -10 || // Below bottom
-                position.y > 15 || // Above top
-                position.x < -canvasWidth / 2 || // Left edge
-                position.x > canvasWidth / 2 // Right edge
+                position.y < CONFIG.MAIN.BOUNDS.BOTTOM ||
+                position.y > CONFIG.MAIN.BOUNDS.TOP ||
+                position.x < -canvasWidth / 2 ||
+                position.x > canvasWidth / 2
             ) {
                 position.set(
                     (Math.random() - 0.5) * canvasWidth,
-                    Math.random() * -4 + 13, // TODO: TRULY UNDERSTAND THIS VALUES! (but right now they are adjusted for perfect spawn after the intro and first 25 petals)
+                    Math.random() *
+                        (CONFIG.MAIN.BOUNDS.SPAWN_Y_MAX -
+                            CONFIG.MAIN.BOUNDS.SPAWN_Y_MIN) +
+                        CONFIG.MAIN.BOUNDS.SPAWN_Y_MIN,
                     0
                 );
             }
@@ -251,7 +339,7 @@ const Petal = ({ canvasWidth, index, allPetals }) => {
     });
 
     return (
-        <mesh ref={mesh} scale={[0.1, 0.1, 0.1]}>
+        <mesh ref={mesh} scale={CONFIG.MAIN.SCALE}>
             <PetalModel />
         </mesh>
     );
@@ -259,20 +347,15 @@ const Petal = ({ canvasWidth, index, allPetals }) => {
 
 const CherryBlossoms = () => {
     const allIntroPetals = useRef([]);
-    const introPetalCount = 150;
-
     const allPetals = useRef([]);
-    const petalCount = 30;
-
     const canvasRef = useRef();
     const [canvasWidth, setCanvasWidth] = useState(20);
-
     const [isIntroFinished, setIsIntroFinished] = useState(false);
 
     useEffect(() => {
-        allIntroPetals.current = Array(introPetalCount).fill(null); // Simplified array
-        allPetals.current = Array(petalCount).fill(null); // Simplified array
-    }, [petalCount]);
+        allIntroPetals.current = Array(CONFIG.INTRO.PETAL_COUNT).fill(null);
+        allPetals.current = Array(CONFIG.MAIN.PETAL_COUNT).fill(null);
+    }, []);
 
     useEffect(() => {
         const updateWidth = () => {
@@ -283,16 +366,17 @@ const CherryBlossoms = () => {
         };
 
         updateWidth();
-
         window.addEventListener('resize', updateWidth);
-
         return () => window.removeEventListener('resize', updateWidth);
     }, []);
 
     return (
         <Canvas
             ref={canvasRef}
-            camera={{ position: [0, 0, 10], fov: 75 }}
+            camera={{
+                position: CONFIG.CAMERA.POSITION,
+                fov: CONFIG.CAMERA.FOV,
+            }}
             style={{
                 position: 'absolute',
                 top: 0,
@@ -331,8 +415,11 @@ const CherryBlossoms = () => {
                     />
                 ))}
 
-            <ambientLight intensity={0.8} />
-            <directionalLight position={[2, 2, 2]} intensity={1} />
+            <ambientLight intensity={CONFIG.LIGHTING.AMBIENT.INTENSITY} />
+            <directionalLight
+                position={CONFIG.LIGHTING.DIRECTIONAL.POSITION}
+                intensity={CONFIG.LIGHTING.DIRECTIONAL.INTENSITY}
+            />
         </Canvas>
     );
 };
