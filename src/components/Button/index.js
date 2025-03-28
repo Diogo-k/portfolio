@@ -44,7 +44,7 @@ const Button = forwardRef(
         },
         ref
     ) => {
-        const MotionLink = motion(Link);
+        const MotionLink = motion.create(Link);
 
         const baseStyles =
             'font-semibold tracking-wide focus:outline-none focus-visible:outline-offset-4 focus-visible:outline-2 focus-visible:outline focus-visible:outline-text-light dark:focus-visible:outline-text-dark';

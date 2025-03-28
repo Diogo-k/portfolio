@@ -1,6 +1,7 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
+import { useState } from 'react';
 
 import { CherryBlossoms, Button } from '@/components';
 
@@ -12,13 +13,23 @@ const letterVariants = {
 };
 
 const wordVariants = {
-    hidden: { opacity: 0, x: -40 },
-    visible: { opacity: 1, x: 0 },
+    hidden: { opacity: 0 },
+    visible: { opacity: 1 },
+};
+
+const revealVariants = {
+    hidden: { width: 0, x: 0 },
+    visible: { width: '100%', x: 0 },
+    exit: { width: '100%', x: '100%' },
 };
 
 export default function Intro() {
     const name = 'DIOGO PAULO';
     const title = 'Frontend Developer';
+
+    const [visibleWords, setVisibleWords] = useState(
+        Array(title.split(' ').length).fill(true)
+    );
 
     return (
         <section
@@ -53,19 +64,59 @@ export default function Intro() {
                 </div>
                 <div className="flex flex-wrap">
                     {title.split(' ').map((word, index) => (
-                        <motion.span
-                            key={index}
-                            variants={wordVariants}
-                            initial="hidden"
-                            animate="visible"
-                            transition={{
-                                duration: 0.5,
-                                delay: 1.3 + name.length * 0.05 + index * 0.2,
-                            }}
-                            className="text-4xl font-bold md:text-9xl"
-                        >
-                            {word}
-                        </motion.span>
+                        <div key={index} className="relative overflow-hidden">
+                            <AnimatePresence>
+                                {visibleWords[index] && (
+                                    <motion.div
+                                        key={word}
+                                        variants={revealVariants}
+                                        initial="hidden"
+                                        animate={{
+                                            width: '100%',
+                                            transition: {
+                                                duration: 0.35,
+                                                delay:
+                                                    1 +
+                                                    name.length * 0.05 +
+                                                    index * 0.2,
+                                            },
+                                        }}
+                                        exit={{
+                                            width: '100%',
+                                            x: '100%',
+                                            transition: {
+                                                duration: 0.3,
+                                                delay: 0.25,
+                                            },
+                                        }}
+                                        onAnimationComplete={() => {
+                                            setVisibleWords((prev) => {
+                                                const newState = [...prev];
+                                                newState[index] = false;
+                                                return newState;
+                                            });
+                                        }}
+                                        className="absolute inset-0 z-10 bg-primary-light pb-2 dark:bg-primary-dark"
+                                    />
+                                )}
+                            </AnimatePresence>
+                            <motion.span
+                                variants={wordVariants}
+                                initial="hidden"
+                                animate="visible"
+                                transition={{
+                                    duration: 0.5,
+                                    delay:
+                                        1 +
+                                        name.length * 0.05 +
+                                        index * 0.2 +
+                                        0.4,
+                                }}
+                                className="relative text-4xl font-bold md:text-9xl"
+                            >
+                                {word}
+                            </motion.span>
+                        </div>
                     ))}
                 </div>
                 <motion.div
