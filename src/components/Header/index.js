@@ -1,11 +1,10 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import Link from 'next/link';
 import { usePathname, useSearchParams } from 'next/navigation';
 import clsx from 'clsx';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ThemeSwitcher, Button } from '@/components';
+import { ThemeSwitcher, Button, Link } from '@/components';
 
 const navItems = [
     { name: 'Home', href: '#home', id: 'nav-home' },
@@ -111,18 +110,13 @@ export default function Header() {
                             className="relative"
                         >
                             <Link
+                                variant="header"
                                 href={item.href}
-                                className={clsx(
-                                    'text-lg tracking-wide text-primary-light hover:text-primary-light/80',
-                                    'dark:text-text-dark dark:hover:text-text-dark/80',
-                                    'after:absolute after:-bottom-1 after:left-0 after:h-[2px] after:w-0',
-                                    'after:bg-primary-light after:transition-all after:duration-200',
-                                    'hover:after:w-full dark:after:bg-text-dark',
-                                    item.href === hash && 'after:w-full'
-                                )}
-                                aria-current={
+                                ariaLabel={`Navigate to ${item.name} section`}
+                                ariaCurrent={
                                     item.href === hash ? 'page' : undefined
                                 }
+                                active={item.href === hash}
                             >
                                 {item.name}
                             </Link>
@@ -148,6 +142,7 @@ export default function Header() {
                     width="32"
                     height="32"
                     stroke="currentColor"
+                    aria-hidden="true"
                 >
                     {isMobileMenuOpen ? (
                         <path
@@ -194,20 +189,16 @@ export default function Header() {
                                             onClick={() =>
                                                 setIsMobileMenuOpen(false)
                                             }
-                                            className={clsx(
-                                                'text-center text-lg tracking-wide text-primary-light hover:text-primary-light/80',
-                                                'dark:text-text-dark dark:hover:text-text-dark/80',
-                                                'relative inline-block after:absolute after:-bottom-1 after:left-1/2 after:h-[2px] after:w-0',
-                                                'after:-translate-x-1/2 after:bg-primary-light after:transition-all after:duration-200',
-                                                'hover:after:w-full dark:after:bg-text-dark',
-                                                item.href === hash &&
-                                                    'after:w-full'
-                                            )}
-                                            aria-current={
+                                            ariaLabel={`Navigate to ${item.name} section`}
+                                            ariaCurrent={
                                                 item.href === hash
                                                     ? 'page'
                                                     : undefined
                                             }
+                                            className={clsx(
+                                                item.href === hash &&
+                                                    'after:w-full'
+                                            )}
                                         >
                                             {item.name}
                                         </Link>

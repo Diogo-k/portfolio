@@ -1,4 +1,4 @@
-import { Text } from '@/components';
+import { Link, Text } from '@/components';
 import { LinkedIn, Github, Mail } from '@/assets';
 export default function Contact() {
     return (
@@ -20,25 +20,31 @@ export default function Contact() {
                                 <p className="text-sm text-muted-light dark:text-muted-dark">
                                     jdiogok@gmail.com
                                 </p>
-                                <a
+                                <Link
                                     href="mailto:jdiogok@gmail.com"
-                                    className="mt-2 text-sm text-primary-light hover:underline dark:text-primary-dark"
+                                    isExternal
+                                    ariaLabel="Send email to jdiogok@gmail.com"
+                                    ariaCurrent="contact"
+                                    className="mt-2 text-sm"
                                 >
                                     Write me →
-                                </a>
+                                </Link>
                             </div>
                         </div>
 
                         <div className="rounded-lg border border-border-light bg-surface-light p-6 dark:border-border-dark dark:bg-surface-dark">
                             <div className="flex flex-col items-center text-center">
                                 <LinkedIn className="fill-primary-light" />
-                                <h3 className="font-semibold">LinkedIn</h3>
-                                <a
+                                <h3 className="font-semibold">Linked In</h3>
+                                <Link
                                     href="https://www.linkedin.com"
-                                    className="mt-2 text-sm text-primary-light hover:underline dark:text-primary-dark"
+                                    isExternal
+                                    ariaLabel="Visit LinkedIn profile"
+                                    ariaCurrent="contact"
+                                    className="mt-2 text-sm"
                                 >
                                     Write me →
-                                </a>
+                                </Link>
                             </div>
                         </div>
 
@@ -49,12 +55,15 @@ export default function Contact() {
                                 <p className="text-sm text-muted-light dark:text-muted-dark">
                                     Diogo-k
                                 </p>
-                                <a
+                                <Link
                                     href="https://github.com/Diogo-k"
-                                    className="mt-2 text-sm text-primary-light hover:underline dark:text-primary-dark"
+                                    isExternal
+                                    ariaLabel="Visit GitHub profile"
+                                    ariaCurrent="contact"
+                                    className="mt-2 text-sm"
                                 >
                                     Write me →
-                                </a>
+                                </Link>
                             </div>
                         </div>
                     </div>

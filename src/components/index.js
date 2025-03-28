@@ -5,6 +5,7 @@ import Footer from './Footer';
 //* Storybook Components
 import Text from './Text';
 import Button from './Button';
+import Link from './Link';
 import Tag from './Tag';
 import SectionDivider from './SectionDivider';
 
@@ -22,6 +23,7 @@ export {
     Footer,
     Text,
     Button,
+    Link,
     Tag,
     SectionDivider,
     ThemeSwitcher,

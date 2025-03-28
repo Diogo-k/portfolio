@@ -1,9 +1,30 @@
+'use client';
+
 import { forwardRef } from 'react';
+import PropTypes from 'prop-types';
 import clsx from 'clsx';
-
-import './index.css';
 import Link from 'next/link';
+import { motion } from 'framer-motion';
 
+/**
+ * A versatile button component that supports different variants, sizes, and states.
+ * Can render as a button, link, or anchor element with motion animations.
+ *
+ * @param {Object} props - Component props
+ * @param {('button'|'link'|'a')} [props.as='button'] - Element type to render
+ * @param {string} [props.href] - URL for link/anchor variants
+ * @param {React.ReactNode} props.children - Button content
+ * @param {('primary'|'outline'|'ghost')} [props.variant='primary'] - Visual style variant
+ * @param {('sm'|'md'|'lg')} [props.size='md'] - Size variant
+ * @param {boolean} [props.fullWidth=false] - Whether to take full width
+ * @param {boolean} [props.disabled=false] - Disabled state
+ * @param {boolean} [props.loading=false] - Loading state
+ * @param {boolean} [props.loadingText=true] - Show text during loading
+ * @param {string} [props.className] - Additional CSS classes
+ * @param {string} [props.ariaLabel] - Accessibility label
+ * @param {('button'|'submit'|'reset')} [props.type='button'] - Button type
+ * @param {React.Ref} ref - Forwarded ref
+ */
 const Button = forwardRef(
     (
         {
@@ -13,19 +34,27 @@ const Button = forwardRef(
             variant = 'primary',
             size = 'md',
             fullWidth = false,
+            disabled = false,
+            loading = false,
+            loadingText = true,
             className,
+            'aria-label': ariaLabel,
+            type = 'button',
             ...props
         },
         ref
     ) => {
-        const baseStyles = 'focus:none font-semibold tracking-wide';
+        const MotionLink = motion(Link);
+
+        const baseStyles =
+            'font-semibold tracking-wide focus:outline-none focus-visible:outline-offset-4 focus-visible:outline-2 focus-visible:outline focus-visible:outline-text-light dark:focus-visible:outline-text-dark';
 
         const variantStyles = {
             primary:
-                'clip-button bg-primary-light text-white hover:bg-accent-light dark:bg-primary-dark dark:hover:bg-accent-dark',
+                'rounded-lg bg-gradient-to-r from-primary-light to-accent-light text-white shadow-md shadow-primary-light/20 hover:shadow-lg hover:shadow-primary-light/30 hover:from-accent-light hover:to-primary-light dark:from-primary-dark dark:to-accent-dark dark:shadow-primary-dark/20 dark:hover:shadow-primary-dark/30 dark:hover:from-accent-dark dark:hover:to-primary-dark transition-all duration-300',
             outline:
-                'rounded border border-primary-light text-primary-light hover:border-accent-light hover:bg-primary-light/10 hover:text-accent-light dark:border-primary-dark dark:text-white dark:hover:border-accent-dark dark:hover:bg-accent-dark/30',
-            ghost: 'clip-button text-primary-light hover:bg-primary-light/10 dark:text-white dark:hover:bg-accent-dark/30',
+                'rounded-lg border-2 border-primary-light text-primary-light hover:border-accent-light hover:bg-primary-light/10 hover:text-accent-light dark:border-primary-dark dark:text-white dark:hover:border-accent-dark dark:hover:bg-accent-dark/30 transition-all duration-300',
+            ghost: 'rounded-lg text-primary-light hover:bg-primary-light/10 dark:text-white dark:hover:bg-accent-dark/30 transition-all duration-300',
         };
 
         const sizeStyles = {
@@ -34,43 +63,129 @@ const Button = forwardRef(
             lg: 'px-6 py-3 text-lg',
         };
 
+        const disabledStyles = 'opacity-50 cursor-not-allowed';
+
         const combinedStyles = clsx(
             'inline-flex items-center justify-center',
             baseStyles,
             variantStyles[variant],
             sizeStyles[size],
             fullWidth && 'w-full',
+            (disabled || loading) && disabledStyles,
             className
         );
 
-        if (as === 'link' && href) {
+        const LoadingSpinner = () => (
+            <svg
+                className="size-4 animate-spin"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+                role="status"
+            >
+                <circle
+                    className="opacity-25"
+                    cx="12"
+                    cy="12"
+                    r="10"
+                    stroke="currentColor"
+                    strokeWidth="4"
+                />
+                <path
+                    className="opacity-75"
+                    fill="currentColor"
+                    d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                />
+            </svg>
+        );
+
+        const buttonContent = (
+            <>
+                {loading ? (
+                    <>
+                        <LoadingSpinner />
+                        {loadingText && (
+                            <span className="ml-2" aria-live="polite">
+                                {children}
+                            </span>
+                        )}
+                    </>
+                ) : (
+                    children
+                )}
+            </>
+        );
+
+        const commonProps = {
+            ref,
+            className: combinedStyles,
+            'aria-disabled': disabled || loading,
+            'aria-busy': loading,
+            'aria-label':
+                ariaLabel ||
+                (typeof children === 'string' ? children : undefined),
+            ...props,
+        };
+
+        const motionProps =
+            !disabled && !loading
+                ? {
+                      whileHover: { scale: 1.05 },
+                      whileTap: { scale: 0.95 },
+                  }
+                : undefined;
+
+        if (as === 'link' && href && !disabled && !loading) {
             return (
-                <Link
-                    ref={ref}
-                    href={href}
-                    className={combinedStyles}
-                    {...props}
-                >
-                    {children}
-                </Link>
+                <MotionLink {...commonProps} {...motionProps} href={href}>
+                    {buttonContent}
+                </MotionLink>
             );
         }
 
-        if (as === 'a' && href) {
+        if (as === 'a' && href && !disabled && !loading) {
+            const isExternal = href.startsWith('http');
             return (
-                <a ref={ref} href={href} className={combinedStyles} {...props}>
-                    {children}
-                </a>
+                <motion.a
+                    {...commonProps}
+                    {...motionProps}
+                    href={href}
+                    rel={isExternal ? 'noopener noreferrer' : undefined}
+                    target={isExternal ? '_blank' : undefined}
+                >
+                    {buttonContent}
+                </motion.a>
             );
         }
 
         return (
-            <button ref={ref} className={combinedStyles} {...props}>
-                {children}
-            </button>
+            <motion.button
+                {...commonProps}
+                {...motionProps}
+                type={type}
+                disabled={disabled || loading}
+            >
+                {buttonContent}
+            </motion.button>
         );
     }
 );
+
+Button.propTypes = {
+    as: PropTypes.oneOf(['button', 'link', 'a']),
+    href: PropTypes.string,
+    children: PropTypes.node.isRequired,
+    variant: PropTypes.oneOf(['primary', 'outline', 'ghost']),
+    size: PropTypes.oneOf(['sm', 'md', 'lg']),
+    fullWidth: PropTypes.bool,
+    disabled: PropTypes.bool,
+    loading: PropTypes.bool,
+    loadingText: PropTypes.bool,
+    className: PropTypes.string,
+    'aria-label': PropTypes.string,
+    type: PropTypes.oneOf(['button', 'submit', 'reset']),
+};
 
 Button.displayName = 'Button';
 

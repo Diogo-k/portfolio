@@ -4,6 +4,8 @@ import { motion } from 'framer-motion';
 
 import { CherryBlossoms, DecryptedText, Text, Button } from '@/components';
 
+import { RightArrow } from '@/assets';
+
 export default function Intro() {
     return (
         <section
@@ -28,28 +30,16 @@ export default function Intro() {
                 <Text as="p" weight="font-bold" size="text-4xl md:text-9xl">
                     Frontend Developer
                 </Text>
-                <div className="flex justify-start gap-2 pt-3 md:pt-6">
+                <div className="pt-3 md:pt-6">
                     <Button
-                        as="a"
-                        href="https://github.com/Diogo-k"
-                        target="_blank"
-                        size="md"
                         variant="primary"
+                        size="md"
+                        as="link"
+                        href="#contact"
+                        aria-label="Contact me"
                     >
                         Contact me
-                        <svg
-                            className="ml-1 size-4"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            stroke="currentColor"
-                        >
-                            <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                strokeWidth={2}
-                                d="M14 5l7 7m0 0l-7 7m7-7H3"
-                            />
-                        </svg>
+                        <RightArrow className="ml-1 size-4" />
                     </Button>
                 </div>
             </motion.div>
