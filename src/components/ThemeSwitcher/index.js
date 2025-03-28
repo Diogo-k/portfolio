@@ -6,7 +6,7 @@ import { useTheme } from 'next-themes';
 import { Button } from '@/components';
 import { Sun, Moon } from '@/assets';
 
-export default function ThemeSwitcher() {
+export default function ThemeSwitcher({ ...props }) {
     const [mounted, setMounted] = useState(false);
     const { setTheme, resolvedTheme } = useTheme();
 
@@ -23,9 +23,9 @@ export default function ThemeSwitcher() {
         mounted && (
             <Button
                 aria-label="Toggle theme"
-                className="absolute right-4 top-4"
                 variant="ghost"
                 onClick={toggleTheme}
+                {...props}
             >
                 {resolvedTheme === 'light' ? <Moon /> : <Sun />}
             </Button>

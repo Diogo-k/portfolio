@@ -25,7 +25,7 @@ export default function Intro() {
                     speed={100}
                     sequential
                 />
-                <Text as="p" weight="font-bold" size="text-9xl">
+                <Text as="p" weight="font-bold" size="text-4xl md:text-9xl">
                     Frontend Developer
                 </Text>
                 <div className="flex justify-start gap-2 pt-3 md:pt-6">
