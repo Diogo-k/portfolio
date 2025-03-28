@@ -35,6 +35,9 @@ export default function About() {
                     size="text-5xl"
                     weight="font-bold"
                     className="mb-12"
+                    id="about-heading"
+                    role="heading"
+                    aria-label="About me section"
                 >
                     About me
                 </Text>
@@ -52,11 +55,18 @@ export default function About() {
                         size="text-2xl"
                         weight="font-bold"
                         className="mb-8"
+                        id="about-intro-heading"
+                        role="heading"
+                        aria-label="Get to know me section"
                     >
                         Get to know me!
                     </Text>
                     <div className="flex flex-col gap-4">
-                        <Text>
+                        <Text
+                            id="about-description"
+                            role="article"
+                            aria-label="Personal introduction"
+                        >
                             Lorem ipsum dolor sit amet, consectetur adipiscing
                             elit. Sed do eiusmod tempor incididunt ut labore et
                             dolore magna aliqua. Ut enim ad minim veniam, quis
@@ -92,6 +102,9 @@ export default function About() {
                         size="text-2xl"
                         weight="font-bold"
                         className="mb-8"
+                        id="skills-heading"
+                        role="heading"
+                        aria-label="Skills section"
                     >
                         My Skills
                     </Text>

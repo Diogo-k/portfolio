@@ -3,7 +3,7 @@ import { StoryContainer } from '../../../.storybook/story-container';
 import Text from './';
 
 export default {
-    title: 'Text',
+    title: 'Components/Text',
 };
 
 export const Size = () => (
@@ -53,6 +53,10 @@ export const Align = () => (
 
             <Text align="text-center" weight="font-normal" size="text-xl">
                 Center
+            </Text>
+
+            <Text align="text-end" weight="font-normal" size="text-xl">
+                End
             </Text>
         </div>
     </StoryContainer>

@@ -28,28 +28,51 @@ export default function Experience() {
             id="experience"
             className="mx-auto flex h-screen max-w-7xl flex-col"
         >
-            <Text as="h1" size="text-5xl" weight="font-bold" className="mb-12">
+            <Text
+                as="h1"
+                size="text-5xl"
+                weight="font-bold"
+                className="mb-12"
+                id="experience-heading"
+                role="heading"
+                aria-label="Professional experience section"
+            >
                 Experience
             </Text>
-            <ul className="mx-auto">
+            <ul className="mx-auto" role="list">
                 {experiences.map((exp, index) => (
-                    <li key={index} className="pl-4">
+                    <li key={index} className="pl-4" role="listitem">
                         <Text
                             as="h3"
                             size="text-xl"
                             weight="font-semibold"
                             className="flex flex-row items-center"
+                            id={`experience-${index + 1}-heading`}
+                            role="heading"
+                            aria-label={`Experience at ${exp.role}`}
                         >
-                            <Katana className="mr-4" />
+                            <Katana className="mr-4" aria-hidden="true" />
                             {exp.role}
                         </Text>
-                        <Text as="p" className="text-muted-light">
+                        <Text
+                            as="p"
+                            className="text-muted-light"
+                            id={`experience-${index + 1}-duration`}
+                            role="text"
+                            aria-label={`Duration: ${exp.duration}`}
+                        >
                             {exp.duration}
                         </Text>
                         {exp.list.length > 0 && (
-                            <ul className="ml-4 list-disc">
-                                {exp.list.map((item, index) => (
-                                    <Text as="li" key={index}>
+                            <ul className="ml-4 list-disc" role="list">
+                                {exp.list.map((item, itemIndex) => (
+                                    <Text
+                                        as="li"
+                                        key={itemIndex}
+                                        id={`experience-${index + 1}-achievement-${itemIndex + 1}`}
+                                        role="listitem"
+                                        aria-label={`Achievement: ${item}`}
+                                    >
                                         {item}
                                     </Text>
                                 ))}

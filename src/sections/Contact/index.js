@@ -6,7 +6,15 @@ export default function Contact() {
             id="contact"
             className="mx-auto flex min-h-[50vh] max-w-5xl flex-col py-28"
         >
-            <Text as="h1" size="text-4xl" weight="font-bold" align="center">
+            <Text
+                as="h1"
+                size="text-4xl"
+                weight="font-bold"
+                align="center"
+                id="contact-heading"
+                role="heading"
+                aria-label="Contact section"
+            >
                 Contact
             </Text>
 
@@ -16,10 +24,25 @@ export default function Contact() {
                         <div className="rounded-lg border border-border-light bg-surface-light p-6 dark:border-border-dark dark:bg-surface-dark">
                             <div className="flex flex-col items-center text-center">
                                 <Mail className="fill-primary-light" />
-                                <h3 className="font-semibold">Email</h3>
-                                <p className="text-sm text-muted-light dark:text-muted-dark">
+                                <Text
+                                    as="h3"
+                                    size="text-base"
+                                    weight="font-semibold"
+                                    id="email-heading"
+                                    role="heading"
+                                    aria-label="Email contact information"
+                                >
+                                    Email
+                                </Text>
+                                <Text
+                                    size="text-sm"
+                                    className="text-muted-light dark:text-muted-dark"
+                                    id="email-address"
+                                    role="text"
+                                    aria-label="Email address"
+                                >
                                     jdiogok@gmail.com
-                                </p>
+                                </Text>
                                 <Link
                                     href="mailto:jdiogok@gmail.com"
                                     isExternal
@@ -35,7 +58,16 @@ export default function Contact() {
                         <div className="rounded-lg border border-border-light bg-surface-light p-6 dark:border-border-dark dark:bg-surface-dark">
                             <div className="flex flex-col items-center text-center">
                                 <LinkedIn className="fill-primary-light" />
-                                <h3 className="font-semibold">Linked In</h3>
+                                <Text
+                                    as="h3"
+                                    size="text-base"
+                                    weight="font-semibold"
+                                    id="linkedin-heading"
+                                    role="heading"
+                                    aria-label="LinkedIn contact information"
+                                >
+                                    Linked In
+                                </Text>
                                 <Link
                                     href="https://www.linkedin.com"
                                     isExternal
@@ -51,10 +83,25 @@ export default function Contact() {
                         <div className="rounded-lg border border-border-light bg-surface-light p-6 dark:border-border-dark dark:bg-surface-dark">
                             <div className="flex flex-col items-center text-center">
                                 <Github className="fill-primary-light" />
-                                <h3 className="font-semibold">Github</h3>
-                                <p className="text-sm text-muted-light dark:text-muted-dark">
+                                <Text
+                                    as="h3"
+                                    size="text-base"
+                                    weight="font-semibold"
+                                    id="github-heading"
+                                    role="heading"
+                                    aria-label="GitHub contact information"
+                                >
+                                    Github
+                                </Text>
+                                <Text
+                                    size="text-sm"
+                                    className="text-muted-light dark:text-muted-dark"
+                                    id="github-username"
+                                    role="text"
+                                    aria-label="GitHub username"
+                                >
                                     Diogo-k
-                                </p>
+                                </Text>
                                 <Link
                                     href="https://github.com/Diogo-k"
                                     isExternal

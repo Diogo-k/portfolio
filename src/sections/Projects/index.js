@@ -145,7 +145,10 @@ export default function Projects() {
                     as="h1"
                     size="text-5xl"
                     weight="font-bold"
-                    className="mb-6"
+                    className="mb-12"
+                    id="projects-heading"
+                    role="heading"
+                    aria-label="Projects portfolio section"
                 >
                     Projects
                 </Text>

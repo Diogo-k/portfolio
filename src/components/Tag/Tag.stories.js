@@ -3,7 +3,7 @@ import { StoryContainer } from '../../../.storybook/story-container';
 import Tag from './';
 
 export default {
-    title: 'Tags',
+    title: 'Components/Tag',
     component: Tag,
 };
 
