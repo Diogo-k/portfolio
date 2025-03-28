@@ -1,62 +1,118 @@
 'use client';
 
-import { motion, AnimatePresence } from 'framer-motion';
 import { useState } from 'react';
+import PropTypes from 'prop-types';
+import { motion, AnimatePresence } from 'framer-motion';
 
 import { CherryBlossoms, Button } from '@/components';
 
 import { RightArrow } from '@/assets';
 
-const letterVariants = {
-    hidden: { opacity: 0, y: -20 },
-    visible: { opacity: 1, y: 0 },
+export const INTRO_CONFIG = {
+    name: 'DIOGO PAULO',
+    title: 'Frontend Developer',
+    contactButton: {
+        text: 'Contact me',
+        href: '#contact',
+        ariaLabel: 'Contact me',
+    },
 };
 
-const wordVariants = {
-    hidden: { opacity: 0 },
-    visible: { opacity: 1 },
+export const ANIMATION_VARIANTS = {
+    letter: {
+        hidden: { opacity: 0, y: -20 },
+        visible: { opacity: 1, y: 0 },
+    },
+    word: {
+        hidden: { opacity: 0 },
+        visible: { opacity: 1 },
+    },
+    reveal: {
+        hidden: { width: 0, x: 0 },
+        visible: { width: '100%', x: 0 },
+        exit: { width: '100%', x: '100%' },
+    },
+    container: {
+        hidden: { opacity: 0 },
+        visible: { opacity: 1 },
+    },
+    button: {
+        hidden: { opacity: 0, y: 20 },
+        visible: { opacity: 1, y: 0 },
+    },
 };
 
-const revealVariants = {
-    hidden: { width: 0, x: 0 },
-    visible: { width: '100%', x: 0 },
-    exit: { width: '100%', x: '100%' },
+export const ANIMATION_TIMINGS = {
+    containerDelay: 1.25,
+    letterDelay: 0.05,
+    wordDelay: 0.2,
+    revealDelay: 0.4,
 };
 
-export default function Intro() {
-    const name = 'DIOGO PAULO';
-    const title = 'Frontend Developer';
-
+/**
+ * Intro section component that displays the main hero section with animated text and a contact button.
+ * Features a beautiful cherry blossoms background and smooth text reveal animations.
+ *
+ * @param {Object} props - Component props
+ * @param {string} [props.className] - Additional CSS classes to apply
+ * @returns {JSX.Element} The Intro section component
+ */
+export default function Intro({ className = '' }) {
+    const { name, title, contactButton } = INTRO_CONFIG;
     const [visibleWords, setVisibleWords] = useState(
         Array(title.split(' ').length).fill(true)
     );
 
+    const handleRevealComplete = (index) => {
+        setVisibleWords((prev) => {
+            const newState = [...prev];
+            newState[index] = false;
+            return newState;
+        });
+    };
+
+    const calculateWordDelay = (index) => {
+        return (
+            ANIMATION_TIMINGS.containerDelay +
+            name.length * ANIMATION_TIMINGS.letterDelay +
+            index * ANIMATION_TIMINGS.wordDelay
+        );
+    };
+
     return (
         <section
             id="home"
-            className="flex h-screen flex-col items-center justify-center"
+            className={`flex h-screen flex-col items-center justify-center ${className}`}
+            aria-label="Introduction"
         >
             <CherryBlossoms />
             <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.5, delay: 1.25 }}
+                variants={ANIMATION_VARIANTS.container}
+                initial="hidden"
+                animate="visible"
+                transition={{
+                    duration: 0.5,
+                    delay: ANIMATION_TIMINGS.containerDelay,
+                }}
                 className="z-10 mx-auto max-w-5xl pb-14 md:py-36"
             >
-                <div className="mb-12 flex flex-wrap">
+                <div className="mb-12 flex flex-wrap" role="banner">
                     {name.split('').map((char, index) => (
                         <motion.span
                             key={index}
-                            variants={letterVariants}
+                            variants={ANIMATION_VARIANTS.letter}
                             initial="hidden"
                             animate="visible"
                             transition={{
                                 duration: 0.3,
-                                delay: 1.25 + index * 0.05,
+                                delay:
+                                    ANIMATION_TIMINGS.containerDelay +
+                                    index * ANIMATION_TIMINGS.letterDelay,
                             }}
                             className={`font-sora text-2xl tracking-widest text-muted-light dark:text-muted-dark ${
                                 char === ' ' ? 'w-2' : ''
                             }`}
+                            aria-hidden="true"
                         >
                             {char}
                         </motion.span>
@@ -69,16 +125,15 @@ export default function Intro() {
                                 {visibleWords[index] && (
                                     <motion.div
                                         key={word}
-                                        variants={revealVariants}
+                                        variants={ANIMATION_VARIANTS.reveal}
                                         initial="hidden"
                                         animate={{
                                             width: '100%',
                                             transition: {
                                                 duration: 0.35,
-                                                delay:
-                                                    1 +
-                                                    name.length * 0.05 +
-                                                    index * 0.2,
+                                                delay: calculateWordDelay(
+                                                    index
+                                                ),
                                             },
                                         }}
                                         exit={{
@@ -89,30 +144,26 @@ export default function Intro() {
                                                 delay: 0.25,
                                             },
                                         }}
-                                        onAnimationComplete={() => {
-                                            setVisibleWords((prev) => {
-                                                const newState = [...prev];
-                                                newState[index] = false;
-                                                return newState;
-                                            });
-                                        }}
+                                        onAnimationComplete={() =>
+                                            handleRevealComplete(index)
+                                        }
                                         className="absolute inset-0 z-10 bg-primary-light pb-2 dark:bg-primary-dark"
+                                        aria-hidden="true"
                                     />
                                 )}
                             </AnimatePresence>
                             <motion.span
-                                variants={wordVariants}
+                                variants={ANIMATION_VARIANTS.word}
                                 initial="hidden"
                                 animate="visible"
                                 transition={{
                                     duration: 0.5,
                                     delay:
-                                        1 +
-                                        name.length * 0.05 +
-                                        index * 0.2 +
-                                        0.4,
+                                        calculateWordDelay(index) +
+                                        ANIMATION_TIMINGS.revealDelay,
                                 }}
                                 className="relative text-4xl font-bold md:text-9xl"
+                                aria-hidden="true"
                             >
                                 {word}
                             </motion.span>
@@ -120,29 +171,34 @@ export default function Intro() {
                     ))}
                 </div>
                 <motion.div
-                    className="pt-3 md:pt-6"
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
+                    variants={ANIMATION_VARIANTS.button}
+                    initial="hidden"
+                    animate="visible"
                     transition={{
                         duration: 0.5,
-                        delay:
-                            1.25 +
-                            name.length * 0.05 +
-                            title.split(' ').length * 0.2,
+                        delay: calculateWordDelay(title.split(' ').length - 1),
                     }}
+                    className="pt-3 md:pt-6"
                 >
                     <Button
                         variant="primary"
                         size="md"
                         as="link"
-                        href="#contact"
-                        aria-label="Contact me"
+                        href={contactButton.href}
+                        aria-label={contactButton.ariaLabel}
                     >
-                        Contact me
-                        <RightArrow className="ml-1 size-4" />
+                        {contactButton.text}
+                        <RightArrow
+                            className="ml-1 size-4"
+                            aria-hidden="true"
+                        />
                     </Button>
                 </motion.div>
             </motion.div>
         </section>
     );
 }
+
+Intro.propTypes = {
+    className: PropTypes.string,
+};
