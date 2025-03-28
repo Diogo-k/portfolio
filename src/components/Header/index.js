@@ -7,27 +7,11 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { ThemeSwitcher, Button, Link } from '@/components';
 
 const navItems = [
-    { name: 'Home', href: '#home', id: 'nav-home' },
-    { name: 'About Me', href: '#about-me', id: 'nav-about-me' },
-    { name: 'Projects', href: '#projects', id: 'nav-projects' },
-    { name: 'Contact', href: '#contact', id: 'nav-contact' },
+    { name: 'Home', href: '/#home', id: 'nav-home' },
+    { name: 'About Me', href: '/#about-me', id: 'nav-about-me' },
+    { name: 'Projects', href: '/#projects', id: 'nav-projects' },
+    { name: 'Contact', href: '/#contact', id: 'nav-contact' },
 ];
-
-// Animation variants for header
-const headerVariants = {
-    hidden: { y: -82, opacity: 0 },
-    visible: {
-        y: 0,
-        opacity: 1,
-        transition: {
-            type: 'spring',
-            stiffness: 100,
-            damping: 15,
-            duration: 0.5,
-            delay: 1.5,
-        },
-    },
-};
 
 // Animation variants for mobile menu
 const mobileMenuVariants = {
@@ -57,10 +41,28 @@ export default function Header() {
     const pathname = usePathname();
     const searchParams = useSearchParams();
 
+    // Animation variants for header
+    const headerVariants = {
+        hidden: { y: -82, opacity: 0 },
+        visible: {
+            y: 0,
+            opacity: 1,
+            transition: {
+                type: 'spring',
+                stiffness: 100,
+                damping: 15,
+                duration: 0.5,
+                delay: pathname === '/' ? 1.5 : 0.25,
+            },
+        },
+    };
+
     // Sync hash with URL
     useEffect(() => {
         const updateHash = () => {
-            setHash(window.location.hash || '#home'); // Default to #home if no hash
+            setHash(
+                window.location.hash ? `/${window.location.hash}` : '/#home' // Default to #home if no hash
+            );
         };
 
         updateHash();
@@ -72,8 +74,8 @@ export default function Header() {
     useEffect(() => {
         const handleScroll = () => {
             const sections = navItems.map((item) => ({
-                id: item.href.slice(1),
-                element: document.getElementById(item.href.slice(1)),
+                id: item.href.slice(2),
+                element: document.getElementById(item.href.slice(2)),
             }));
 
             // Get the current scroll position and viewport height
@@ -93,7 +95,7 @@ export default function Header() {
                 const sectionBottom = window.scrollY + rect.bottom;
 
                 // If we're at the bottom and this is the last section (contact), consider it active
-                if (isAtBottom && section.id === 'contact') {
+                if (isAtBottom && section.id === 'nav-contact') {
                     return true;
                 }
 
@@ -104,13 +106,13 @@ export default function Header() {
                 );
             });
 
-            if (currentSection && currentSection.id !== hash.slice(1)) {
+            if (currentSection && currentSection.id !== hash.slice(2)) {
                 window.history.replaceState(
                     null,
                     null,
                     `#${currentSection.id}`
                 );
-                setHash(`#${currentSection.id}`);
+                setHash(`/#${currentSection.id}`);
             }
         };
 
