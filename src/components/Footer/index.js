@@ -9,8 +9,8 @@ export default function Footer() {
         <footer className="bg-background border-t-2 border-border-light py-8 dark:border-t-4 dark:border-border-dark">
             <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
                 <div className="flex flex-col items-center space-y-8">
-                    <motion.p className="text-center text-sm text-primary-light dark:text-text-dark">
-                        © 2025 João Diogo Paulo.{' '}
+                    <motion.p className="text-center text-sm text-text-light dark:text-text-dark">
+                        © 2025 Diogo Paulo.{' '}
                         <Link
                             href="https://github.com/Diogo-k"
                             className={clsx(
