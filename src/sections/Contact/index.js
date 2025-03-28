@@ -4,7 +4,7 @@ export default function Contact() {
     return (
         <section
             id="contact"
-            className="mx-auto flex min-h-[50vh] max-w-5xl flex-col px-4 py-16"
+            className="mx-auto flex min-h-[50vh] max-w-5xl flex-col py-28"
         >
             <Text as="h1" size="text-4xl" weight="font-bold" align="center">
                 Contact

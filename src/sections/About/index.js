@@ -22,7 +22,7 @@ export default function About() {
     return (
         <section
             id="about-me"
-            className="mx-auto flex min-h-[50vh] max-w-5xl flex-col"
+            className="mx-auto flex min-h-[50vh] max-w-5xl flex-col py-28"
         >
             <motion.div
                 initial={{ opacity: 0, y: 20 }}
