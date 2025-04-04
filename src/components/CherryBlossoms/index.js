@@ -18,7 +18,7 @@ const CONFIG = {
         END_Y: -15,
         Z_POSITION: 4.5,
         ROTATION: -0.35,
-        ROTATION_SPEED: 0.03,
+        ROTATION_SPEED: 0.01,
     },
     MAIN: {
         PETAL_COUNT: 30,
@@ -29,29 +29,30 @@ const CONFIG = {
         },
         VELOCITY: {
             X: {
-                MIN: -0.01,
-                MAX: 0.01,
+                MIN: -0.007,
+                MAX: 0.007,
             },
             Y: {
-                MIN: -0.015,
+                MIN: -0.008,
                 MAX: -0.005,
             },
             Z: 0,
         },
         ROTATION: {
-            SPEED: 0.01,
-            VARIANCE: 0.5,
+            SPEED: 0.003,
+            VARIANCE: 0.8,
         },
         COLLISION: {
             SPHERE_RADIUS: 0.2,
-            SLIDE_FACTOR: 0.03,
-            MIN_VELOCITY_Y: -0.02,
-            DAMPENING: 0.5,
-            CHECK_RADIUS: 2, // Only check collisions within this radius
+            SLIDE_FACTOR: 0.01,
+            MIN_VELOCITY_Y: -0.015,
+            DAMPENING: 0.7,
+            CHECK_RADIUS: 2,
         },
         FADE: {
             TOP_Y: -2,
             BOTTOM_Y: -6,
+            VARIANCE: 2,
         },
         BOUNDS: {
             TOP: 15,
@@ -294,19 +295,28 @@ const Petal = ({ canvasWidth, index, allPetals }) => {
 
             let opacity = CONFIG.MAIN.MATERIAL.OPACITY;
             const { TOP_Y, BOTTOM_Y } = CONFIG.MAIN.FADE;
-            const fadeRange = TOP_Y - BOTTOM_Y;
 
+            // Calculate fade based on distance from bottom
             if (position.y <= TOP_Y) {
-                const progress = (TOP_Y - position.y) / fadeRange;
+                // Start fading when reaching TOP_Y
+                const distanceFromBottom = position.y - BOTTOM_Y;
+                const fadeRange = TOP_Y - BOTTOM_Y;
+                const fadeProgress = Math.max(
+                    0,
+                    1 - distanceFromBottom / fadeRange
+                );
+
+                // Use a smoother easing function for the fade
                 opacity = THREE.MathUtils.clamp(
                     CONFIG.MAIN.MATERIAL.OPACITY *
-                        (1 - Math.pow(progress, 0.5)),
+                        (1 - Math.pow(fadeProgress, 1.5)),
                     0,
                     CONFIG.MAIN.MATERIAL.OPACITY
                 );
             }
 
-            if (position.y < BOTTOM_Y) {
+            // Ensure complete fade at bottom
+            if (position.y <= BOTTOM_Y) {
                 opacity = 0;
             }
 
