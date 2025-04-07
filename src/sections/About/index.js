@@ -69,7 +69,7 @@ const Skills = () => (
         whileInView="visible"
         className="flex flex-wrap gap-2"
         role="list"
-        aria-label="Technical skills"
+        aria-label="Technical skills list"
     >
         {skills.map((skill) => (
             <Tag
@@ -77,6 +77,7 @@ const Skills = () => (
                 variant={skill.variant}
                 className="transition-all duration-300 hover:scale-105"
                 role="listitem"
+                aria-label={`${skill.name} skill`}
             >
                 {skill.name}
             </Tag>
@@ -152,9 +153,8 @@ const ProfileImage = () => {
                         alt="Diogo Paulo - Frontend Developer"
                         fill
                         className="object-cover"
-                        priority
                         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                        loading="eager"
+                        loading="lazy"
                         onLoad={() => setIsLoading(false)}
                         onError={() => {
                             setIsError(true);
@@ -227,17 +227,27 @@ export default function About() {
                     </Text>
                     <div className="flex flex-col gap-3 sm:gap-4">
                         {aboutMeParagraphs.map((paragraph, index) => (
-                            <Text
+                            <motion.div
                                 key={index}
-                                id={`about-paragraph-${index}`}
-                                role="article"
-                                size="text-sm"
-                                responsiveSize={{
-                                    sm: 'text-base',
+                                initial={{ opacity: 0, y: 20 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                transition={{
+                                    duration: 0.5,
+                                    delay: index * 0.1,
                                 }}
+                                viewport={{ once: true }}
                             >
-                                {paragraph}
-                            </Text>
+                                <Text
+                                    id={`about-paragraph-${index}`}
+                                    role="article"
+                                    size="text-sm"
+                                    responsiveSize={{
+                                        sm: 'text-base',
+                                    }}
+                                >
+                                    {paragraph}
+                                </Text>
+                            </motion.div>
                         ))}
                     </div>
                     <MotionButton
