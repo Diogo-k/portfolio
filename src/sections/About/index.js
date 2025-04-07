@@ -43,7 +43,7 @@ const skills = [
 ];
 
 const aboutMeParagraphs = [
-    "Hey, I'm Diogo Paulo, a Frontend Developer from Lisbon who enjoys crafting clean, efficient, and user-focused digital experiences. I work mostly with React, Next.js, and React Native, and I'm all about building scalable, maintainable solutions that make life easier for users and teams.",
+    "Hey, I'm João Diogo Paulo, a Frontend Developer from Lisbon who enjoys crafting clean, efficient, and user-focused digital experiences. I work mostly with React, Next.js, and React Native, and I'm all about building scalable, maintainable solutions that make life easier for users and teams.",
     "Over the years, I've helped revamp legacy platforms, launch eCommerce sites, and build custom tools for industries like real estate, pharma, and even forest conservation. I love turning complex ideas into smooth, performant interfaces that just work.",
     "Outside of coding, I'm into video games, anime, and more recently, game development as a creative outlet. I'm always looking for new challenges to grow whether that's diving into a new framework or jumping out of a plane just to push myself. That mindset drives how I learn, build, and collaborate.",
     "Always open to cool ideas and new projects let's connect.",
