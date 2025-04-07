@@ -10,7 +10,7 @@ export default function Footer() {
             <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
                 <div className="flex flex-col items-center space-y-8">
                     <motion.p className="text-center text-sm text-text-light dark:text-text-dark">
-                        © 2025 Diogo Paulo.{' '}
+                        © 2025 João Diogo Paulo.{' '}
                         <Link
                             href="https://github.com/Diogo-k"
                             className={clsx(

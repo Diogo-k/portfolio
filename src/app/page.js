@@ -1,4 +1,4 @@
-import { Intro, About, Projects, Contact } from '../sections';
+import { Intro, About, Projects, Contact } from '@/sections';
 
 import { SectionDivider } from '@/components';
 

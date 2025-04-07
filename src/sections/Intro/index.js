@@ -9,7 +9,7 @@ import { CherryBlossoms, Button } from '@/components';
 import { RightArrow } from '@/assets';
 
 export const INTRO_CONFIG = {
-    name: 'DIOGO PAULO',
+    name: 'JOÃO DIOGO PAULO',
     title: 'Frontend Developer',
     contactButton: {
         text: 'Contact me',

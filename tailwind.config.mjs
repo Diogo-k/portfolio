@@ -41,7 +41,6 @@ const config = {
             },
             fontFamily: {
                 sora: ['var(--font-sora)', 'sans-serif'], // Main font
-                japanese: ['var(--font-noto-serif-jp)', 'serif'], // Japanese font
             },
         },
     },

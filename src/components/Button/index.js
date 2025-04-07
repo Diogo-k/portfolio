@@ -145,7 +145,7 @@ const Button = forwardRef(
         }
 
         if (as === 'a' && href && !disabled && !loading) {
-            const isExternal = href.startsWith('http');
+            const isExternal = href.startsWith('http') || href.endsWith('.pdf');
             return (
                 <motion.a
                     {...commonProps}

@@ -1,8 +1,8 @@
 {
     "name": "portfolio",
-    "description": "Portfolio site for Diogo Paulo",
+    "description": "Portfolio site for João Diogo Paulo",
     "version": "0.1.0",
-    "author": "João Diogo Paulo",
+    "author": "João João Diogo Paulo",
     "repository": "https://github.com/Diogo-k/portfolio.git",
     "private": true,
     "scripts": {
