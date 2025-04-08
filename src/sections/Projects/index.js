@@ -2,6 +2,7 @@
 
 import { motion, AnimatePresence } from 'framer-motion';
 import { useState } from 'react';
+import PropTypes from 'prop-types';
 
 import { Text, Button, NextImage, Tag } from '@/components';
 import { ArrowLink, SourceCode } from '@/assets';
@@ -12,7 +13,11 @@ const projects = [
         image: '/satyr.png',
         blurDataURL: dynamicBlurDataUrl('/satyr.png'),
         name: 'Portfolio',
-        tags: ['Javascript', 'Next.js', 'Tailwind CSS'],
+        tags: [
+            { name: 'Javascript', variant: 'frontend' },
+            { name: 'Next.js', variant: 'frontend' },
+            { name: 'Tailwind CSS', variant: 'frontend' },
+        ],
         githubLink: 'https://github.com/Diogo-k/portfolio',
         projectLink: null,
     },
@@ -20,7 +25,10 @@ const projects = [
         image: '/satyr.png',
         blurDataURL: dynamicBlurDataUrl('/satyr.png'),
         name: 'Test 1',
-        tags: ['Godot', 'Hobby'],
+        tags: [
+            { name: 'Godot', variant: 'gamedev' },
+            { name: 'Hobby', variant: 'others' },
+        ],
         githubLink: 'https://github.com/Diogo-k/Satyrs-Escape',
         projectLink: '/satyrs-escape',
     },
@@ -28,7 +36,11 @@ const projects = [
         image: '/satyr.png',
         blurDataURL: dynamicBlurDataUrl('/satyr.png'),
         name: 'Teste 2',
-        tags: ['Javascript', 'Next.js', 'Tailwind CSS'],
+        tags: [
+            { name: 'Javascript', variant: 'frontend' },
+            { name: 'Next.js', variant: 'frontend' },
+            { name: 'Tailwind CSS', variant: 'frontend' },
+        ],
         githubLink: 'https://github.com/Diogo-k/portfolio',
         projectLink: null,
     },
@@ -36,7 +48,10 @@ const projects = [
         image: '/satyr.png',
         blurDataURL: dynamicBlurDataUrl('/satyr.png'),
         name: 'Teste 3',
-        tags: ['Godot', 'Hobby'],
+        tags: [
+            { name: 'Godot', variant: 'gamedev' },
+            { name: 'Hobby', variant: 'others' },
+        ],
         githubLink: 'https://github.com/Diogo-k/Satyrs-Escape',
         projectLink: '/satyrs-escape',
     },
@@ -44,7 +59,11 @@ const projects = [
         image: '/satyr.png',
         blurDataURL: dynamicBlurDataUrl('/satyr.png'),
         name: 'Teste 4',
-        tags: ['Javascript', 'Next.js', 'Tailwind CSS'],
+        tags: [
+            { name: 'Javascript', variant: 'frontend' },
+            { name: 'Next.js', variant: 'frontend' },
+            { name: 'Tailwind CSS', variant: 'frontend' },
+        ],
         githubLink: 'https://github.com/Diogo-k/portfolio',
         projectLink: null,
     },
@@ -52,7 +71,10 @@ const projects = [
         image: '/satyr.png',
         blurDataURL: dynamicBlurDataUrl('/satyr.png'),
         name: 'Teste 5',
-        tags: ['Godot', 'Hobby'],
+        tags: [
+            { name: 'Godot', variant: 'gamedev' },
+            { name: 'Hobby', variant: 'others' },
+        ],
         githubLink: 'https://github.com/Diogo-k/Satyrs-Escape',
         projectLink: '/satyrs-escape',
     },
@@ -67,20 +89,20 @@ const containerVariants = {
         x: 0,
         opacity: 1,
         transition: {
-            duration: 0.25,
+            duration: 0.4,
             type: 'spring',
-            stiffness: 400,
-            damping: 40,
+            stiffness: 300,
+            damping: 30,
         },
     },
     exit: (direction) => ({
         x: direction < 0 ? 1000 : -1000,
         opacity: 0,
         transition: {
-            duration: 0.25,
+            duration: 0.4,
             type: 'spring',
-            stiffness: 400,
-            damping: 40,
+            stiffness: 300,
+            damping: 30,
         },
     }),
 };
@@ -91,31 +113,134 @@ const itemVariants = {
         opacity: 1,
         y: 0,
         transition: {
-            duration: 0.2,
-            ease: 'easeOut',
+            duration: 0.3,
+            ease: [0.4, 0, 0.2, 1],
         },
     },
+};
+
+const ProjectCard = ({ image, name, tags, githubLink, projectLink, index }) => (
+    <motion.div
+        variants={index === 0 ? itemVariants : undefined}
+        initial={index !== 0 ? { opacity: 1, y: 0 } : undefined}
+        viewport={{ once: true, margin: '-50px' }}
+        className="group pointer-events-none relative size-full max-w-md overflow-hidden rounded-xl p-4 transition-all duration-300"
+    >
+        <div className="mb-4 rounded-2xl bg-surface-light dark:bg-surface-dark">
+            <motion.div
+                whileHover={{ scale: 1.05 }}
+                transition={{ duration: 0.3 }}
+                className="size-full overflow-hidden rounded-2xl"
+            >
+                <NextImage
+                    src={image}
+                    alt={`${name} project preview`}
+                    width="1280"
+                    height="720"
+                    loading="lazy"
+                    decoding="async"
+                    className="size-full object-cover transition-transform duration-300 group-hover:scale-105"
+                    draggable="false"
+                />
+            </motion.div>
+        </div>
+
+        <div className="flex flex-col gap-4">
+            <div className="flex items-start justify-between gap-4">
+                <h2 className="text-xl font-bold text-primary-light sm:text-2xl dark:text-text-dark">
+                    {name}
+                </h2>
+                <div className="pointer-events-auto flex gap-2">
+                    {githubLink && (
+                        <motion.div
+                            whileHover={{ scale: 1.1 }}
+                            whileTap={{ scale: 0.95 }}
+                        >
+                            <Button
+                                as="a"
+                                href={githubLink}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                variant="outline"
+                                size="sm"
+                                aria-label={`View source code for ${name}`}
+                                className="rounded-full p-2"
+                            >
+                                <SourceCode className="size-5" />
+                            </Button>
+                        </motion.div>
+                    )}
+                    {projectLink && (
+                        <motion.div
+                            whileHover={{ scale: 1.1 }}
+                            whileTap={{ scale: 0.95 }}
+                        >
+                            <Button
+                                as="a"
+                                href={projectLink}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                variant="outline"
+                                size="sm"
+                                aria-label={`View live demo of ${name}`}
+                                className="rounded-full p-2"
+                            >
+                                <ArrowLink className="size-5" />
+                            </Button>
+                        </motion.div>
+                    )}
+                </div>
+            </div>
+
+            <div className="flex flex-wrap gap-2">
+                {tags.map(({ name, variant }) => (
+                    <Tag key={name} variant={variant}>
+                        {name}
+                    </Tag>
+                ))}
+            </div>
+        </div>
+    </motion.div>
+);
+
+ProjectCard.propTypes = {
+    image: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    tags: PropTypes.arrayOf(
+        PropTypes.shape({
+            name: PropTypes.string.isRequired,
+            variant: PropTypes.string.isRequired,
+        })
+    ).isRequired,
+    githubLink: PropTypes.string,
+    projectLink: PropTypes.string,
+    index: PropTypes.number.isRequired,
 };
 
 export default function Projects() {
     const [page, setPage] = useState(0);
     const [direction, setDirection] = useState(0);
+    const [selectedTag, setSelectedTag] = useState('All');
     const itemsPerPage = 2;
-    const totalPages = Math.ceil(projects.length / itemsPerPage);
 
-    // Get unique tags from all projects
-    const uniqueTags = [
-        'All',
-        ...new Set(projects.flatMap((project) => project.tags)),
-        ...new Set(projects.flatMap((project) => project.tags)),
-        ...new Set(projects.flatMap((project) => project.tags)),
-        ...new Set(projects.flatMap((project) => project.tags)),
-    ];
+    const filteredProjects =
+        selectedTag === 'All'
+            ? projects
+            : projects.filter((project) =>
+                  project.tags.some((tag) => tag.name === selectedTag)
+              );
 
-    const currentProjects = projects.slice(
+    const totalPages = Math.ceil(filteredProjects.length / itemsPerPage);
+    const currentProjects = filteredProjects.slice(
         page * itemsPerPage,
         (page + 1) * itemsPerPage
     );
+
+    // Get unique tags from all projects
+    const uniqueTags = [
+        { name: 'All' },
+        ...new Set(projects.flatMap((project) => project.tags)),
+    ];
 
     const swipeConfidenceThreshold = 10000;
     const swipePower = (offset, velocity) => {
@@ -130,54 +255,79 @@ export default function Projects() {
         }
     };
 
+    const handleTagClick = (tagName) => {
+        setSelectedTag(tagName);
+        setPage(0);
+        setDirection(0);
+    };
+
     return (
         <section
             id="projects"
-            className="mx-auto flex min-h-[60vh] max-w-5xl flex-col py-28"
+            className="mx-auto flex min-h-[60vh] w-full max-w-5xl flex-col px-4 py-16 sm:px-6 sm:py-20 md:py-24 lg:py-28"
+            aria-labelledby="projects-heading"
         >
             <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
+                viewport={{ once: true, margin: '-50px' }}
                 transition={{ duration: 0.5 }}
             >
                 <Text
                     as="h1"
-                    size="text-5xl"
+                    size="text-4xl"
+                    responsiveSize={{
+                        sm: 'text-5xl',
+                    }}
                     weight="font-bold"
-                    className="mb-12"
+                    className="mb-8 sm:mb-12"
                     id="projects-heading"
                     role="heading"
                     aria-label="Projects portfolio section"
                 >
                     Projects
                 </Text>
-                <div className="mb-8 flex flex-wrap gap-2">
-                    {uniqueTags.map((tag, index) => (
-                        <button
-                            key={`${tag}-${index}`}
+                <div className="mb-6 flex flex-wrap gap-2 sm:mb-8">
+                    {uniqueTags.map(({ name }, index) => (
+                        <motion.button
+                            key={`${name}-${index}`}
+                            onClick={() => handleTagClick(name)}
+                            whileHover={{ scale: 1.05 }}
+                            whileTap={{ scale: 0.95 }}
                             className={`rounded-full px-4 py-2 text-sm font-medium transition-all duration-300 ${
-                                tag === 'All'
+                                name === selectedTag
                                     ? 'bg-primary-light text-white dark:bg-primary-dark'
-                                    : 'bg-surface-light text-muted-light dark:bg-surface-dark dark:text-muted-dark'
+                                    : 'bg-surface-light text-muted-light hover:bg-surface-light/80 dark:bg-surface-dark dark:text-muted-dark dark:hover:bg-surface-dark/80'
                             }`}
+                            role="tab"
+                            aria-selected={name === selectedTag}
                         >
-                            {tag}
-                        </button>
+                            {name}
+                        </motion.button>
                     ))}
                 </div>
                 <div className="flex flex-col items-center gap-4 pb-4">
-                    <div className="flex items-center justify-center gap-2">
+                    <div
+                        className="flex items-center justify-center gap-2"
+                        role="tablist"
+                        aria-label="Project pages"
+                    >
                         {Array.from({ length: totalPages }).map((_, index) => (
-                            <button
+                            <motion.button
                                 key={index}
                                 onClick={() => setPage(index)}
+                                whileHover={{ scale: 1.1 }}
+                                whileTap={{ scale: 0.9 }}
                                 className={`h-2 rounded-full transition-all duration-300 ${
                                     page === index
                                         ? 'w-8 bg-primary-light dark:bg-primary-dark'
                                         : 'w-2 bg-gray-300 hover:bg-gray-400 dark:bg-gray-700 dark:hover:bg-gray-600'
                                 }`}
                                 aria-label={`Go to page ${index + 1}`}
+                                aria-current={
+                                    page === index ? 'page' : undefined
+                                }
+                                role="tab"
                             />
                         ))}
                     </div>
@@ -185,13 +335,14 @@ export default function Projects() {
                 <motion.div
                     initial={{ opacity: 0 }}
                     whileInView={{ opacity: 1 }}
-                    viewport={{ once: true }}
+                    viewport={{ once: true, margin: '-50px' }}
                     transition={{ delay: 0.3 }}
-                    className="mb-8 flex flex-col items-center gap-6"
+                    className="mb-6 flex flex-col items-center gap-4 sm:mb-8"
                 >
-                    {/* Swipe Indicator */}
                     <div className="flex items-center justify-center gap-4 text-sm text-gray-500 dark:text-gray-400">
-                        <span>Swipe to navigate</span>
+                        <span className="hidden sm:inline">
+                            Swipe to navigate
+                        </span>
                         <motion.div
                             animate={{ x: [0, 10, 0] }}
                             transition={{
@@ -207,6 +358,7 @@ export default function Projects() {
                                 fill="none"
                                 viewBox="0 0 24 24"
                                 stroke="currentColor"
+                                aria-hidden="true"
                             >
                                 <path
                                     strokeLinecap="round"
@@ -241,97 +393,17 @@ export default function Projects() {
                                 paginate(-1);
                             }
                         }}
-                        className="grid flex-1 grid-cols-1 gap-8 md:grid-cols-2"
+                        className="grid min-h-[500px] flex-1 grid-cols-1 place-items-center gap-6 sm:gap-8 md:grid-cols-2"
+                        role="tabpanel"
+                        aria-label={`Project page ${page + 1}`}
                     >
-                        {currentProjects.map(
-                            ({
-                                image,
-                                name,
-                                tags,
-                                githubLink,
-                                projectLink,
-                            }) => (
-                                <motion.div
-                                    key={name}
-                                    variants={
-                                        page === 0 ? itemVariants : undefined
-                                    }
-                                    initial={
-                                        page !== 0
-                                            ? { opacity: 1, y: 0 }
-                                            : undefined
-                                    }
-                                    viewport={{ once: true }}
-                                    className="group pointer-events-none relative max-w-md overflow-hidden transition-all duration-300"
-                                >
-                                    <div className="mb-2 overflow-hidden rounded-2xl">
-                                        <motion.div
-                                            whileHover={{ scale: 1.05 }}
-                                            transition={{ duration: 0.3 }}
-                                        >
-                                            <NextImage
-                                                src={image}
-                                                alt={name}
-                                                width="1280"
-                                                height="1024"
-                                                loading="lazy"
-                                                decoding="async"
-                                                className="h-72 w-full object-cover transition-transform duration-300 group-hover:scale-105"
-                                                draggable="false"
-                                            />
-                                        </motion.div>
-                                    </div>
-
-                                    <div className="flex items-center px-3 pb-4">
-                                        <div className="grow">
-                                            <h2 className="text-2xl font-bold text-primary-light dark:text-text-dark">
-                                                {name}
-                                            </h2>
-
-                                            <div className="mt-4 flex flex-wrap gap-2">
-                                                {tags.map((tag) => (
-                                                    <Tag key={tag}>{tag}</Tag>
-                                                ))}
-                                            </div>
-                                        </div>
-                                        <div className="pointer-events-auto ml-auto flex gap-2">
-                                            {githubLink && (
-                                                <motion.div
-                                                    whileHover={{ scale: 1.1 }}
-                                                    whileTap={{ scale: 0.95 }}
-                                                >
-                                                    <Button
-                                                        as="a"
-                                                        href={githubLink}
-                                                        target="_blank"
-                                                        variant="outline"
-                                                        size="sm"
-                                                    >
-                                                        <SourceCode />
-                                                    </Button>
-                                                </motion.div>
-                                            )}
-                                            {projectLink && (
-                                                <motion.div
-                                                    whileHover={{ scale: 1.1 }}
-                                                    whileTap={{ scale: 0.95 }}
-                                                >
-                                                    <Button
-                                                        as="a"
-                                                        href={projectLink}
-                                                        target="_blank"
-                                                        variant="outline"
-                                                        size="sm"
-                                                    >
-                                                        <ArrowLink />
-                                                    </Button>
-                                                </motion.div>
-                                            )}
-                                        </div>
-                                    </div>
-                                </motion.div>
-                            )
-                        )}
+                        {currentProjects.map((project, index) => (
+                            <ProjectCard
+                                key={project.name}
+                                index={index}
+                                {...project}
+                            />
+                        ))}
                     </motion.div>
                 </AnimatePresence>
             </div>

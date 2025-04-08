@@ -8,6 +8,8 @@ const variants = {
     database: 'bg-emerald-800 dark:bg-emerald-800',
     tools: 'bg-violet-800 dark:bg-violet-800',
     cloud: 'bg-orange-800 dark:bg-orange-800',
+    gamedev: 'bg-fuchsia-800 dark:bg-fuchsia-800',
+    others: 'bg-gray-700 dark:bg-gray-700',
 };
 
 export default function Tag({ children, variant = 'primary', className }) {
