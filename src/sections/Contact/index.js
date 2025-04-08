@@ -19,7 +19,7 @@ const contactMethods = [
         icon: LinkedIn,
         title: 'LinkedIn',
         value: 'João Diogo Paulo',
-        link: 'https://www.linkedin.com/in/joao-diogo-paulo',
+        link: 'https://www.linkedin.com/in/jdiogop/',
         linkText: 'Connect with me →',
         ariaLabel: 'Visit LinkedIn profile',
     },
