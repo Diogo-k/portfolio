@@ -1,11 +1,12 @@
 'use client';
 
-import { motion, AnimatePresence } from 'framer-motion';
 import { useState } from 'react';
 import PropTypes from 'prop-types';
+import { motion, AnimatePresence } from 'framer-motion';
 
 import { Text, Button, NextImage, Tag } from '@/components';
 import { ArrowLink, SourceCode } from '@/assets';
+
 import dynamicBlurDataUrl from '../../utils/dynamicBlurData';
 
 const projects = [
@@ -236,7 +237,6 @@ export default function Projects() {
         (page + 1) * itemsPerPage
     );
 
-    // Get unique tags from all projects
     const uniqueTags = [
         { name: 'All' },
         ...new Set(projects.flatMap((project) => project.tags)),
