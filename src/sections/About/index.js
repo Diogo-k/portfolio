@@ -5,47 +5,49 @@ import Image from 'next/image';
 import PropTypes from 'prop-types';
 import { useState } from 'react';
 import { Text, Tag, Button } from '@/components';
+import { Github } from '@/assets';
 
 const skills = [
     // Core & Frontend (Red)
-    { name: 'JavaScript', variant: 'frontend' },
-    { name: 'TypeScript', variant: 'frontend' },
-    { name: 'HTML5', variant: 'frontend' },
-    { name: 'CSS/Sass', variant: 'frontend' },
-    { name: 'React.js', variant: 'frontend' },
-    { name: 'Next.js', variant: 'frontend' },
-    { name: 'React Native', variant: 'frontend' },
-    { name: 'Redux', variant: 'frontend' },
-    { name: 'React Query', variant: 'frontend' },
-    { name: 'Tailwind CSS', variant: 'frontend' },
-    { name: 'Framer Motion', variant: 'frontend' },
+    { name: 'JavaScript', variant: 'frontend', icon: Github },
+    { name: 'TypeScript', variant: 'frontend', icon: Github },
+    { name: 'HTML5', variant: 'frontend', icon: Github },
+    { name: 'CSS/Sass', variant: 'frontend', icon: Github },
+    { name: 'React.js', variant: 'frontend', icon: Github },
+    { name: 'Next.js', variant: 'frontend', icon: Github },
+    { name: 'React Native', variant: 'frontend', icon: Github },
+    { name: 'Redux', variant: 'frontend', icon: Github },
+    { name: 'React Query', variant: 'frontend', icon: Github },
+    { name: 'Tailwind CSS', variant: 'frontend', icon: Github },
+    { name: 'Framer Motion', variant: 'frontend', icon: Github },
 
     // Backend (Blue)
-    { name: 'Node.js', variant: 'backend' },
-    { name: 'Express', variant: 'backend' },
-    { name: 'GraphQL', variant: 'backend' },
+    { name: 'Node.js', variant: 'backend', icon: Github },
+    { name: 'Express', variant: 'backend', icon: Github },
+    { name: 'GraphQL', variant: 'backend', icon: Github },
 
     // Databases (Green)
-    { name: 'MongoDB', variant: 'database' },
-    { name: 'SQL', variant: 'database' },
+    { name: 'MongoDB', variant: 'database', icon: Github },
+    { name: 'SQL', variant: 'database', icon: Github },
 
     // Development Tools (Purple)
-    { name: 'Git', variant: 'tools' },
-    { name: 'Docker', variant: 'tools' },
-    { name: 'Webpack', variant: 'tools' },
-    { name: 'PNPM', variant: 'tools' },
+    { name: 'Git', variant: 'tools', icon: Github },
+    { name: 'Docker', variant: 'tools', icon: Github },
+    { name: 'Webpack', variant: 'tools', icon: Github },
+    { name: 'PNPM', variant: 'tools', icon: Github },
 
     // Cloud & Deployment (Orange)
-    { name: 'AWS', variant: 'cloud' },
-    { name: 'Vercel', variant: 'cloud' },
-    { name: 'Netlify', variant: 'cloud' },
-    { name: 'Heroku', variant: 'cloud' },
+    { name: 'AWS', variant: 'cloud', icon: Github },
+    { name: 'Vercel', variant: 'cloud', icon: Github },
+    { name: 'Netlify', variant: 'cloud', icon: Github },
+    { name: 'Heroku', variant: 'cloud', icon: Github },
 ];
 
 const aboutMeParagraphs = [
-    "Hey, I'm João Diogo Paulo, a Frontend Developer from Lisbon who enjoys crafting clean, efficient, and user-focused digital experiences. I work mostly with React, Next.js, and React Native, and I'm all about building scalable, maintainable solutions that make life easier for users and teams.",
-    "Over the years, I've helped revamp legacy platforms, launch eCommerce sites, and build custom tools for industries like real estate, pharma, and even forest conservation. I love turning complex ideas into smooth, performant interfaces that just work.",
-    "Outside of coding, I'm into video games, anime, and more recently, game development as a creative outlet. I'm always looking for new challenges to grow whether that's diving into a new framework or jumping out of a plane just to push myself. That mindset drives how I learn, build, and collaborate.",
+    "Hey, I'm <span class='font-bold text-primary-light dark:text-accent-dark'>João Diogo Paulo</span>, a <span class='font-bold text-primary-light dark:text-accent-dark'>Frontend Developer</span> from Lisbon who enjoys crafting clean, efficient, and user-focused digital experiences. I work mostly with <span class='font-bold text-primary-light dark:text-primary-dark'>React</span>, <span class='font-bold text-primary-light dark:text-primary-dark'>Next.js</span>, and <span class='font-bold text-primary-light dark:text-primary-dark'>React Native</span>, and I'm all about building scalable, maintainable solutions that make life easier for users and teams.",
+    "Over the years, I've helped revamp legacy platforms, launch eCommerce sites, and build custom tools for industries like banking, real estate, pharma, and even forest conservation. I love turning complex ideas into smooth, performant interfaces that just work.",
+    "Outside of coding, I'm into <span class='font-bold text-primary-light dark:text-accent-dark'>Video games</span> 🎮 <span class='font-bold text-primary-light dark:text-accent-dark'>Anime</span> 📺 and more recently <span class='font-bold text-primary-light dark:text-accent-dark'>Game Development</span> 💻 as a hobby. I'm always looking for new challenges to grow whether that's <span class='font-semibold'>diving into a new framework or jumping out of a plane</span> 🪂 just to push myself.",
+    '<span class="font-bold text-primary-light dark:text-accent-dark">That mindset drives how I learn, build, and collaborate!</span>',
     "Always open to cool ideas and new projects let's connect.",
 ];
 
@@ -75,6 +77,7 @@ const Skills = () => (
             <Tag
                 key={skill.name}
                 variant={skill.variant}
+                icon={skill.icon}
                 className="transition-all duration-300 hover:scale-105"
                 role="listitem"
                 aria-label={`${skill.name} skill`}
@@ -244,9 +247,10 @@ export default function About() {
                                     responsiveSize={{
                                         sm: 'text-base',
                                     }}
-                                >
-                                    {paragraph}
-                                </Text>
+                                    dangerouslySetInnerHTML={{
+                                        __html: paragraph,
+                                    }}
+                                />
                             </motion.div>
                         ))}
                     </div>
