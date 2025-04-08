@@ -85,7 +85,7 @@ export default function Intro({ className = '' }) {
             className={`flex h-screen flex-col items-center justify-center ${className}`}
             aria-label="Introduction"
         >
-            <CherryBlossoms />
+            {/* <CherryBlossoms /> */}
             <motion.div
                 variants={ANIMATION_VARIANTS.container}
                 initial="hidden"
