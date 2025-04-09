@@ -12,8 +12,6 @@ import SectionDivider from './SectionDivider';
 //* Specific Components
 import ThemeSwitcher from './ThemeSwitcher';
 import CherryBlossoms from './CherryBlossoms';
-import DecryptedText from './DecryptedText';
-import Transition from './Transition';
 import Modal from './Modal';
 
 //*
@@ -29,8 +27,6 @@ export {
     SectionDivider,
     ThemeSwitcher,
     CherryBlossoms,
-    DecryptedText,
     NextImage,
-    Transition,
     Modal,
 };
