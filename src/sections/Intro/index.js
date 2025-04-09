@@ -84,6 +84,7 @@ export default function Intro({ className = '' }) {
             id="home"
             className={`flex h-screen flex-col items-center justify-center ${className}`}
             aria-label="Introduction"
+            role="banner"
         >
             {/* <CherryBlossoms /> */}
             <motion.div
@@ -94,9 +95,9 @@ export default function Intro({ className = '' }) {
                     duration: 0.5,
                     delay: ANIMATION_TIMINGS.containerDelay,
                 }}
-                className="z-10 mx-auto max-w-5xl pb-14 md:py-36"
+                className="mx-auto flex max-w-5xl flex-col px-4 py-16 sm:px-6 sm:py-20 md:py-24 lg:py-28"
             >
-                <div className="mb-12 flex flex-wrap" role="banner">
+                <h1 className="mb-12 flex flex-wrap" aria-label={name}>
                     {name.split('').map((char, index) => (
                         <motion.span
                             key={index}
@@ -109,7 +110,7 @@ export default function Intro({ className = '' }) {
                                     ANIMATION_TIMINGS.containerDelay +
                                     index * ANIMATION_TIMINGS.letterDelay,
                             }}
-                            className={`font-sora text-2xl tracking-widest text-muted-light dark:text-muted-dark ${
+                            className={`text-lg tracking-widest text-muted-light md:text-2xl dark:text-muted-dark ${
                                 char === ' ' ? 'w-2' : ''
                             }`}
                             aria-hidden="true"
@@ -117,8 +118,8 @@ export default function Intro({ className = '' }) {
                             {char}
                         </motion.span>
                     ))}
-                </div>
-                <div className="flex flex-wrap">
+                </h1>
+                <h2 className="flex flex-wrap" aria-label={title}>
                     {title.split(' ').map((word, index) => (
                         <div key={index} className="relative overflow-hidden">
                             <AnimatePresence>
@@ -162,14 +163,14 @@ export default function Intro({ className = '' }) {
                                         calculateWordDelay(index) +
                                         ANIMATION_TIMINGS.revealDelay,
                                 }}
-                                className="relative text-4xl font-bold md:text-9xl"
+                                className="relative text-7xl font-bold md:text-9xl"
                                 aria-hidden="true"
                             >
                                 {word}
                             </motion.span>
                         </div>
                     ))}
-                </div>
+                </h2>
                 <motion.div
                     variants={ANIMATION_VARIANTS.button}
                     initial="hidden"
