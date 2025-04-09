@@ -4,6 +4,14 @@ import { createContext, useContext, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Modal } from '@/components';
 
+/**
+ * Context provider for managing modal state and content across the application.
+ * Provides functions to open and close modals with customizable content.
+ *
+ * @param {Object} props - Component props
+ * @param {React.ReactNode} props.children - Child components that will have access to the modal context
+ * @returns {JSX.Element} A context provider with modal management functionality
+ */
 const ModalContext = createContext();
 
 export function ModalProvider({ children }) {

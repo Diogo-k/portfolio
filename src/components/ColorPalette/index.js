@@ -1,5 +1,12 @@
 import { Text } from '@/components';
 
+/**
+ * A component that displays the application's color palette in a grid layout.
+ * Shows both light and dark mode variants of each color with their names.
+ * Useful for development and design system documentation.
+ *
+ * @returns {JSX.Element} A grid of color swatches with their names
+ */
 export default function ColorPalette() {
     const colors = [
         { name: 'Primary', className: 'bg-primary-light dark:bg-primary-dark' },
