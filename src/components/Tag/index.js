@@ -31,7 +31,11 @@ export default function Tag({
             transition={{ duration: 0.2 }}
         >
             {Icon && (
-                <Icon className="size-3.5 fill-white" aria-hidden="true" />
+                <Icon
+                    title={children}
+                    className="size-3.5 fill-white"
+                    aria-hidden="true"
+                />
             )}
             {children}
         </motion.span>
@@ -43,4 +47,8 @@ Tag.propTypes = {
     variant: PropTypes.oneOf(Object.keys(variants)),
     className: PropTypes.string,
     icon: PropTypes.elementType,
+};
+
+Tag.defaultProps = {
+    icon: null,
 };

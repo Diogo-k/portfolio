@@ -1,10 +1,13 @@
 'use client';
 
 import { useState } from 'react';
-import { Link, Text, Button } from '@/components';
-import { LinkedIn, Github, Mail } from '@/assets';
-import { submitContactForm } from '@/utils';
 import { motion } from 'framer-motion';
+
+import { Link, Text, Button } from '@/components';
+
+import { Mail, LinkedIn, Github } from '@/assets';
+
+import { submitContactForm } from '@/utils';
 
 const contactMethods = [
     {

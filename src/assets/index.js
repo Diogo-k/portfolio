@@ -10,6 +10,8 @@ import Github from './icons/Github';
 import LinkedIn from './icons/LinkedIn';
 import Mail from './icons/Mail';
 
+import X from './icons/X';
+
 export {
     Sun,
     Moon,
@@ -20,4 +22,5 @@ export {
     Github,
     LinkedIn,
     Mail,
+    X,
 };

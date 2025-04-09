@@ -1,6 +1,6 @@
-import ThemeProvider from './ThemeProvider';
-
 import { submitContactForm } from './api';
+
+import ThemeProvider from './ThemeProvider';
 
 import dynamicBlurDataUrl from './dynamicBlurData';
 

@@ -14,6 +14,7 @@ import ThemeSwitcher from './ThemeSwitcher';
 import CherryBlossoms from './CherryBlossoms';
 import DecryptedText from './DecryptedText';
 import Transition from './Transition';
+import Modal from './Modal';
 
 //*
 import NextImage from './NextImage';
@@ -31,4 +32,5 @@ export {
     DecryptedText,
     NextImage,
     Transition,
+    Modal,
 };

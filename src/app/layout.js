@@ -2,9 +2,9 @@ import { Suspense } from 'react';
 import { Sora } from 'next/font/google';
 import '@/styles/globals.css';
 
-import ThemeProvider from '../utils/ThemeProvider';
-
+import { ModalProvider } from '@/context';
 import { Header, Footer } from '@/components';
+import { ThemeProvider } from '@/utils';
 
 const sora = Sora({
     subsets: ['latin'],
@@ -88,11 +88,13 @@ export default function RootLayout({ children }) {
                     defaultTheme="system"
                     enableSystem
                 >
-                    <Suspense>
-                        <Header />
-                    </Suspense>
-                    <main>{children}</main>
-                    <Footer />
+                    <ModalProvider>
+                        <Suspense>
+                            <Header />
+                        </Suspense>
+                        <main>{children}</main>
+                        <Footer />
+                    </ModalProvider>
                 </ThemeProvider>
             </body>
         </html>

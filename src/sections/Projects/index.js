@@ -6,6 +6,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 
 import { Text, Button, NextImage, Tag } from '@/components';
 import { ArrowLink, SourceCode } from '@/assets';
+import { useModal } from '@/context';
 
 import dynamicBlurDataUrl from '../../utils/dynamicBlurData';
 
@@ -14,6 +15,24 @@ const projects = [
         image: '/satyr.png',
         blurDataURL: dynamicBlurDataUrl('/satyr.png'),
         name: 'Portfolio',
+        description:
+            'A modern, responsive portfolio website built with Next.js and Tailwind CSS. Features include dark mode support, smooth animations, and a clean, minimalist design.',
+        details: {
+            technologies: ['Next.js', 'React', 'Tailwind CSS', 'Framer Motion'],
+            features: [
+                'Responsive design for all devices',
+                'Dark mode support',
+                'Smooth page transitions',
+                'Interactive UI components',
+                'Accessible navigation',
+                'Performance optimized',
+            ],
+            challenges: [
+                'Implementing smooth animations while maintaining performance',
+                'Creating an accessible and user-friendly interface',
+                'Optimizing images and assets for fast loading',
+            ],
+        },
         tags: [
             { name: 'Javascript', variant: 'frontend' },
             { name: 'Next.js', variant: 'frontend' },
@@ -26,6 +45,23 @@ const projects = [
         image: '/satyr.png',
         blurDataURL: dynamicBlurDataUrl('/satyr.png'),
         name: 'Test 1',
+        description:
+            'A 2D platformer game developed using Godot Engine. Features include character movement, collision detection, and level design.',
+        details: {
+            technologies: ['Godot', 'GDScript'],
+            features: [
+                'Character movement and animation',
+                'Level design and progression',
+                'Collision detection',
+                'Sound effects and music',
+                'Score tracking',
+            ],
+            challenges: [
+                'Implementing smooth character movement',
+                'Designing engaging levels',
+                'Optimizing game performance',
+            ],
+        },
         tags: [
             { name: 'Godot', variant: 'gamedev' },
             { name: 'Hobby', variant: 'others' },
@@ -120,89 +156,213 @@ const itemVariants = {
     },
 };
 
-const ProjectCard = ({ image, name, tags, githubLink, projectLink, index }) => (
-    <motion.div
-        variants={index === 0 ? itemVariants : undefined}
-        initial={index !== 0 ? { opacity: 1, y: 0 } : undefined}
-        viewport={{ once: true, margin: '-50px' }}
-        className="group pointer-events-none relative size-full max-w-md overflow-hidden rounded-xl p-4 transition-all duration-300"
-    >
-        <div className="mb-4 rounded-2xl bg-surface-light dark:bg-surface-dark">
-            <motion.div
-                whileHover={{ scale: 1.05 }}
-                transition={{ duration: 0.3 }}
-                className="size-full overflow-hidden rounded-2xl"
-            >
-                <NextImage
-                    src={image}
-                    alt={`${name} project preview`}
-                    width="1280"
-                    height="720"
-                    loading="lazy"
-                    decoding="async"
-                    className="size-full object-cover transition-transform duration-300 group-hover:scale-105"
-                    draggable="false"
-                />
-            </motion.div>
-        </div>
+const ProjectCard = ({
+    image,
+    name,
+    tags,
+    githubLink,
+    projectLink,
+    index,
+    description,
+    details,
+}) => {
+    const { openModal } = useModal();
 
-        <div className="flex flex-col gap-4">
-            <div className="flex items-start justify-between gap-4">
-                <h2 className="text-xl font-bold text-primary-light sm:text-2xl dark:text-text-dark">
-                    {name}
-                </h2>
-                <div className="pointer-events-auto flex gap-2">
-                    {githubLink && (
+    const handleOpenModal = () => {
+        openModal({
+            title: name,
+            ariaLabel: `${name} project details`,
+            children: (
+                <div className="space-y-6">
+                    <div className="relative aspect-video w-full overflow-hidden rounded-lg">
+                        <NextImage
+                            src={image}
+                            alt={`${name} project preview`}
+                            width="1280"
+                            height="720"
+                            className="size-full object-cover"
+                        />
+                    </div>
+
+                    <div className="space-y-4">
+                        <Text
+                            as="p"
+                            size="base"
+                            className="text-text-light dark:text-text-dark"
+                        >
+                            {description}
+                        </Text>
+
+                        <div className="space-y-4">
+                            <div>
+                                <Text
+                                    as="h3"
+                                    size="lg"
+                                    weight="font-semibold"
+                                    className="mb-2"
+                                >
+                                    Technologies Used
+                                </Text>
+                                <div className="flex flex-wrap gap-2">
+                                    {details.technologies.map((tech) => (
+                                        <Tag key={tech} variant="frontend">
+                                            {tech}
+                                        </Tag>
+                                    ))}
+                                </div>
+                            </div>
+
+                            <div>
+                                <Text
+                                    as="h3"
+                                    size="lg"
+                                    weight="font-semibold"
+                                    className="mb-2"
+                                >
+                                    Key Features
+                                </Text>
+                                <ul className="list-inside list-disc space-y-1 text-text-light dark:text-text-dark">
+                                    {details.features.map((feature, index) => (
+                                        <li key={index}>{feature}</li>
+                                    ))}
+                                </ul>
+                            </div>
+
+                            <div>
+                                <Text
+                                    as="h3"
+                                    size="lg"
+                                    weight="font-semibold"
+                                    className="mb-2"
+                                >
+                                    Challenges & Solutions
+                                </Text>
+                                <ul className="list-inside list-disc space-y-1 text-text-light dark:text-text-dark">
+                                    {details.challenges.map(
+                                        (challenge, index) => (
+                                            <li key={index}>{challenge}</li>
+                                        )
+                                    )}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            ),
+        });
+    };
+
+    return (
+        <motion.div
+            variants={index === 0 ? itemVariants : undefined}
+            initial={index !== 0 ? { opacity: 1, y: 0 } : undefined}
+            viewport={{ once: true, margin: '-50px' }}
+            className="group pointer-events-none relative size-full max-w-md overflow-hidden rounded-xl p-4 transition-all duration-300"
+        >
+            <div className="mb-4 rounded-2xl bg-surface-light dark:bg-surface-dark">
+                <motion.div
+                    whileHover={{ scale: 1.05 }}
+                    transition={{ duration: 0.3 }}
+                    className="size-full overflow-hidden rounded-2xl"
+                >
+                    <NextImage
+                        src={image}
+                        alt={`${name} project preview`}
+                        width="1280"
+                        height="720"
+                        loading="lazy"
+                        decoding="async"
+                        className="size-full object-cover transition-transform duration-300 group-hover:scale-105"
+                        draggable="false"
+                    />
+                </motion.div>
+            </div>
+
+            <div className="flex flex-col gap-4">
+                <div className="flex items-start justify-between gap-4">
+                    <h2 className="text-xl font-bold text-primary-light sm:text-2xl dark:text-text-dark">
+                        {name}
+                    </h2>
+                    <div className="pointer-events-auto flex gap-2">
                         <motion.div
                             whileHover={{ scale: 1.1 }}
                             whileTap={{ scale: 0.95 }}
                         >
                             <Button
-                                as="a"
-                                href={githubLink}
-                                target="_blank"
-                                rel="noopener noreferrer"
                                 variant="outline"
                                 size="sm"
-                                aria-label={`View source code for ${name}`}
+                                onClick={handleOpenModal}
+                                aria-label={`View details for ${name}`}
                                 className="rounded-full p-2"
                             >
-                                <SourceCode className="size-5" />
+                                <svg
+                                    className="size-5"
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                    stroke="currentColor"
+                                    aria-hidden="true"
+                                >
+                                    <path
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                        strokeWidth={2}
+                                        d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                                    />
+                                </svg>
                             </Button>
                         </motion.div>
-                    )}
-                    {projectLink && (
-                        <motion.div
-                            whileHover={{ scale: 1.1 }}
-                            whileTap={{ scale: 0.95 }}
-                        >
-                            <Button
-                                as="a"
-                                href={projectLink}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                variant="outline"
-                                size="sm"
-                                aria-label={`View live demo of ${name}`}
-                                className="rounded-full p-2"
+                        {githubLink && (
+                            <motion.div
+                                whileHover={{ scale: 1.1 }}
+                                whileTap={{ scale: 0.95 }}
                             >
-                                <ArrowLink className="size-5" />
-                            </Button>
-                        </motion.div>
-                    )}
+                                <Button
+                                    as="a"
+                                    href={githubLink}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    variant="outline"
+                                    size="sm"
+                                    aria-label={`View source code for ${name}`}
+                                    className="rounded-full p-2"
+                                >
+                                    <SourceCode className="size-5" />
+                                </Button>
+                            </motion.div>
+                        )}
+                        {projectLink && (
+                            <motion.div
+                                whileHover={{ scale: 1.1 }}
+                                whileTap={{ scale: 0.95 }}
+                            >
+                                <Button
+                                    as="a"
+                                    href={projectLink}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    variant="outline"
+                                    size="sm"
+                                    aria-label={`View live demo of ${name}`}
+                                    className="rounded-full p-2"
+                                >
+                                    <ArrowLink className="size-5" />
+                                </Button>
+                            </motion.div>
+                        )}
+                    </div>
+                </div>
+
+                <div className="flex flex-wrap gap-2">
+                    {tags.map(({ name, variant }) => (
+                        <Tag key={name} variant={variant}>
+                            {name}
+                        </Tag>
+                    ))}
                 </div>
             </div>
-
-            <div className="flex flex-wrap gap-2">
-                {tags.map(({ name, variant }) => (
-                    <Tag key={name} variant={variant}>
-                        {name}
-                    </Tag>
-                ))}
-            </div>
-        </div>
-    </motion.div>
-);
+        </motion.div>
+    );
+};
 
 ProjectCard.propTypes = {
     image: PropTypes.string.isRequired,
@@ -216,6 +376,12 @@ ProjectCard.propTypes = {
     githubLink: PropTypes.string,
     projectLink: PropTypes.string,
     index: PropTypes.number.isRequired,
+    description: PropTypes.string.isRequired,
+    details: PropTypes.shape({
+        technologies: PropTypes.arrayOf(PropTypes.string).isRequired,
+        features: PropTypes.arrayOf(PropTypes.string).isRequired,
+        challenges: PropTypes.arrayOf(PropTypes.string).isRequired,
+    }).isRequired,
 };
 
 export default function Projects() {

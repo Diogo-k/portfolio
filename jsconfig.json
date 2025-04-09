@@ -1,10 +1,11 @@
 {
     "compilerOptions": {
         "paths": {
+            "@/context": ["./src/context/index"],
             "@/sections": ["./src/sections/index"],
             "@/components": ["./src/components/index"],
-            "@/assets": ["./src/assets/index"],
             "@/utils": ["./src/utils/index"],
+            "@/assets": ["./src/assets/index"],
             "@/styles/*": ["./src/styles/*"]
         }
     }

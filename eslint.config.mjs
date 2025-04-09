@@ -59,9 +59,12 @@ const eslintConfig = [
             'import/resolver': {
                 alias: {
                     map: [
+                        ['@/context', './src/context/index'],
+                        ['@/sections', './src/sections/index'],
                         ['@/components', './src/components/index'],
-                        ['@/styles', './src/styles'],
+                        ['@/utils', './src/utils/index'],
                         ['@/assets', './src/assets/index'],
+                        ['@/styles', './src/styles'],
                     ],
                     extensions: ['.js', '.jsx'],
                 },
