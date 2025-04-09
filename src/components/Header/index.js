@@ -147,6 +147,18 @@ export default function Header() {
             document.removeEventListener('mousedown', handleClickOutside);
     }, [isMobileMenuOpen]);
 
+    // Handle keyboard navigation for accessibility
+    useEffect(() => {
+        const handleKeyDown = (e) => {
+            if (e.key === 'Escape' && isMobileMenuOpen) {
+                setIsMobileMenuOpen(false);
+            }
+        };
+
+        document.addEventListener('keydown', handleKeyDown);
+        return () => document.removeEventListener('keydown', handleKeyDown);
+    }, [isMobileMenuOpen]);
+
     return (
         <motion.header
             variants={headerVariants}
@@ -154,7 +166,7 @@ export default function Header() {
             animate="visible"
             className={clsx(
                 'supports-[backdrop-filter]:bg-background/60',
-                'fixed z-50 flex w-full items-center justify-end border-b-2 border-border-light p-6 backdrop-blur md:justify-center',
+                'fixed z-50 flex w-full items-center justify-end border-b-2 border-border-light p-2 backdrop-blur md:justify-center md:p-6',
                 'dark:border-b-4 dark:border-border-dark'
             )}
             role="banner"
@@ -162,7 +174,7 @@ export default function Header() {
         >
             {/* Desktop Navigation */}
             <nav aria-label="Primary navigation" className="hidden md:block">
-                <ul className="flex space-x-16">
+                <ul className="flex space-x-16" role="menubar">
                     {navItems.map((item) => (
                         <motion.li
                             key={item.id}
@@ -170,6 +182,7 @@ export default function Header() {
                             whileFocus={{ scale: 1.05 }}
                             transition={{ type: 'spring', stiffness: 300 }}
                             className="relative"
+                            role="none"
                         >
                             <Link
                                 variant="header"
@@ -179,6 +192,7 @@ export default function Header() {
                                     item.href === hash ? 'page' : undefined
                                 }
                                 active={item.href === hash}
+                                role="menuitem"
                             >
                                 {item.name}
                             </Link>
@@ -196,6 +210,8 @@ export default function Header() {
                 className="mobile-menu-button md:hidden"
                 variant="ghost"
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                aria-expanded={isMobileMenuOpen}
+                aria-controls="mobile-menu"
             >
                 <svg
                     className="size-8 text-primary-light dark:text-text-dark"
@@ -205,6 +221,7 @@ export default function Header() {
                     height="32"
                     stroke="currentColor"
                     aria-hidden="true"
+                    focusable="false"
                 >
                     {isMobileMenuOpen ? (
                         <path
@@ -227,14 +244,19 @@ export default function Header() {
             <AnimatePresence>
                 {isMobileMenuOpen && (
                     <motion.div
+                        id="mobile-menu"
                         variants={mobileMenuVariants}
                         initial="closed"
                         animate="open"
                         exit="closed"
                         className="mobile-menu fixed right-0 top-full z-50 w-64 rounded-bl-lg border-b-2 border-l-2 border-border-light bg-background-light/90 p-6 shadow-lg backdrop-blur-md md:hidden dark:border-border-dark dark:bg-background-dark/80"
+                        aria-label="Mobile navigation menu"
                     >
                         <nav aria-label="Mobile navigation" className="flex-1">
-                            <ul className="flex flex-col items-center space-y-6">
+                            <ul
+                                className="flex flex-col items-center space-y-6"
+                                role="menu"
+                            >
                                 {navItems.map((item) => (
                                     <motion.li
                                         key={item.id}
@@ -245,6 +267,7 @@ export default function Header() {
                                             stiffness: 300,
                                         }}
                                         className="relative"
+                                        role="none"
                                     >
                                         <Link
                                             variant="header"
@@ -259,12 +282,13 @@ export default function Header() {
                                                     : undefined
                                             }
                                             active={item.href === hash}
+                                            role="menuitem"
                                         >
                                             {item.name}
                                         </Link>
                                     </motion.li>
                                 ))}
-                                <li>
+                                <li role="none">
                                     <ThemeSwitcher />
                                 </li>
                             </ul>
