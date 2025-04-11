@@ -1,6 +1,4 @@
 'use client';
-
-import { useState } from 'react';
 import PropTypes from 'prop-types';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
@@ -32,6 +30,8 @@ import {
 } from '@icons-pack/react-simple-icons';
 
 import { Text, Tag, Button } from '@/components';
+
+import SkydiveImage from '../../../public/me_skydive.jpeg';
 
 const skills = [
     // Core & Frontend (Red)
@@ -133,65 +133,24 @@ Skills.propTypes = {
  * ProfileImage component with error handling and loading state
  */
 const ProfileImage = () => {
-    const [isError, setIsError] = useState(false);
-    const [isLoading, setIsLoading] = useState(true);
-
     return (
-        <div className="group relative h-[300px] w-full overflow-hidden rounded-2xl bg-surface-light shadow-lg transition-all duration-300 hover:shadow-xl hover:shadow-primary-light/20 sm:h-[350px] md:h-[400px] dark:bg-surface-dark dark:hover:shadow-primary-dark/20">
-            {isLoading && (
-                <motion.div
-                    className="absolute inset-0 flex items-center justify-center bg-surface-light dark:bg-surface-dark"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                >
-                    <div className="size-8 animate-spin rounded-full border-4 border-primary-light border-t-transparent dark:border-primary-dark" />
-                </motion.div>
-            )}
-            {isError ? (
-                <motion.div
-                    className="absolute inset-0 flex items-center justify-center bg-surface-light dark:bg-surface-dark"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                >
-                    <div className="flex flex-col items-center gap-2">
-                        <Text size="text-lg" weight="font-medium">
-                            Failed to load image
-                        </Text>
-                        <Button
-                            variant="outline"
-                            size="sm"
-                            onClick={() => {
-                                setIsError(false);
-                                setIsLoading(true);
-                            }}
-                        >
-                            Try again
-                        </Button>
-                    </div>
-                </motion.div>
-            ) : (
-                <motion.div
-                    className="relative size-full"
-                    whileHover={{ scale: 1.05 }}
-                    transition={{ duration: 0.3 }}
-                >
-                    <Image
-                        src="/me_skydive.jpeg"
-                        alt="Diogo Paulo - Frontend Developer"
-                        fill
-                        className="object-cover"
-                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                        loading="lazy"
-                        onLoad={() => setIsLoading(false)}
-                        onError={() => {
-                            setIsError(true);
-                            setIsLoading(false);
-                        }}
-                    />
-                </motion.div>
-            )}
+        <div className="relative h-[300px] w-full overflow-hidden rounded-2xl shadow-lg transition-all duration-300 hover:shadow-xl hover:shadow-primary-light/20 sm:h-[350px] md:h-[400px] dark:hover:shadow-primary-dark/20">
+            <motion.div
+                className="relative size-full"
+                whileHover={{ scale: 1.05 }}
+                transition={{ duration: 0.3 }}
+            >
+                <Image
+                    alt="Diogo Paulo - Frontend Developer"
+                    src={SkydiveImage}
+                    className="object-cover"
+                    fill
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                    quality={50}
+                    placeholder="blur"
+                    loading="lazy"
+                />
+            </motion.div>
         </div>
     );
 };

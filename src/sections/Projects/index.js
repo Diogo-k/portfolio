@@ -2,18 +2,18 @@
 
 import { useState } from 'react';
 import PropTypes from 'prop-types';
+import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
 
-import { Text, Button, NextImage, Tag } from '@/components';
+import { Text, Button, Tag } from '@/components';
 import { ArrowLink, SourceCode } from '@/assets';
 import { useModal } from '@/context';
 
-import dynamicBlurDataUrl from '../../utils/dynamicBlurData';
+import SatyrImage from '../../../public/satyr.png';
 
 const projects = [
     {
-        image: '/satyr.png',
-        blurDataURL: dynamicBlurDataUrl('/satyr.png'),
+        image: SatyrImage,
         name: 'Portfolio',
         description:
             'A modern, responsive portfolio website built with Next.js and Tailwind CSS. Features include dark mode support, smooth animations, and a clean, minimalist design.',
@@ -42,8 +42,7 @@ const projects = [
         projectLink: null,
     },
     {
-        image: '/satyr.png',
-        blurDataURL: dynamicBlurDataUrl('/satyr.png'),
+        image: SatyrImage,
         name: 'Test 1',
         description:
             'A 2D platformer game developed using Godot Engine. Features include character movement, collision detection, and level design.',
@@ -70,8 +69,7 @@ const projects = [
         projectLink: '/satyrs-escape',
     },
     {
-        image: '/satyr.png',
-        blurDataURL: dynamicBlurDataUrl('/satyr.png'),
+        image: SatyrImage,
         name: 'Teste 2',
         tags: [
             { name: 'Javascript', variant: 'frontend' },
@@ -82,8 +80,7 @@ const projects = [
         projectLink: null,
     },
     {
-        image: '/satyr.png',
-        blurDataURL: dynamicBlurDataUrl('/satyr.png'),
+        image: SatyrImage,
         name: 'Teste 3',
         tags: [
             { name: 'Godot', variant: 'gamedev' },
@@ -93,8 +90,7 @@ const projects = [
         projectLink: '/satyrs-escape',
     },
     {
-        image: '/satyr.png',
-        blurDataURL: dynamicBlurDataUrl('/satyr.png'),
+        image: SatyrImage,
         name: 'Teste 4',
         tags: [
             { name: 'Javascript', variant: 'frontend' },
@@ -105,8 +101,7 @@ const projects = [
         projectLink: null,
     },
     {
-        image: '/satyr.png',
-        blurDataURL: dynamicBlurDataUrl('/satyr.png'),
+        image: SatyrImage,
         name: 'Teste 5',
         tags: [
             { name: 'Godot', variant: 'gamedev' },
@@ -175,9 +170,9 @@ const ProjectCard = ({
             children: (
                 <div className="space-y-6">
                     <div className="relative aspect-video w-full overflow-hidden rounded-lg">
-                        <NextImage
-                            src={image}
+                        <Image
                             alt={`${name} project preview`}
+                            src={image}
                             width="1280"
                             height="720"
                             className="size-full object-cover"
@@ -265,15 +260,15 @@ const ProjectCard = ({
                     transition={{ duration: 0.3 }}
                     className="size-full overflow-hidden rounded-2xl"
                 >
-                    <NextImage
-                        src={image}
+                    <Image
                         alt={`${name} project preview`}
+                        src={image}
+                        className="size-full object-cover transition-transform duration-300 group-hover:scale-105"
                         width="1280"
                         height="720"
-                        loading="lazy"
-                        decoding="async"
-                        className="size-full object-cover transition-transform duration-300 group-hover:scale-105"
+                        placeholder="blur"
                         draggable="false"
+                        loading="lazy"
                     />
                 </motion.div>
             </div>
