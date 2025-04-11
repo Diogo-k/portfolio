@@ -95,7 +95,7 @@ const Skills = () => (
         variants={containerVariants}
         initial="hidden"
         whileInView="visible"
-        className="flex flex-wrap gap-2"
+        className="flex flex-wrap gap-2 overflow-hidden"
         role="list"
         aria-label="Technical skills list"
     >
@@ -136,7 +136,7 @@ const ProfileImage = () => {
     return (
         <div className="relative h-[300px] w-full overflow-hidden rounded-2xl shadow-lg transition-all duration-300 hover:shadow-xl hover:shadow-primary-light/20 sm:h-[350px] md:h-[400px] dark:hover:shadow-primary-dark/20">
             <motion.div
-                className="relative size-full"
+                className="relative h-full w-full"
                 whileHover={{ scale: 1.05 }}
                 transition={{ duration: 0.3 }}
             >
@@ -166,7 +166,7 @@ export default function About() {
     return (
         <section
             id="about-me"
-            className="mx-auto flex min-h-[50vh] max-w-5xl flex-col px-4 py-16 sm:px-6 sm:py-20 md:py-24 lg:py-28"
+            className="mx-auto flex min-h-[50vh] max-w-5xl flex-col overflow-hidden px-4 py-16 sm:px-6 sm:py-20 md:py-24 lg:py-28"
             aria-labelledby="about-heading"
         >
             <motion.div
@@ -193,10 +193,10 @@ export default function About() {
 
             <div className="grid grid-cols-1 gap-8 sm:gap-12 lg:grid-cols-2">
                 <motion.div
-                    initial={{ opacity: 0, x: -20 }}
+                    initial={{ opacity: 0, x: -10 }}
                     whileInView={{ opacity: 1, x: 0 }}
                     transition={{ duration: 0.5, delay: 0.2 }}
-                    viewport={{ once: true }}
+                    viewport={{ once: true, margin: '-10px' }}
                     className="flex flex-col gap-4 sm:gap-6"
                 >
                     <Text
@@ -256,10 +256,10 @@ export default function About() {
                 </motion.div>
 
                 <motion.div
-                    initial={{ opacity: 0, x: 20 }}
+                    initial={{ opacity: 0, x: 10 }}
                     whileInView={{ opacity: 1, x: 0 }}
                     transition={{ duration: 0.5, delay: 0.2 }}
-                    viewport={{ once: true }}
+                    viewport={{ once: true, margin: '-10px' }}
                     className="flex flex-col gap-6 sm:gap-8"
                 >
                     <ProfileImage />
