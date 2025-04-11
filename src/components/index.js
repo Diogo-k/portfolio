@@ -14,9 +14,6 @@ import ThemeSwitcher from './ThemeSwitcher';
 import CherryBlossoms from './CherryBlossoms';
 import Modal from './Modal';
 
-//*
-import NextImage from './NextImage';
-
 export {
     Header,
     Footer,
@@ -27,6 +24,5 @@ export {
     SectionDivider,
     ThemeSwitcher,
     CherryBlossoms,
-    NextImage,
     Modal,
 };
