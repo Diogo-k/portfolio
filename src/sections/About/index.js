@@ -31,7 +31,7 @@ import {
 
 import { Text, Tag, Button } from '@/components';
 
-import SkydiveImage from '../../../public/me_skydive.jpeg';
+// import SkydiveImage from '../../../public/me_skydive.jpeg';
 
 const skills = [
     // Core & Frontend (Red)
@@ -140,7 +140,7 @@ const ProfileImage = () => {
                 whileHover={{ scale: 1.05 }}
                 transition={{ duration: 0.3 }}
             >
-                <Image
+                {/* <Image
                     alt="Diogo Paulo - Frontend Developer"
                     src={SkydiveImage}
                     className="object-cover"
@@ -149,7 +149,7 @@ const ProfileImage = () => {
                     quality={50}
                     placeholder="blur"
                     loading="lazy"
-                />
+                /> */}
             </motion.div>
         </div>
     );

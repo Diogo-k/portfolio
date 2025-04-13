@@ -9,11 +9,11 @@ import { Text, Button, Tag } from '@/components';
 import { ArrowLink, SourceCode } from '@/assets';
 import { useModal } from '@/context';
 
-import SatyrImage from '../../../public/satyr.png';
+// import SatyrImage from '../../../public/satyr.png';
 
 const projects = [
     {
-        image: SatyrImage,
+        // image: SatyrImage,
         name: 'Portfolio',
         description:
             'A modern, responsive portfolio website built with Next.js and Tailwind CSS. Features include dark mode support, smooth animations, and a clean, minimalist design.',
@@ -42,7 +42,7 @@ const projects = [
         projectLink: null,
     },
     {
-        image: SatyrImage,
+        // image: SatyrImage,
         name: 'Test 1',
         description:
             'A 2D platformer game developed using Godot Engine. Features include character movement, collision detection, and level design.',
@@ -69,7 +69,7 @@ const projects = [
         projectLink: '/satyrs-escape',
     },
     {
-        image: SatyrImage,
+        // image: SatyrImage,
         name: 'Teste 2',
         tags: [
             { name: 'Javascript', variant: 'frontend' },
@@ -80,7 +80,7 @@ const projects = [
         projectLink: null,
     },
     {
-        image: SatyrImage,
+        // image: SatyrImage,
         name: 'Teste 3',
         tags: [
             { name: 'Godot', variant: 'gamedev' },
@@ -90,7 +90,7 @@ const projects = [
         projectLink: '/satyrs-escape',
     },
     {
-        image: SatyrImage,
+        // image: SatyrImage,
         name: 'Teste 4',
         tags: [
             { name: 'Javascript', variant: 'frontend' },
@@ -101,7 +101,7 @@ const projects = [
         projectLink: null,
     },
     {
-        image: SatyrImage,
+        // image: SatyrImage,
         name: 'Teste 5',
         tags: [
             { name: 'Godot', variant: 'gamedev' },
@@ -260,7 +260,7 @@ const ProjectCard = ({
                     transition={{ duration: 0.3 }}
                     className="size-full overflow-hidden rounded-2xl"
                 >
-                    <Image
+                    {/* <Image
                         alt={`${name} project preview`}
                         src={image}
                         className="size-full object-cover transition-transform duration-300 group-hover:scale-105"
@@ -269,7 +269,7 @@ const ProjectCard = ({
                         placeholder="blur"
                         draggable="false"
                         loading="lazy"
-                    />
+                    /> */}
                 </motion.div>
             </div>
 
