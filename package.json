@@ -29,6 +29,7 @@
     "devDependencies": {
         "@chromatic-com/storybook": "^3.2.4",
         "@eslint/eslintrc": "^3",
+        "@eslint/js": "^9.24.0",
         "@next/eslint-plugin-next": "^15.1.7",
         "@storybook/addon-essentials": "^8.5.4",
         "@storybook/addon-interactions": "^8.5.4",
@@ -44,6 +45,7 @@
         "eslint-import-resolver-alias": "^1.1.2",
         "eslint-plugin-import": "^2.31.0",
         "eslint-plugin-prettier": "^5.2.3",
+        "eslint-plugin-react-hooks": "^5.2.0",
         "eslint-plugin-storybook": "^0.11.2",
         "eslint-plugin-tailwindcss": "^3.18.0",
         "postcss": "^8",

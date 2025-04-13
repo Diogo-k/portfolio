@@ -17,9 +17,11 @@ const compat = new FlatCompat({
 const eslintConfig = [
     ...compat.extends('next'),
     ...compat.extends('next/core-web-vitals'),
+
     js.configs.recommended,
     ...storybook.configs['flat/recommended'],
     ...tailwind.configs['flat/recommended'],
+
     eslintPluginPrettierRecommended,
     {
         files: [
@@ -28,34 +30,7 @@ const eslintConfig = [
             '**/*.stories.@(ts|tsx|js|jsx|mjs|cjs)',
         ],
         ignores: ['.next', 'node_modules', '!.storybook'],
-        rules: {
-            //! eslint-plugin-import
-            'import/no-unresolved': 'error',
-            'import/named': 'error',
-            'import/namespace': 'error',
-            'import/default': 'error',
-            'import/export': 'error',
-            'import/no-named-as-default': 'warn',
-            'import/no-named-as-default-member': 'warn',
-            'import/no-duplicates': 'warn',
-            'tailwindcss/no-custom-classname': 'off',
-        },
         settings: {
-            'prettier/prettier': [
-                'error',
-                {
-                    printWidth: 80,
-                    tabWidth: 4,
-                    useTabs: false,
-                    semi: true,
-                    singleQuote: true,
-                    trailingComma: 'es5',
-                    bracketSpacing: true,
-                    arrowParens: 'always',
-                    endOfLine: 'lf',
-                    plugins: ['prettier-plugin-tailwindcss'],
-                },
-            ],
             'import/resolver': {
                 alias: {
                     map: [
