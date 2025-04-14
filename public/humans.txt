@@ -1,0 +1,45 @@
+     ▄█ ████████▄     ▄███████▄ 
+    ███ ███   ▀███   ███    ███ 
+    ███ ███    ███   ███    ███ 
+    ███ ███    ███   ███    ███ 
+    ███ ███    ███ ▀█████████▀  
+    ███ ███    ███   ███        
+    ███ ███   ▄███   ███        
+█▄ ▄███ ████████▀   ▄████▀      
+▀▀▀▀▀▀   
+
+    The humans.txt file explains the team, technology, and graphic assets 
+    behind this site.
+
+_______________________________________________________________________________
+
+PEOPLE
+
+This website was hand-crafted by João Diogo Paulo.
+
+João Diogo Paulo
+Frontend Developer
+jdiogok@gmail.com
+
+_______________________________________________________________________________
+
+TECHNOLOGY
+
+Next.js
+https://nextjs.org/
+
+Tailwind CSS
+https://tailwindcss.com/
+
+Three.js
+https://threejs.org/
+
+Framer Motion
+https://www.npmjs.com/package/framer-motion
+
+_______________________________________________________________________________
+
+GRAPHIC ASSETS
+
+Sora (font)
+https://fonts.google.com/specimen/Sora

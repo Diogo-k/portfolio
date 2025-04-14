@@ -34,22 +34,29 @@ const contactMethods = [
     },
 ];
 
+/**
+ * Contact section component that displays contact methods and a form for sending messages
+ *
+ * @returns {JSX.Element} The Contact section component
+ */
 export default function Contact() {
     const [formData, setFormData] = useState({
         name: '',
         email: '',
         message: '',
     });
-    const [formStatus, setFormStatus] = useState({
-        loading: false,
-        error: null,
-        success: false,
-    });
     const [touched, setTouched] = useState({
         name: false,
         email: false,
         message: false,
     });
+    const [formStatus, setFormStatus] = useState({
+        loading: false,
+        error: false,
+        success: false,
+        message: null,
+    });
+
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [messageCount, setMessageCount] = useState(0);
     const MAX_MESSAGE_LENGTH = 500;
@@ -450,3 +457,5 @@ export default function Contact() {
         </section>
     );
 }
+
+Contact.propTypes = {};
