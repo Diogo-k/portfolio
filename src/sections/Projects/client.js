@@ -44,7 +44,7 @@ export default function Projects({ projects, entirePage = false }) {
     const [page, setPage] = useState(0);
     const [direction, setDirection] = useState(0);
     const [selectedTag, setSelectedTag] = useState('All');
-    const itemsPerPage = 2;
+    const itemsPerPage = entirePage ? 10 : 4;
 
     const filteredProjects =
         selectedTag === 'All'
@@ -130,70 +130,78 @@ export default function Projects({ projects, entirePage = false }) {
                         </motion.button>
                     ))}
                 </div>
-                <div className="flex flex-col items-center gap-4 pb-4">
-                    <div
-                        className="flex items-center justify-center gap-2"
-                        role="tablist"
-                        aria-label="Project pages"
-                    >
-                        {Array.from({ length: totalPages }).map((_, index) => (
-                            <motion.button
-                                key={index}
-                                onClick={() => setPage(index)}
-                                whileHover={{ scale: 1.1 }}
-                                whileTap={{ scale: 0.9 }}
-                                className={`h-2 rounded-full transition-all duration-300 ${
-                                    page === index
-                                        ? 'w-8 bg-primary-light dark:bg-primary-dark'
-                                        : 'w-2 bg-gray-300 hover:bg-gray-400 dark:bg-gray-700 dark:hover:bg-gray-600'
-                                }`}
-                                aria-label={`Go to page ${index + 1}`}
-                                aria-current={
-                                    page === index ? 'page' : undefined
-                                }
-                                role="tab"
-                            />
-                        ))}
-                    </div>
-                </div>
-                <motion.div
-                    initial={{ opacity: 0 }}
-                    whileInView={{ opacity: 1 }}
-                    viewport={{ once: true, margin: '-50px' }}
-                    transition={{ delay: 0.3 }}
-                    className="mb-6 flex flex-col items-center gap-4 sm:mb-8"
-                >
-                    <div className="flex items-center justify-center gap-4 text-sm text-gray-500 dark:text-gray-400">
-                        <span className="hidden sm:inline">
-                            Swipe to navigate
-                        </span>
-                        <motion.div
-                            animate={{ x: [0, 10, 0] }}
-                            transition={{
-                                duration: 1.5,
-                                repeat: Infinity,
-                                repeatType: 'reverse',
-                                delay: 1,
-                            }}
-                            className="flex items-center gap-1"
-                        >
-                            <svg
-                                className="size-4"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                stroke="currentColor"
-                                aria-hidden="true"
+                {totalPages > 1 && (
+                    <>
+                        <div className="flex flex-col items-center gap-4 pb-4">
+                            <div
+                                className="flex items-center justify-center gap-2"
+                                role="tablist"
+                                aria-label="Project pages"
                             >
-                                <path
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                    strokeWidth={2}
-                                    d="M14 5l7 7m0 0l-7 7m7-7H3"
-                                />
-                            </svg>
+                                {Array.from({ length: totalPages }).map(
+                                    (_, index) => (
+                                        <motion.button
+                                            key={index}
+                                            onClick={() => setPage(index)}
+                                            whileHover={{ scale: 1.1 }}
+                                            whileTap={{ scale: 0.9 }}
+                                            className={`h-2 rounded-full transition-all duration-300 ${
+                                                page === index
+                                                    ? 'w-8 bg-primary-light dark:bg-primary-dark'
+                                                    : 'w-2 bg-gray-300 hover:bg-gray-400 dark:bg-gray-700 dark:hover:bg-gray-600'
+                                            }`}
+                                            aria-label={`Go to page ${index + 1}`}
+                                            aria-current={
+                                                page === index
+                                                    ? 'page'
+                                                    : undefined
+                                            }
+                                            role="tab"
+                                        />
+                                    )
+                                )}
+                            </div>
+                        </div>
+                        <motion.div
+                            initial={{ opacity: 0 }}
+                            whileInView={{ opacity: 1 }}
+                            viewport={{ once: true, margin: '-50px' }}
+                            transition={{ delay: 0.3 }}
+                            className="mb-6 flex flex-col items-center gap-4 sm:mb-8"
+                        >
+                            <div className="flex items-center justify-center gap-4 text-sm text-gray-500 dark:text-gray-400">
+                                <span className="hidden sm:inline">
+                                    Swipe to navigate
+                                </span>
+                                <motion.div
+                                    animate={{ x: [0, 10, 0] }}
+                                    transition={{
+                                        duration: 1.5,
+                                        repeat: Infinity,
+                                        repeatType: 'reverse',
+                                        delay: 1,
+                                    }}
+                                    className="flex items-center gap-1"
+                                >
+                                    <svg
+                                        className="size-4"
+                                        fill="none"
+                                        viewBox="0 0 24 24"
+                                        stroke="currentColor"
+                                        aria-hidden="true"
+                                    >
+                                        <path
+                                            strokeLinecap="round"
+                                            strokeLinejoin="round"
+                                            strokeWidth={2}
+                                            d="M14 5l7 7m0 0l-7 7m7-7H3"
+                                        />
+                                    </svg>
+                                </motion.div>
+                            </div>
                         </motion.div>
-                    </div>
-                </motion.div>
+                    </>
+                )}
             </motion.div>
 
             <div className="relative flex flex-1 flex-col overflow-hidden">
