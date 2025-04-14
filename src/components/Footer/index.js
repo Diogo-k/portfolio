@@ -3,6 +3,11 @@
 import { motion } from 'framer-motion';
 import { Link } from '@/components';
 
+/**
+ * Footer component that displays a copyright message and a link to the humans.txt file.
+ *
+ * @returns {JSX.Element} The Footer component
+ */
 export default function Footer() {
     return (
         <footer className="bg-background border-t-2 border-border-light py-8 dark:border-t-4 dark:border-border-dark">
@@ -23,3 +28,5 @@ export default function Footer() {
         </footer>
     );
 }
+
+Footer.propTypes = {};

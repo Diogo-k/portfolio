@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import PropTypes from 'prop-types';
 import { motion, AnimatePresence } from 'framer-motion';
 
 import { Text, ProjectCard } from '@/components';
@@ -32,6 +33,13 @@ const containerVariants = {
     }),
 };
 
+/**
+ * Projects section component that displays a list of projects with a pagination system.
+ *
+ * @param {Object} props - The component props
+ * @param {Object} props.projects - The projects data
+ * @returns {JSX.Element} The Projects section component
+ */
 export default function Projects({ projects }) {
     const [page, setPage] = useState(0);
     const [direction, setDirection] = useState(0);
@@ -224,3 +232,7 @@ export default function Projects({ projects }) {
         </section>
     );
 }
+
+Projects.propTypes = {
+    projects: PropTypes.array.isRequired,
+};

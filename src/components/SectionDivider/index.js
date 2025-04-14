@@ -37,7 +37,7 @@ const SectionDivider = ({
     return (
         <motion.section
             ref={dividerRef}
-            className={`my-24 w-full overflow-hidden ${className}`}
+            className={`my-12 w-full overflow-hidden ${className}`}
             initial={{ opacity: 0 }}
             animate={{ opacity: isInView ? 1 : 0 }}
             transition={{ duration: 0.5 }}

@@ -6,6 +6,11 @@ import { useTheme } from 'next-themes';
 import { Button } from '@/components';
 import { Sun, Moon } from '@/assets';
 
+/**
+ * ThemeSwitcher component that displays a button to toggle the theme.
+ *
+ * @param {Object} props - The component props
+ */
 export default function ThemeSwitcher({ ...props }) {
     const [mounted, setMounted] = useState(false);
     const { setTheme, resolvedTheme } = useTheme();
@@ -32,3 +37,5 @@ export default function ThemeSwitcher({ ...props }) {
         )
     );
 }
+
+ThemeSwitcher.propTypes = {};

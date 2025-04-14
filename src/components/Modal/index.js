@@ -3,9 +3,18 @@
 import { useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { motion, AnimatePresence } from 'framer-motion';
+
 import { Text, Button } from '@/components';
 import { X } from '@/assets';
 
+/**
+ * Modal component that displays a modal dialog with a backdrop and a close button.
+ *
+ * @param {Object} props - The component props
+ * @param {boolean} props.isOpen - Whether the modal is open
+ * @param {function} props.onClose - The function to call when the modal is closed
+ * @param {string} props.title - The title of the modal
+ */
 const Modal = ({
     isOpen,
     onClose,

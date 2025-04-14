@@ -40,7 +40,7 @@ const config = {
                 },
             },
             fontFamily: {
-                sora: ['var(--font-sora)', 'sans-serif'], // Main font
+                sora: ['var(--font-sora)', 'sans-serif'],
             },
         },
     },

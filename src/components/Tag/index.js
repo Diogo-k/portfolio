@@ -14,6 +14,13 @@ const variants = {
     others: 'bg-gray-700 dark:bg-gray-700',
 };
 
+/**
+ * Tag component that displays a tag with a variant and an icon.
+ *
+ * @param {Object} props - The component props
+ * @param {React.ReactNode} props.children - The content of the tag
+ * @param {string} props.variant - The variant of the tag
+ */
 export default function Tag({
     children,
     variant = 'primary',

@@ -1,6 +1,13 @@
 import clsx from 'clsx';
 import PropTypes from 'prop-types';
 
+/**
+ * Text component that displays a text with a size, responsive size, weight, align, and class name.
+ *
+ * @param {Object} props - The component props
+ * @param {React.ReactNode} props.children - The content of the text
+ * @param {string} props.size - The size of the text
+ */
 export default function Text({
     as: Component = 'span',
     size = 'base',

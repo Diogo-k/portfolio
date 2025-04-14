@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { usePathname, useSearchParams } from 'next/navigation';
 import clsx from 'clsx';
 import { motion, AnimatePresence } from 'framer-motion';
+
 import { ThemeSwitcher, Button, Link } from '@/components';
 
 const navItems = [
@@ -35,6 +36,11 @@ const mobileMenuVariants = {
     },
 };
 
+/**
+ * Header component that displays a navigation menu and a mobile menu.
+ *
+ * @returns {JSX.Element} The Header component
+ */
 export default function Header() {
     const [hash, setHash] = useState('');
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -299,3 +305,5 @@ export default function Header() {
         </motion.header>
     );
 }
+
+Header.propTypes = {};

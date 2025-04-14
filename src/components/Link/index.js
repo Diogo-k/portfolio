@@ -1,9 +1,9 @@
 'use client';
 
 import { memo } from 'react';
+import PropTypes from 'prop-types';
 import NextLink from 'next/link';
 import clsx from 'clsx';
-import PropTypes from 'prop-types';
 
 const linkStyles = {
     base: 'font-sora focus:outline-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-text-light dark:focus-visible:outline-text-dark',

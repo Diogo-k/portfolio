@@ -196,7 +196,7 @@ export default function Contact() {
             <div className="mt-8 flex w-full max-w-6xl flex-col gap-8 md:flex-row md:items-center">
                 <div className="flex-1">
                     <motion.div
-                        className="space-y-4"
+                        className="space-y-6"
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.5, delay: 0.2 }}
@@ -327,15 +327,17 @@ export default function Contact() {
                                         : 'border-border-light focus:border-primary-light focus:ring-primary-light dark:border-border-dark dark:focus:border-primary-dark dark:focus:ring-primary-dark'
                                 } bg-surface-light px-4 py-2 text-base text-text-light focus:outline-none focus:ring-2 disabled:cursor-not-allowed disabled:opacity-50 dark:bg-surface-dark dark:text-text-dark`}
                             />
-                            {getFieldError('name') && (
-                                <p
-                                    id="name-error"
-                                    className="mt-1 text-sm text-red-600 dark:text-red-400"
-                                    role="alert"
-                                >
-                                    {getFieldError('name')}
-                                </p>
-                            )}
+                            <div className="min-h-[20px]">
+                                {getFieldError('name') && (
+                                    <p
+                                        id="name-error"
+                                        className="text-sm text-red-600 dark:text-red-400"
+                                        role="alert"
+                                    >
+                                        {getFieldError('name')}
+                                    </p>
+                                )}
+                            </div>
                         </div>
 
                         <div>
@@ -368,15 +370,17 @@ export default function Contact() {
                                         : 'border-border-light focus:border-primary-light focus:ring-primary-light dark:border-border-dark dark:focus:border-primary-dark dark:focus:ring-primary-dark'
                                 } bg-surface-light px-4 py-2 text-base text-text-light focus:outline-none focus:ring-2 disabled:cursor-not-allowed disabled:opacity-50 dark:bg-surface-dark dark:text-text-dark`}
                             />
-                            {getFieldError('email') && (
-                                <p
-                                    id="email-error"
-                                    className="mt-1 text-sm text-red-600 dark:text-red-400"
-                                    role="alert"
-                                >
-                                    {getFieldError('email')}
-                                </p>
-                            )}
+                            <div className="min-h-[20px]">
+                                {getFieldError('email') && (
+                                    <p
+                                        id="email-error"
+                                        className="text-sm text-red-600 dark:text-red-400"
+                                        role="alert"
+                                    >
+                                        {getFieldError('email')}
+                                    </p>
+                                )}
+                            </div>
                         </div>
 
                         <div>
