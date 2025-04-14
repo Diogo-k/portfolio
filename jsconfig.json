@@ -4,7 +4,7 @@
             "@/context": ["./src/context/index"],
             "@/sections": ["./src/sections/index"],
             "@/components": ["./src/components/index"],
-            "@/utils": ["./src/utils/index"],
+            "@/utils/*": ["./src/utils/*"],
             "@/utils/mdx": ["./src/utils/mdx"],
             "@/assets": ["./src/assets/index"],
             "@/styles/*": ["./src/styles/*"]

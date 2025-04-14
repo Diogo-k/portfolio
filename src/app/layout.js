@@ -6,7 +6,7 @@ import '@/styles/globals.css';
 
 import { ModalProvider } from '@/context';
 import { Header, Footer } from '@/components';
-import { ThemeProvider } from '@/utils';
+import ThemeProvider from '@/utils/ThemeProvider';
 
 const sora = Sora({
     subsets: ['latin'],
