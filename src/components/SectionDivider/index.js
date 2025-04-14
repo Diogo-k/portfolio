@@ -1,9 +1,18 @@
 'use client';
 
-import { motion, useInView } from 'framer-motion';
 import { useRef } from 'react';
+import PropTypes from 'prop-types';
+
+import { motion, useInView } from 'framer-motion';
+
 import { Katana } from '@/assets';
 
+/**
+ * SectionDivider component that displays a decorative katana slash animation
+ * @param {Object} props - The component props
+ * @param {string} props.className - The class name for the component
+ * @param {string} props.ariaLabel - The aria label for the component
+ */
 const SectionDivider = ({
     className = '',
     ariaLabel = 'Decorative section divider',
@@ -37,7 +46,6 @@ const SectionDivider = ({
             aria-label={ariaLabel}
         >
             <div className="relative flex h-32 w-full items-center justify-center">
-                {/* Left line */}
                 <motion.div
                     className="absolute left-0 top-1/2 h-[2px] w-[42%] -translate-y-1/2 bg-gradient-to-r from-transparent to-primary-light dark:to-primary-light"
                     initial={{ width: 0 }}
@@ -45,7 +53,6 @@ const SectionDivider = ({
                     transition={{ duration: 0.8, ease: 'easeOut' }}
                 />
 
-                {/* Right line */}
                 <motion.div
                     className="absolute right-0 top-1/2 h-[2px] w-[42%] -translate-y-1/2 bg-gradient-to-l from-transparent to-primary-light dark:to-primary-light"
                     initial={{ width: 0 }}
@@ -53,7 +60,6 @@ const SectionDivider = ({
                     transition={{ duration: 0.8, ease: 'easeOut', delay: 0.2 }}
                 />
 
-                {/* Center katana container */}
                 <motion.div
                     className="relative z-10 flex size-20 items-center justify-center"
                     initial={{ scale: 0, rotate: -180 }}
@@ -86,6 +92,11 @@ const SectionDivider = ({
             </div>
         </motion.section>
     );
+};
+
+SectionDivider.propTypes = {
+    className: PropTypes.string,
+    ariaLabel: PropTypes.string,
 };
 
 export default SectionDivider;
