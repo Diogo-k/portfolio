@@ -58,6 +58,7 @@ const eslintConfig = [
                         ['@/sections', './src/sections/index'],
                         ['@/components', './src/components/index'],
                         ['@/utils', './src/utils/index'],
+                        ['@/utils/mdx', './src/utils/mdx'],
                         ['@/assets', './src/assets/index'],
                         ['@/styles', './src/styles'],
                     ],
