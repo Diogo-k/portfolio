@@ -16,15 +16,11 @@ export function getAllSlugsFromContent(contentType) {
         return [];
     }
 
-    const fileNames = fs.readdirSync(contentDirectory);
+    const slugs = fs.readdirSync(contentDirectory);
 
-    return fileNames.map((fileName) => {
-        return {
-            params: {
-                slug: fileName.replace(/\.mdx$/, ''),
-            },
-        };
-    });
+    return slugs.map((slug) => ({
+        slug: slug.replace(/\.mdx$/, ''),
+    }));
 }
 
 // Get all data from selected content with metadata
@@ -63,11 +59,7 @@ export async function getContentData(slug, contentType) {
 
     if (!fs.existsSync(fullPath)) {
         console.warn(`❌ Content file not found: ${fullPath}`);
-        return {
-            slug,
-            mdxSource: null,
-            notFound: true,
-        };
+        return null;
     }
 
     const fileContents = fs.readFileSync(fullPath, 'utf8');
