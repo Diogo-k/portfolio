@@ -122,7 +122,7 @@ export default function Projects({ projects, entirePage = false }) {
                             onClick={() => handleTagClick(name)}
                             whileHover={{ scale: 1.05 }}
                             whileTap={{ scale: 0.95 }}
-                            className={`rounded-full px-4 py-2 text-sm font-medium transition-all duration-300 ${
+                            className={`rounded-full px-4 py-2 text-sm font-medium transition-all duration-300 focus:outline-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-text-light dark:focus-visible:outline-text-dark ${
                                 name === selectedTag
                                     ? 'bg-primary-light text-white dark:bg-primary-dark'
                                     : 'bg-surface-light text-muted-light hover:bg-surface-light/80 dark:bg-surface-dark dark:text-muted-dark dark:hover:bg-surface-dark/80'

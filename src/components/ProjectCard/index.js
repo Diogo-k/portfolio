@@ -43,16 +43,16 @@ const ProjectCard = ({ image, slug, name, tags, index }) => {
                     transition={{ duration: 0.3 }}
                     className="size-full overflow-hidden rounded-2xl"
                 >
-                    {/* <Image
+                    <Image
                         alt={`${name} project preview`}
                         src={image}
                         className="size-full object-cover transition-transform duration-300 group-hover:scale-105"
                         width="1280"
                         height="720"
-                        placeholder="blur"
+                        // placeholder="blur"
                         draggable="false"
-                        loading="lazy"
-                    /> */}
+                        // loading="lazy"
+                    />
                 </motion.div>
             </div>
 
@@ -61,22 +61,17 @@ const ProjectCard = ({ image, slug, name, tags, index }) => {
                     <h2 className="text-xl font-bold text-primary-light sm:text-2xl dark:text-text-dark">
                         {name}
                     </h2>
-                    <div className="group pointer-events-auto flex gap-2">
-                        <motion.div
-                            whileHover={{ scale: 1.1 }}
-                            whileTap={{ scale: 0.95 }}
+                    <div className="pointer-events-auto flex gap-2">
+                        <Button
+                            variant="outline"
+                            size="sm"
+                            as="link"
+                            className="rounded-full p-2"
+                            href={`/projects/${slug}`}
+                            aria-label={`View ${name} details`}
                         >
-                            <Button
-                                as="link"
-                                href={`/projects/${slug}`}
-                                variant="outline"
-                                size="sm"
-                                aria-label={`View ${name} details`}
-                                className="rounded-full p-2"
-                            >
-                                <RightArrow className="size-5 transition-transform duration-300 group-hover:translate-x-0.5" />
-                            </Button>
-                        </motion.div>
+                            <RightArrow className="size-5" />
+                        </Button>
                     </div>
                 </div>
 
