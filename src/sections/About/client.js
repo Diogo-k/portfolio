@@ -110,7 +110,6 @@ export default function About({ about }) {
                         variant="primary"
                         className="mt-2 w-fit"
                         aria-label="View CV (Joao_Paulo_Resume.pdf) in new tab"
-                        download
                     >
                         View CV
                         <RightArrow
