@@ -10,7 +10,7 @@ import { ThemeSwitcher, Button, Link } from '@/components';
 const navItems = [
     { name: 'Home', href: '/#home', id: 'nav-home' },
     { name: 'About Me', href: '/#about-me', id: 'nav-about-me' },
-    { name: 'Projects', href: '/#projects', id: 'nav-projects' },
+    { name: 'Projects', href: '/projects', id: 'nav-projects', route: true },
     { name: 'Contact', href: '/#contact', id: 'nav-contact' },
 ];
 
@@ -66,9 +66,13 @@ export default function Header() {
     // Sync hash with URL
     useEffect(() => {
         const updateHash = () => {
-            setHash(
-                window.location.hash ? `/${window.location.hash}` : '/#home' // Default to #home if no hash
-            );
+            if (window.location.pathname.split('/')[1] === '') {
+                setHash(
+                    window.location.hash ? `/${window.location.hash}` : '/#home'
+                );
+            } else if (window.location.pathname.split('/').length === 2) {
+                setHash(`/${window.location.pathname.split('/')[1]}`);
+            }
         };
 
         updateHash();
@@ -80,8 +84,11 @@ export default function Header() {
     useEffect(() => {
         const handleScroll = () => {
             const sections = navItems.map((item) => ({
-                id: item.href.slice(2),
-                element: document.getElementById(item.href.slice(2)),
+                id: item.route ? item.href.slice(1) : item.href.slice(2),
+                route: item.route || false,
+                element: document.getElementById(
+                    item.route ? item.href.slice(1) : item.href.slice(2)
+                ),
             }));
 
             // Get the current scroll position and viewport height
@@ -112,7 +119,10 @@ export default function Header() {
                 );
             });
 
-            if (currentSection && currentSection.id !== hash.slice(2)) {
+            if (
+                currentSection &&
+                currentSection.id !== hash.slice(currentSection.route ? 1 : 2)
+            ) {
                 window.history.replaceState(
                     null,
                     null,
@@ -197,7 +207,11 @@ export default function Header() {
                                 ariaCurrent={
                                     item.href === hash ? 'page' : undefined
                                 }
-                                active={item.href === hash}
+                                active={
+                                    item.route
+                                        ? item.href === hash.replace('#', '')
+                                        : item.href === hash
+                                }
                                 role="menuitem"
                             >
                                 {item.name}
@@ -287,7 +301,12 @@ export default function Header() {
                                                     ? 'page'
                                                     : undefined
                                             }
-                                            active={item.href === hash}
+                                            active={
+                                                item.route
+                                                    ? item.href ===
+                                                      hash.replace('#', '')
+                                                    : item.href === hash
+                                            }
                                             role="menuitem"
                                         >
                                             {item.name}

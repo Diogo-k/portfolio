@@ -4,11 +4,9 @@ import PropTypes from 'prop-types';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
 
-import { useModal } from '@/context';
+import { Button, Tag } from '@/components';
 
-import { Text, Button, Tag } from '@/components';
-
-import { ArrowLink, SourceCode } from '@/assets';
+import { RightArrow } from '@/assets';
 
 const itemVariants = {
     hidden: { opacity: 0, y: 20 },
@@ -29,108 +27,9 @@ const itemVariants = {
  * @param {string} props.image - The image source for the project
  * @param {string} props.name - The name of the project
  * @param {Array} props.tags - The tags for the project
- * @param {string} props.githubLink - The link to the project's GitHub repository
- * @param {string} props.projectLink - The link to the project's live demo
  * @param {number} props.index - The index of the project
- * @param {string} props.description - The description of the project
- * @param {Object} props.details - The details of the project
  */
-const ProjectCard = ({
-    image,
-    name,
-    tags,
-    githubLink,
-    projectLink,
-    index,
-    description,
-    details,
-}) => {
-    const { openModal } = useModal();
-
-    const handleOpenModal = () => {
-        openModal({
-            title: name,
-            ariaLabel: `${name} project details`,
-            children: (
-                <div className="space-y-6">
-                    <div className="relative aspect-video w-full overflow-hidden rounded-lg">
-                        <Image
-                            alt={`${name} project preview`}
-                            src={image}
-                            width="1280"
-                            height="720"
-                            className="size-full object-cover"
-                        />
-                    </div>
-
-                    <div className="space-y-4">
-                        <Text
-                            as="p"
-                            size="base"
-                            className="text-text-light dark:text-text-dark"
-                        >
-                            {description}
-                        </Text>
-
-                        <div className="space-y-4">
-                            <div>
-                                <Text
-                                    as="h3"
-                                    size="lg"
-                                    weight="font-semibold"
-                                    className="mb-2"
-                                >
-                                    Technologies Used
-                                </Text>
-                                <div className="flex flex-wrap gap-2">
-                                    {details.technologies.map((tech) => (
-                                        <Tag key={tech} variant="frontend">
-                                            {tech}
-                                        </Tag>
-                                    ))}
-                                </div>
-                            </div>
-
-                            <div>
-                                <Text
-                                    as="h3"
-                                    size="lg"
-                                    weight="font-semibold"
-                                    className="mb-2"
-                                >
-                                    Key Features
-                                </Text>
-                                <ul className="list-inside list-disc space-y-1 text-text-light dark:text-text-dark">
-                                    {details.features.map((feature, index) => (
-                                        <li key={index}>{feature}</li>
-                                    ))}
-                                </ul>
-                            </div>
-
-                            <div>
-                                <Text
-                                    as="h3"
-                                    size="lg"
-                                    weight="font-semibold"
-                                    className="mb-2"
-                                >
-                                    Challenges & Solutions
-                                </Text>
-                                <ul className="list-inside list-disc space-y-1 text-text-light dark:text-text-dark">
-                                    {details.challenges.map(
-                                        (challenge, index) => (
-                                            <li key={index}>{challenge}</li>
-                                        )
-                                    )}
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            ),
-        });
-    };
-
+const ProjectCard = ({ image, slug, name, tags, index }) => {
     return (
         <motion.div
             variants={index === 0 ? itemVariants : undefined}
@@ -162,72 +61,22 @@ const ProjectCard = ({
                     <h2 className="text-xl font-bold text-primary-light sm:text-2xl dark:text-text-dark">
                         {name}
                     </h2>
-                    <div className="pointer-events-auto flex gap-2">
+                    <div className="group pointer-events-auto flex gap-2">
                         <motion.div
                             whileHover={{ scale: 1.1 }}
                             whileTap={{ scale: 0.95 }}
                         >
                             <Button
+                                as="link"
+                                href={`/projects/${slug}`}
                                 variant="outline"
                                 size="sm"
-                                onClick={handleOpenModal}
-                                aria-label={`View details for ${name}`}
+                                aria-label={`View ${name} details`}
                                 className="rounded-full p-2"
                             >
-                                <svg
-                                    className="size-5"
-                                    fill="none"
-                                    viewBox="0 0 24 24"
-                                    stroke="currentColor"
-                                    aria-hidden="true"
-                                >
-                                    <path
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                        strokeWidth={2}
-                                        d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                                    />
-                                </svg>
+                                <RightArrow className="size-5 transition-transform duration-300 group-hover:translate-x-0.5" />
                             </Button>
                         </motion.div>
-                        {githubLink && (
-                            <motion.div
-                                whileHover={{ scale: 1.1 }}
-                                whileTap={{ scale: 0.95 }}
-                            >
-                                <Button
-                                    as="a"
-                                    href={githubLink}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    variant="outline"
-                                    size="sm"
-                                    aria-label={`View source code for ${name}`}
-                                    className="rounded-full p-2"
-                                >
-                                    <SourceCode className="size-5" />
-                                </Button>
-                            </motion.div>
-                        )}
-                        {projectLink && (
-                            <motion.div
-                                whileHover={{ scale: 1.1 }}
-                                whileTap={{ scale: 0.95 }}
-                            >
-                                <Button
-                                    as="a"
-                                    href={projectLink}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    variant="outline"
-                                    size="sm"
-                                    aria-label={`View live demo of ${name}`}
-                                    className="rounded-full p-2"
-                                >
-                                    <ArrowLink className="size-5" />
-                                </Button>
-                            </motion.div>
-                        )}
                     </div>
                 </div>
 
@@ -245,6 +94,7 @@ const ProjectCard = ({
 
 ProjectCard.propTypes = {
     image: PropTypes.string.isRequired,
+    slug: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
     tags: PropTypes.arrayOf(
         PropTypes.shape({
@@ -252,15 +102,7 @@ ProjectCard.propTypes = {
             variant: PropTypes.string.isRequired,
         })
     ).isRequired,
-    githubLink: PropTypes.string,
-    projectLink: PropTypes.string,
     index: PropTypes.number.isRequired,
-    description: PropTypes.string.isRequired,
-    details: PropTypes.shape({
-        technologies: PropTypes.arrayOf(PropTypes.string).isRequired,
-        features: PropTypes.arrayOf(PropTypes.string).isRequired,
-        challenges: PropTypes.arrayOf(PropTypes.string).isRequired,
-    }).isRequired,
 };
 
 export default ProjectCard;

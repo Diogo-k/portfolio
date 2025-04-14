@@ -40,7 +40,7 @@ const containerVariants = {
  * @param {Object} props.projects - The projects data
  * @returns {JSX.Element} The Projects section component
  */
-export default function Projects({ projects }) {
+export default function Projects({ projects, entirePage = false }) {
     const [page, setPage] = useState(0);
     const [direction, setDirection] = useState(0);
     const [selectedTag, setSelectedTag] = useState('All');
@@ -86,7 +86,9 @@ export default function Projects({ projects }) {
     return (
         <section
             id="projects"
-            className="mx-auto flex min-h-[60vh] w-full max-w-5xl flex-col px-4 py-16 sm:px-6 sm:py-20 md:py-24 lg:py-28"
+            className={`mx-auto flex w-full max-w-5xl flex-col px-4 py-16 sm:px-6 sm:py-20 md:py-24 lg:py-28 ${
+                page ? 'min-h-screen' : 'min-h-[60vh]'
+            }`}
             aria-labelledby="projects-heading"
         >
             <motion.div
@@ -235,4 +237,5 @@ export default function Projects({ projects }) {
 
 Projects.propTypes = {
     projects: PropTypes.array.isRequired,
+    page: PropTypes.bool,
 };

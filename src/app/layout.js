@@ -4,7 +4,7 @@ import '@/styles/globals.css';
 
 // import { MotionConfig } from 'framer-motion';
 
-import { ModalProvider } from '@/context';
+// import { ModalProvider } from '@/context';
 import { Header, Footer } from '@/components';
 import ThemeProvider from '@/utils/ThemeProvider';
 
@@ -91,13 +91,17 @@ export default function RootLayout({ children }) {
                     enableSystem
                 >
                     {/* <MotionConfig reducedMotion="user"> */}
-                    <ModalProvider>
-                        <Suspense>
-                            <Header />
-                        </Suspense>
-                        <main>{children}</main>
-                        <Footer />
-                    </ModalProvider>
+
+                    {/* <ModalProvider> */}
+
+                    <Suspense>
+                        <Header />
+                    </Suspense>
+                    <main>{children}</main>
+                    <Footer />
+
+                    {/* </ModalProvider> */}
+
                     {/* </MotionConfig> */}
                 </ThemeProvider>
             </body>

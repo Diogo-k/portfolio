@@ -2,6 +2,7 @@ import Sun from './icons/Sun';
 import Moon from './icons/Moon';
 import Katana from './icons/Katana';
 
+import LeftArrow from './icons/LeftArrow';
 import RightArrow from './icons/RightArrow';
 import ArrowLink from './icons/ArrowLink';
 import SourceCode from './icons/SourceCode';
@@ -16,6 +17,7 @@ export {
     Sun,
     Moon,
     Katana,
+    LeftArrow,
     RightArrow,
     ArrowLink,
     SourceCode,
