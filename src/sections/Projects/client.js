@@ -87,7 +87,7 @@ export default function Projects({ projects, entirePage = false }) {
         <section
             id="projects"
             className={`mx-auto flex w-full max-w-5xl flex-col px-4 py-16 sm:px-6 sm:py-20 md:py-24 lg:py-28 ${
-                page ? 'min-h-screen' : 'min-h-[60vh]'
+                entirePage ? 'min-h-screen' : 'min-h-[60vh]'
             }`}
             aria-labelledby="projects-heading"
         >
