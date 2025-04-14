@@ -2,6 +2,8 @@ import { Suspense } from 'react';
 import { Sora } from 'next/font/google';
 import '@/styles/globals.css';
 
+// import { MotionConfig } from 'framer-motion';
+
 import { ModalProvider } from '@/context';
 import { Header, Footer } from '@/components';
 import { ThemeProvider } from '@/utils';
@@ -88,6 +90,7 @@ export default function RootLayout({ children }) {
                     defaultTheme="system"
                     enableSystem
                 >
+                    {/* <MotionConfig reducedMotion="user"> */}
                     <ModalProvider>
                         <Suspense>
                             <Header />
@@ -95,6 +98,7 @@ export default function RootLayout({ children }) {
                         <main>{children}</main>
                         <Footer />
                     </ModalProvider>
+                    {/* </MotionConfig> */}
                 </ThemeProvider>
             </body>
         </html>

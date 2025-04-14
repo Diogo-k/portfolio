@@ -1,4 +1,8 @@
 export const ANIMATION_VARIANTS = {
+    container: {
+        hidden: { opacity: 0 },
+        visible: { opacity: 1 },
+    },
     letter: {
         hidden: { opacity: 0, y: -20 },
         visible: { opacity: 1, y: 0 },
@@ -11,10 +15,6 @@ export const ANIMATION_VARIANTS = {
         hidden: { width: 0, x: 0 },
         visible: { width: '100%', x: 0 },
         exit: { width: '100%', x: '100%' },
-    },
-    container: {
-        hidden: { opacity: 0 },
-        visible: { opacity: 1 },
     },
     button: {
         hidden: { opacity: 0, y: 20 },

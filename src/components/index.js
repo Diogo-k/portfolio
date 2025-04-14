@@ -14,6 +14,10 @@ import ThemeSwitcher from './ThemeSwitcher';
 import CherryBlossoms from './CherryBlossoms';
 import Modal from './Modal';
 
+//* Section Components
+import Skills from './Skills';
+import ProfileImage from './ProfileImage';
+
 export {
     Header,
     Footer,
@@ -25,4 +29,6 @@ export {
     ThemeSwitcher,
     CherryBlossoms,
     Modal,
+    Skills,
+    ProfileImage,
 };
