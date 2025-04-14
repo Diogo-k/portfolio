@@ -17,6 +17,7 @@ import Modal from './Modal';
 //* Section Components
 import Skills from './Skills';
 import ProfileImage from './ProfileImage';
+import ProjectCard from './ProjectCard';
 
 export {
     Header,
@@ -31,4 +32,5 @@ export {
     Modal,
     Skills,
     ProfileImage,
+    ProjectCard,
 };
