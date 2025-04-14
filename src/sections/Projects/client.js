@@ -111,7 +111,11 @@ export default function Projects({ projects, entirePage = false }) {
                 >
                     Projects
                 </Text>
-                <div className="mb-6 flex flex-wrap gap-2 sm:mb-8">
+                <div
+                    className="mb-6 flex flex-wrap gap-2 sm:mb-8"
+                    role="tablist"
+                    aria-label="Project filter tabs"
+                >
                     {uniqueTags.map(({ name }, index) => (
                         <motion.button
                             key={`${name}-${index}`}

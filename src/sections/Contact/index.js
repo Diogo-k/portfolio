@@ -213,20 +213,19 @@ export default function Contact() {
                                         aria-hidden="true"
                                     />
                                     <Text
-                                        as="h3"
+                                        as="span"
                                         size="text-base"
                                         weight="font-semibold"
                                         id={`${method.title.toLowerCase()}-heading`}
-                                        role="heading"
                                         aria-label={`${method.title} contact information`}
                                     >
                                         {method.title}
                                     </Text>
                                     <Text
+                                        as="span"
                                         size="text-sm"
                                         className="text-muted-light dark:text-muted-dark"
                                         id={`${method.title.toLowerCase()}-value`}
-                                        role="text"
                                         aria-label={`${method.title} ${method.title === 'Email' ? 'address' : 'username'}`}
                                     >
                                         {method.value}
@@ -235,7 +234,6 @@ export default function Contact() {
                                         href={method.link}
                                         isExternal
                                         ariaLabel={method.ariaLabel}
-                                        ariaCurrent="contact"
                                         className="mt-2 text-sm transition-colors duration-300 hover:text-primary-light dark:hover:text-primary-dark"
                                     >
                                         {method.linkText}

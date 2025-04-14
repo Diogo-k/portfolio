@@ -76,16 +76,19 @@ const Skills = ({ skills }) => {
             {skills.map((skill) => {
                 const IconComponent = skillIconMap[skill.name] || null;
                 return (
-                    <Tag
+                    <motion.div
                         key={skill.name}
-                        variant={skill.variant}
-                        icon={IconComponent}
-                        className="transition-all duration-300 hover:scale-105"
-                        aria-label={`${skill.name} skill`}
                         role="listitem"
+                        aria-label={`${skill.name} skill`}
                     >
-                        {skill.name}
-                    </Tag>
+                        <Tag
+                            variant={skill.variant}
+                            icon={IconComponent}
+                            className="transition-all duration-300 hover:scale-105"
+                        >
+                            {skill.name}
+                        </Tag>
+                    </motion.div>
                 );
             })}
         </motion.div>
