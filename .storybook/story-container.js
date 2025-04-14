@@ -1,4 +1,4 @@
-import { ThemeProvider } from '@/utils';
+import ThemeProvider from '@/utils/ThemeProvider';
 
 import { ThemeSwitcher } from '@/components';
 

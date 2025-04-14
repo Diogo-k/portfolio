@@ -77,7 +77,7 @@ const Button = forwardRef(
 
         const LoadingSpinner = () => (
             <svg
-                className="size-4 animate-spin"
+                className="size-6 animate-spin"
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
                 viewBox="0 0 24 24"

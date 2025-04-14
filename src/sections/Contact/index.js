@@ -7,8 +7,6 @@ import { Link, Text, Button } from '@/components';
 
 import { Mail, LinkedIn, Github } from '@/assets';
 
-import { submitContactForm } from '@/utils';
-
 const contactMethods = [
     {
         icon: Mail,
@@ -85,60 +83,68 @@ export default function Contact() {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        // Mark all fields as touched on submit
         setTouched({
             name: true,
             email: true,
             message: true,
         });
 
-        // Validate all fields
         const errors = {
             name: validateField('name', formData.name),
             email: validateField('email', formData.email),
             message: validateField('message', formData.message),
         };
 
-        // Check if there are any errors
         const hasErrors = Object.values(errors).some((error) => error !== null);
         if (hasErrors) {
             setFormStatus({
                 loading: false,
-                error: 'Please fix the errors before submitting',
-                success: false,
+                message: 'Please fix the errors before submitting',
+                status: 400,
             });
             return;
         }
 
-        // If no errors, proceed with submission
-        setFormStatus({ loading: true, error: null, success: false });
+        setFormStatus({ loading: true, message: null, status: null });
         setIsSubmitting(true);
 
         try {
-            const result = await submitContactForm(formData);
+            const response = await fetch('/api/contact', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    name: formData.name,
+                    email: formData.email,
+                    message: formData.message,
+                }),
+            });
+
+            const data = await response.json();
+
             setFormStatus({
                 loading: false,
-                error: null,
-                success: true,
-                message: result.message,
+                ...data,
             });
+
             setFormData({ name: '', email: '', message: '' });
             setTouched({ name: false, email: false, message: false });
         } catch (error) {
             setFormStatus({
                 loading: false,
-                error: error.message,
-                success: false,
+                ...error,
             });
         } finally {
             setTimeout(() => {
                 setFormStatus({
                     loading: false,
-                    error: null,
                     success: false,
+                    error: false,
                     message: null,
                 });
             }, 1500);
+
             setIsSubmitting(false);
         }
     };
@@ -258,9 +264,8 @@ export default function Contact() {
                             role="status"
                         >
                             {formStatus.loading && 'Form is submitting...'}
-                            {formStatus.success &&
-                                'Form submitted successfully!'}
-                            {formStatus.error && `Error: ${formStatus.error}`}
+                            {formStatus.success && formStatus.message}
+                            {formStatus.error && formStatus.message}
                         </div>
 
                         {formStatus.success && (
@@ -436,33 +441,7 @@ export default function Contact() {
                                         : 'Send message'
                                 }
                             >
-                                {formStatus.loading ? (
-                                    <span className="flex items-center gap-2">
-                                        <svg
-                                            className="size-5 animate-spin"
-                                            xmlns="http://www.w3.org/2000/svg"
-                                            fill="none"
-                                            viewBox="0 0 24 24"
-                                        >
-                                            <circle
-                                                className="opacity-25"
-                                                cx="12"
-                                                cy="12"
-                                                r="10"
-                                                stroke="currentColor"
-                                                strokeWidth="4"
-                                            />
-                                            <path
-                                                className="opacity-75"
-                                                fill="currentColor"
-                                                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                                            />
-                                        </svg>
-                                        Sending...
-                                    </span>
-                                ) : (
-                                    'Send message'
-                                )}
+                                {!formStatus.loading && 'Send message'}
                             </Button>
                         </div>
                     </form>
