@@ -83,6 +83,7 @@ const Button = forwardRef(
                 viewBox="0 0 24 24"
                 aria-hidden="true"
                 role="status"
+                aria-label="Loading"
             >
                 <circle
                     className="opacity-25"
@@ -106,7 +107,11 @@ const Button = forwardRef(
                     <>
                         <LoadingSpinner />
                         {loadingText && (
-                            <span className="ml-2" aria-live="polite">
+                            <span
+                                className="ml-2"
+                                aria-live="polite"
+                                aria-atomic="true"
+                            >
                                 {children}
                             </span>
                         )}
@@ -125,6 +130,7 @@ const Button = forwardRef(
             'aria-label':
                 ariaLabel ||
                 (typeof children === 'string' ? children : undefined),
+            'aria-live': loading ? 'polite' : undefined,
             ...props,
         };
 

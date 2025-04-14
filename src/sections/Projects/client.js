@@ -136,7 +136,7 @@ export default function Projects({ projects, entirePage = false }) {
                             <div
                                 className="flex items-center justify-center gap-2"
                                 role="tablist"
-                                aria-label="Project pages"
+                                aria-label="Project pages navigation"
                             >
                                 {Array.from({ length: totalPages }).map(
                                     (_, index) => (
@@ -150,16 +150,16 @@ export default function Projects({ projects, entirePage = false }) {
                                                     ? 'w-8 bg-primary-light dark:bg-primary-dark'
                                                     : 'w-2 bg-gray-300 hover:bg-gray-400 dark:bg-gray-700 dark:hover:bg-gray-600'
                                             }`}
-                                            aria-label={`Go to page ${index + 1}`}
-                                            aria-current={
-                                                page === index
-                                                    ? 'page'
-                                                    : undefined
-                                            }
+                                            aria-label={`Go to page ${index + 1} of ${totalPages}`}
+                                            aria-selected={page === index}
+                                            aria-controls="project-list"
                                             role="tab"
                                         />
                                     )
                                 )}
+                            </div>
+                            <div className="sr-only" aria-live="polite">
+                                Page {page + 1} of {totalPages}
                             </div>
                         </div>
                         <motion.div
