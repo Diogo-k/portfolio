@@ -15,7 +15,7 @@ export default function Footer() {
                             href="/humans.txt"
                             isExternal
                             aria-label="View humans.txt in new tab"
-                            className="mt-2 text-sm transition-colors duration-300 hover:text-primary-light dark:hover:text-primary-dark"
+                            className="mt-2 text-sm"
                         >
                             © 2025 João Diogo Paulo.
                         </Link>

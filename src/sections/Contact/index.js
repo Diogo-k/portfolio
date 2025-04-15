@@ -9,14 +9,6 @@ import { Mail, LinkedIn, Github } from '@/assets';
 
 const contactMethods = [
     {
-        icon: Mail,
-        title: 'Email',
-        value: 'jdiogok@gmail.com',
-        link: 'mailto:jdiogok@gmail.com',
-        linkText: 'Write me →',
-        ariaLabel: 'Send email to jdiogok@gmail.com',
-    },
-    {
         icon: LinkedIn,
         title: 'LinkedIn',
         value: 'João Diogo Paulo',
@@ -24,6 +16,7 @@ const contactMethods = [
         linkText: 'Connect with me →',
         ariaLabel: 'Visit LinkedIn profile',
     },
+
     {
         icon: Github,
         title: 'GitHub',
@@ -31,6 +24,14 @@ const contactMethods = [
         link: 'https://github.com/Diogo-k',
         linkText: 'Follow me →',
         ariaLabel: 'Visit GitHub profile',
+    },
+    {
+        icon: Mail,
+        title: 'Email',
+        value: 'jdiogok@gmail.com',
+        link: 'mailto:jdiogok@gmail.com',
+        linkText: 'Write me →',
+        ariaLabel: 'Send email to jdiogok@gmail.com',
     },
 ];
 
@@ -50,26 +51,29 @@ export default function Contact() {
         email: false,
         message: false,
     });
+
+    const [isSubmitting, setIsSubmitting] = useState(false);
     const [formStatus, setFormStatus] = useState({
         loading: false,
-        error: false,
         success: false,
+        error: false,
         message: null,
     });
 
-    const [isSubmitting, setIsSubmitting] = useState(false);
-    const [messageCount, setMessageCount] = useState(0);
     const MAX_MESSAGE_LENGTH = 500;
+    const [messageCount, setMessageCount] = useState(0);
 
     const validateField = (field, value) => {
-        if (!value)
+        if (!value) {
             return `${field.charAt(0).toUpperCase() + field.slice(1)} is required`;
+        }
         if (field === 'email' && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
             return 'Invalid email format';
         }
         if (field === 'message' && value.length > MAX_MESSAGE_LENGTH) {
             return `Message must be less than ${MAX_MESSAGE_LENGTH} characters`;
         }
+
         return null;
     };
 
@@ -106,13 +110,19 @@ export default function Contact() {
         if (hasErrors) {
             setFormStatus({
                 loading: false,
+                error: true,
                 message: 'Please fix the errors before submitting',
-                status: 400,
             });
+
             return;
         }
 
-        setFormStatus({ loading: true, message: null, status: null });
+        setFormStatus({
+            loading: true,
+            success: false,
+            error: false,
+            message: null,
+        });
         setIsSubmitting(true);
 
         try {
@@ -205,11 +215,11 @@ export default function Contact() {
                         {contactMethods.map((method) => (
                             <div
                                 key={method.title}
-                                className="rounded-lg border border-border-light bg-surface-light p-6 transition-all duration-300 hover:shadow-lg hover:shadow-primary-light/20 dark:border-border-dark dark:bg-surface-dark dark:hover:shadow-primary-dark/20"
+                                className="rounded-lg border border-border-light bg-surface-light p-6 transition-shadow duration-300 hover:shadow-lg hover:shadow-primary-light/20 dark:border-border-dark dark:bg-surface-dark dark:hover:shadow-primary-dark/20"
                             >
-                                <div className="flex flex-col items-center text-center">
+                                <div className="flex flex-col items-center space-y-2 text-center">
                                     <method.icon
-                                        className="fill-primary-light"
+                                        className="fill-primary-light dark:fill-primary-dark"
                                         aria-hidden="true"
                                     />
                                     <Text
@@ -234,7 +244,7 @@ export default function Contact() {
                                         href={method.link}
                                         isExternal
                                         ariaLabel={method.ariaLabel}
-                                        className="mt-2 text-sm transition-colors duration-300 hover:text-primary-light dark:hover:text-primary-dark"
+                                        className="mt-2 text-sm"
                                     >
                                         {method.linkText}
                                     </Link>
@@ -245,7 +255,11 @@ export default function Contact() {
                 </div>
 
                 <div className="flex-1">
-                    <form
+                    <motion.form
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.5, delay: 0.2 }}
+                        viewport={{ once: true }}
                         className="space-y-6"
                         onSubmit={handleSubmit}
                         noValidate
@@ -261,39 +275,6 @@ export default function Contact() {
                         >
                             Contact Form
                         </Text>
-
-                        <div
-                            id="form-status"
-                            className="sr-only"
-                            aria-live="polite"
-                            role="status"
-                        >
-                            {formStatus.loading && 'Form is submitting...'}
-                            {formStatus.success && formStatus.message}
-                            {formStatus.error && formStatus.message}
-                        </div>
-
-                        {formStatus.success && (
-                            <motion.div
-                                initial={{ opacity: 0, y: -10 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                className="rounded-md bg-green-50 p-4 text-green-700 dark:bg-green-900/20 dark:text-green-400"
-                                role="alert"
-                            >
-                                {formStatus.message}
-                            </motion.div>
-                        )}
-
-                        {formStatus.error && (
-                            <motion.div
-                                initial={{ opacity: 0, y: -10 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                className="rounded-md bg-red-50 p-4 text-red-700 dark:bg-red-900/20 dark:text-red-400"
-                                role="alert"
-                            >
-                                {formStatus.error}
-                            </motion.div>
-                        )}
 
                         <div>
                             <label
@@ -325,7 +306,7 @@ export default function Contact() {
                                         : 'border-border-light focus:border-primary-light focus:ring-primary-light dark:border-border-dark dark:focus:border-primary-dark dark:focus:ring-primary-dark'
                                 } bg-surface-light px-4 py-2 text-base text-text-light focus:outline-none focus:ring-2 disabled:cursor-not-allowed disabled:opacity-50 dark:bg-surface-dark dark:text-text-dark`}
                             />
-                            <div className="min-h-[20px]">
+                            <div className="mt-1 min-h-[20px]">
                                 {getFieldError('name') && (
                                     <p
                                         id="name-error"
@@ -368,7 +349,7 @@ export default function Contact() {
                                         : 'border-border-light focus:border-primary-light focus:ring-primary-light dark:border-border-dark dark:focus:border-primary-dark dark:focus:ring-primary-dark'
                                 } bg-surface-light px-4 py-2 text-base text-text-light focus:outline-none focus:ring-2 disabled:cursor-not-allowed disabled:opacity-50 dark:bg-surface-dark dark:text-text-dark`}
                             />
-                            <div className="min-h-[20px]">
+                            <div className="mt-1 min-h-[20px]">
                                 {getFieldError('email') && (
                                     <p
                                         id="email-error"
@@ -436,24 +417,55 @@ export default function Contact() {
                             </div>
                         </div>
 
-                        <div>
-                            <Button
-                                type="submit"
-                                variant="primary"
-                                size="lg"
-                                fullWidth
-                                loading={formStatus.loading}
-                                disabled={formStatus.loading || !isFormValid()}
-                                aria-label={
-                                    formStatus.loading
-                                        ? 'Sending message...'
-                                        : 'Send message'
-                                }
-                            >
-                                {!formStatus.loading && 'Send message'}
-                            </Button>
+                        <Button
+                            type="submit"
+                            variant="primary"
+                            size="lg"
+                            fullWidth
+                            loading={formStatus.loading}
+                            disabled={formStatus.loading || !isFormValid()}
+                            aria-label={
+                                formStatus.loading
+                                    ? 'Sending message...'
+                                    : 'Send message'
+                            }
+                        >
+                            {!formStatus.loading && 'Send message'}
+                        </Button>
+
+                        <div
+                            id="form-status"
+                            className="sr-only"
+                            aria-live="polite"
+                            role="status"
+                        >
+                            {formStatus.loading && 'Form is submitting...'}
+                            {formStatus.success && formStatus.message}
+                            {formStatus.error && formStatus.message}
                         </div>
-                    </form>
+
+                        {formStatus.success && (
+                            <motion.div
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                className="rounded-md bg-green-50 p-4 text-green-700 dark:bg-green-900/20 dark:text-green-400"
+                                role="alert"
+                            >
+                                {formStatus.message}
+                            </motion.div>
+                        )}
+
+                        {formStatus.error && (
+                            <motion.div
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                className="rounded-md bg-red-50 p-4 text-red-700 dark:bg-red-900/20 dark:text-red-400"
+                                role="alert"
+                            >
+                                {formStatus.error}
+                            </motion.div>
+                        )}
+                    </motion.form>
                 </div>
             </div>
         </section>

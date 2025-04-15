@@ -17,7 +17,7 @@ const linkStyles = {
     ],
     inline: [
         'relative text-primary-light hover:text-primary-light/80',
-        'dark:text-primary-dark dark:hover:text-primary-dark/90',
+        'dark:text-primary-dark dark:hover:text-accent-dark',
         'after:absolute after:-bottom-1 after:left-0 after:h-[2px] after:w-0',
         'after:bg-primary-light/90 after:transition-all after:duration-200',
         'hover:after:w-full dark:after:bg-primary-dark/90',
