@@ -27,6 +27,7 @@ const itemVariants = {
  * @param {Array} props.tags - The tags for the project
  * @param {number} props.index - The index of the project
  * @param {boolean} props.isDragging - Whether the parent container is being dragged
+ * @returns {React.ReactNode} The rendered component
  */
 const ProjectCard = ({
     image,

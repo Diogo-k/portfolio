@@ -37,7 +37,7 @@ const linkStyles = {
  * @param {string} [props.ariaCurrent] - Current state of the link for accessibility
  * @param {string} [props.className] - Additional CSS classes to apply
  * @param {boolean} [props.active=false] - Whether the link is active
- * @returns {JSX.Element} A styled link component
+ * @returns {React.ReactNode} A styled link component
  */
 function Link({
     variant = 'inline',

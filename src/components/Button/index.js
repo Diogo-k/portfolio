@@ -25,6 +25,7 @@ import { motion } from 'motion/react';
  * @param {string} [props.ariaLabel] - Accessibility label
  * @param {('button'|'submit'|'reset')} [props.type='button'] - Button type
  * @param {React.Ref} ref - Forwarded ref
+ * @returns {React.ReactNode} The rendered component
  */
 const Button = forwardRef(
     (

@@ -61,6 +61,8 @@ const skillIconMap = {
 /**
  * Skills component that displays a grid of skill tags with animations
  * @param {Object} props - The component props
+ * @param {Array} props.skills - The skills to display
+ * @returns {React.ReactNode} The rendered component
  */
 const Skills = ({ skills }) => {
     return (

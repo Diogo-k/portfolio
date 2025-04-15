@@ -7,6 +7,7 @@ import PropTypes from 'prop-types';
  * @param {Object} props - The component props
  * @param {React.ReactNode} props.children - The content of the text
  * @param {string} props.size - The size of the text
+ * @returns {React.ReactNode} The rendered component
  */
 export default function Text({
     as: Component = 'span',

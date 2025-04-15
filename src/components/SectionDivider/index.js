@@ -12,6 +12,7 @@ import { Katana } from '@/assets';
  * @param {Object} props - The component props
  * @param {string} props.className - The class name for the component
  * @param {string} props.ariaLabel - The aria label for the component
+ * @returns {React.ReactNode} The rendered component
  */
 const SectionDivider = ({
     className = '',

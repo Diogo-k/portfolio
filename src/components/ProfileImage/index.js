@@ -4,7 +4,7 @@ import * as motion from 'motion/react-client';
 /**
  * ProfileImage component with error handling and loading state
  *
- * @returns {JSX.Element} The ProfileImage component
+ * @returns {React.ReactNode} The ProfileImage component
  */
 const ProfileImage = () => {
     return (

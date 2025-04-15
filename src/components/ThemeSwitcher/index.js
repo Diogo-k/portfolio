@@ -10,6 +10,7 @@ import { Sun, Moon } from '@/assets';
  * ThemeSwitcher component that displays a button to toggle the theme.
  *
  * @param {Object} props - The component props
+ * @returns {React.ReactNode} The rendered component
  */
 export default function ThemeSwitcher({ ...props }) {
     const [mounted, setMounted] = useState(false);

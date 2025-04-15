@@ -20,6 +20,10 @@ const variants = {
  * @param {Object} props - The component props
  * @param {React.ReactNode} props.children - The content of the tag
  * @param {string} props.variant - The variant of the tag
+ * @param {string} props.className - The class name of the tag
+ * @param {React.ReactNode} props.icon - The icon of the tag
+ * @param {boolean} props.whileHover - Whether the tag should scale on hover
+ * @returns {React.ReactNode} The rendered component
  */
 export default function Tag({
     children,
