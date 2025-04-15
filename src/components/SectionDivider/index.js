@@ -43,7 +43,6 @@ const SectionDivider = ({
             animate={{ opacity: isInView ? 1 : 0 }}
             transition={{ duration: 0.5 }}
             role="presentation"
-            aria-hidden="true"
             aria-label={ariaLabel}
         >
             <div className="relative flex h-32 w-full items-center justify-center">
@@ -82,6 +81,9 @@ const SectionDivider = ({
                         initial="idle"
                         whileTap="slash"
                         className="cursor-pointer"
+                        tabIndex={0}
+                        role="button"
+                        aria-label="Animate katana slash"
                     >
                         <Katana
                             className="fill-accent-light drop-shadow-lg dark:fill-accent-dark"

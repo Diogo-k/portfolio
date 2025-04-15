@@ -134,7 +134,7 @@ export default function Projects({ projects, entirePage = false }) {
                             className={`rounded-full px-4 py-2 text-sm font-medium focus:outline-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-text-light dark:focus-visible:outline-text-dark ${
                                 name === selectedTag
                                     ? 'bg-accent-light text-white dark:bg-accent-dark'
-                                    : 'bg-surface-light text-muted-light hover:bg-surface-light/80 dark:bg-surface-dark dark:text-muted-dark dark:hover:bg-surface-dark/80'
+                                    : 'bg-surface-light text-muted-light hover:bg-surface-light/80 dark:bg-surface-dark dark:text-surface-light dark:hover:bg-surface-dark/80'
                             }`}
                             role="tab"
                             aria-selected={name === selectedTag}
@@ -243,6 +243,7 @@ export default function Projects({ projects, entirePage = false }) {
                         className="grid min-h-[500px] flex-1 grid-cols-1 place-items-center gap-6 sm:gap-8 md:grid-cols-2"
                         role="tabpanel"
                         aria-label={`Project page ${page + 1}`}
+                        id="project-list"
                     >
                         {currentProjects.map((project, index) => (
                             <ProjectCard
