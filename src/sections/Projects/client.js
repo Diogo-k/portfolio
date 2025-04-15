@@ -240,7 +240,7 @@ export default function Projects({ projects, entirePage = false }) {
                     >
                         {currentProjects.map((project, index) => (
                             <ProjectCard
-                                key={project.name}
+                                key={`${project.name}-${index}`}
                                 index={index}
                                 isDragging={isDragging}
                                 {...project}

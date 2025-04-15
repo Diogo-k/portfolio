@@ -5,5 +5,10 @@ import ProjectsClient from './client';
 export default async function Projects({ entirePage = false }) {
     const projects = await getAllDataFromContent('projects');
 
-    return <ProjectsClient projects={projects} entirePage={entirePage} />;
+    // Sort projects by date in descending order (newest first)
+    const sortedProjects = [...projects].sort((a, b) => {
+        return new Date(b.date) - new Date(a.date);
+    });
+
+    return <ProjectsClient projects={sortedProjects} entirePage={entirePage} />;
 }

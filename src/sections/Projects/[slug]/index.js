@@ -74,7 +74,7 @@ export default function ProjectPage({ project }) {
                     size="lg"
                     className="text-text-light dark:text-text-dark"
                 >
-                    {project.description}
+                    {project.longDescription}
                 </Text>
             </motion.div>
 
@@ -85,7 +85,7 @@ export default function ProjectPage({ project }) {
                 <div className="relative aspect-video w-full">
                     <Image
                         alt={`${project.name} project preview`}
-                        src={project.image || '/placeholder-project.jpg'}
+                        src={project.image || '/placeholder.png'}
                         fill
                         className="object-cover"
                         priority
@@ -97,10 +97,10 @@ export default function ProjectPage({ project }) {
                 variants={itemVariants}
                 className="mb-12 flex flex-wrap gap-4"
             >
-                {project.githubLink && (
+                {project.repository && (
                     <Button
                         as="a"
-                        href={project.githubLink}
+                        href={project.repository}
                         target="_blank"
                         rel="noopener noreferrer"
                         variant="outline"
@@ -110,10 +110,10 @@ export default function ProjectPage({ project }) {
                         <SourceCode className="size-6" />
                     </Button>
                 )}
-                {project.projectLink && (
+                {project.demo && (
                     <Button
                         as="a"
-                        href={project.projectLink}
+                        href={project.demo}
                         target="_blank"
                         rel="noopener noreferrer"
                         variant="outline"
@@ -151,7 +151,7 @@ export default function ProjectPage({ project }) {
                         weight="font-semibold"
                         className="mb-4"
                     >
-                        Key Features
+                        Features
                     </Text>
                     <ul className="list-inside list-disc space-y-2 text-text-light dark:text-text-dark">
                         {project.details.features.map((feature, index) => (

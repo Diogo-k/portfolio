@@ -1,7 +1,6 @@
 import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
-import { serialize } from 'next-mdx-remote/serialize';
 
 function getContentDirectory(contentType) {
     return path.join(process.cwd(), `src/content/${contentType}`);
@@ -64,13 +63,10 @@ export async function getContentData(slug, contentType) {
 
     const fileContents = fs.readFileSync(fullPath, 'utf8');
 
-    const { data, content } = matter(fileContents);
-
-    const mdxSource = await serialize(content);
+    const { data } = matter(fileContents);
 
     return {
         slug,
-        mdxSource,
         ...data,
     };
 }

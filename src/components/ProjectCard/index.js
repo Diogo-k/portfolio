@@ -2,9 +2,7 @@ import PropTypes from 'prop-types';
 import Image from 'next/image';
 import { motion } from 'motion/react';
 
-import { Link, Text, Button, Tag } from '@/components';
-
-import { RightArrow } from '@/assets';
+import { Link, Text, Tag } from '@/components';
 
 const itemVariants = {
     hidden: { opacity: 0, y: 20 },
@@ -30,9 +28,10 @@ const itemVariants = {
  * @returns {React.ReactNode} The rendered component
  */
 const ProjectCard = ({
-    image,
+    thumbnail,
     slug,
     name,
+    description,
     tags,
     index,
     isDragging = false,
@@ -54,7 +53,7 @@ const ProjectCard = ({
                 <div className="relative h-64 overflow-hidden">
                     <Image
                         alt={`${name} project preview`}
-                        src={image}
+                        src={thumbnail || '/placeholder.png'}
                         width="1920"
                         height="1080"
                         placeholder="blur"
@@ -76,17 +75,16 @@ const ProjectCard = ({
                         >
                             {name}
                         </Text>
-                        <div className="flex gap-2">
-                            <Button
-                                variant="outline"
-                                size="sm"
-                                aria-label={`View ${name} details`}
-                            >
-                                <RightArrow className="size-5" />
-                            </Button>
-                        </div>
                     </div>
-
+                    <div className="flex items-center justify-start">
+                        <Text
+                            as="h2"
+                            size="text-sm"
+                            responsiveSize={{ sm: 'text-base' }}
+                        >
+                            {description}
+                        </Text>
+                    </div>
                     <div className="flex flex-wrap gap-2">
                         {tags.map(({ name, variant }) => (
                             <Tag key={name} variant={variant}>
@@ -101,9 +99,10 @@ const ProjectCard = ({
 };
 
 ProjectCard.propTypes = {
-    image: PropTypes.string.isRequired,
+    thumbnail: PropTypes.string.isRequired,
     slug: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
+    description: PropTypes.string.isRequired,
     tags: PropTypes.arrayOf(
         PropTypes.shape({
             name: PropTypes.string.isRequired,
