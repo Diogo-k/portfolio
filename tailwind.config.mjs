@@ -16,7 +16,7 @@ const config = {
                 },
                 accent: {
                     light: '#B42A2A',
-                    dark: '#9E1A1A',
+                    dark: '#C93434',
                 },
                 background: {
                     light: '#ECE5DA',

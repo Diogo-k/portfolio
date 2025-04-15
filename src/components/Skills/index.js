@@ -69,7 +69,7 @@ const Skills = ({ skills }) => {
             initial="initial"
             whileInView="whileInView"
             viewport={{ once: true }}
-            className="flex flex-wrap gap-2 overflow-hidden"
+            className="flex flex-wrap justify-center gap-2 overflow-hidden"
             aria-label="Technical skills list"
             role="list"
         >

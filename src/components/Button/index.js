@@ -4,6 +4,7 @@ import { forwardRef } from 'react';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
 import Link from 'next/link';
+
 import { motion } from 'motion/react';
 
 /**
@@ -53,7 +54,7 @@ const Button = forwardRef(
             primary:
                 'rounded-lg bg-gradient-to-r from-primary-light to-accent-light text-white shadow-md shadow-primary-light/20 hover:shadow-lg hover:shadow-primary-light/30 hover:from-accent-light hover:to-primary-light dark:from-primary-dark dark:to-accent-dark dark:shadow-primary-dark/20 dark:hover:shadow-primary-dark/30 dark:hover:from-accent-dark dark:hover:to-primary-dark transition-all duration-300',
             outline:
-                'rounded-lg border-2 border-primary-light text-primary-light hover:border-accent-light hover:bg-primary-light/10 hover:text-accent-light dark:border-primary-dark dark:text-white dark:hover:border-accent-dark dark:hover:bg-accent-dark/30 transition-all duration-300',
+                'rounded-lg border-2 border-primary-light text-primary-light hover:border-accent-light hover:bg-primary-light/10 dark:border-primary-dark dark:text-white dark:hover:border-accent-dark dark:hover:bg-accent-dark/30 transition-all duration-300',
             ghost: 'rounded-lg text-primary-light hover:bg-primary-light/10 dark:text-white dark:hover:bg-accent-dark/30 transition-all duration-300',
         };
 

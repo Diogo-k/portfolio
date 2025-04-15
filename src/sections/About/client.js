@@ -87,9 +87,6 @@ export default function About({ about }) {
                             >
                                 <Text
                                     size="text-sm"
-                                    responsiveSize={{
-                                        sm: 'text-base',
-                                    }}
                                     id={`about-paragraph-${index}`}
                                     role="article"
                                     dangerouslySetInnerHTML={{
@@ -124,9 +121,9 @@ export default function About({ about }) {
                     initial="initial"
                     whileInView="whileInView"
                     viewport={{ once: true, margin: '-10px' }}
-                    className="flex flex-col gap-6 sm:gap-8"
+                    className="flex flex-col gap-4 sm:gap-6"
                 >
-                    <ProfileImage image="/me_skydive.jpeg" />
+                    <ProfileImage />
                     <Text
                         as="h2"
                         size="text-xl"
@@ -134,6 +131,7 @@ export default function About({ about }) {
                             sm: 'text-2xl',
                         }}
                         weight="font-bold"
+                        align="text-center"
                         id="skills-heading"
                         role="heading"
                         aria-label="Technical skills section"

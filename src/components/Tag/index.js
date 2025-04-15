@@ -26,6 +26,7 @@ export default function Tag({
     variant = 'primary',
     className,
     icon: Icon,
+    whileHover = false,
 }) {
     return (
         <motion.span
@@ -34,7 +35,7 @@ export default function Tag({
                 variants[variant],
                 className
             )}
-            whileHover={{ scale: 1.05 }}
+            whileHover={whileHover && { scale: 1.05 }}
             transition={{ duration: 0.2 }}
         >
             {Icon && (
@@ -54,8 +55,10 @@ Tag.propTypes = {
     variant: PropTypes.oneOf(Object.keys(variants)),
     className: PropTypes.string,
     icon: PropTypes.elementType,
+    whileHover: PropTypes.bool,
 };
 
 Tag.defaultProps = {
     icon: null,
+    whileHover: false,
 };

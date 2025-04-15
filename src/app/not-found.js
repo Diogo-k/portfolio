@@ -20,7 +20,7 @@ export default function NotFound() {
     };
 
     const numberVariants = {
-        hover: {
+        tap: {
             scale: 1.1,
             rotate: [0, -10, 10, -10, 0],
             transition: { duration: 0.5 },
@@ -38,18 +38,13 @@ export default function NotFound() {
                 <motion.div variants={itemVariants} className="relative">
                     <motion.div
                         variants={numberVariants}
-                        animate={'hover'}
-                        whileHover="hover"
+                        animate={'tap'}
+                        whileTap="tap"
                         className="cursor-pointer"
                     >
-                        <Text
-                            as="h1"
-                            size="text-9xl"
-                            weight="font-bold"
-                            className="bg-gradient-to-r from-primary-light to-accent-light bg-clip-text text-transparent dark:from-primary-dark dark:to-accent-dark"
-                        >
+                        <h1 className="bg-gradient-to-r from-primary-light to-accent-light bg-clip-text text-9xl font-bold text-transparent dark:from-primary-dark dark:to-accent-dark">
                             404
-                        </Text>
+                        </h1>
                     </motion.div>
                 </motion.div>
 

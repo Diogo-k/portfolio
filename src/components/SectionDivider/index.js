@@ -37,7 +37,7 @@ const SectionDivider = ({
     return (
         <motion.section
             ref={dividerRef}
-            className={`my-12 w-full overflow-hidden ${className}`}
+            className={`w-full overflow-hidden ${className}`}
             initial={{ opacity: 0 }}
             animate={{ opacity: isInView ? 1 : 0 }}
             transition={{ duration: 0.5 }}
@@ -47,16 +47,16 @@ const SectionDivider = ({
         >
             <div className="relative flex h-32 w-full items-center justify-center">
                 <motion.div
-                    className="absolute left-0 top-1/2 h-[2px] w-[42%] -translate-y-1/2 bg-gradient-to-r from-transparent to-primary-light dark:to-primary-light"
+                    className="absolute left-0 top-1/2 h-[2px] w-[38%] -translate-y-1/2 bg-gradient-to-r from-transparent to-primary-light dark:to-primary-light"
                     initial={{ width: 0 }}
-                    animate={{ width: isInView ? '42%' : 0 }}
+                    animate={{ width: isInView ? '38%' : 0 }}
                     transition={{ duration: 0.8, ease: 'easeOut' }}
                 />
 
                 <motion.div
-                    className="absolute right-0 top-1/2 h-[2px] w-[42%] -translate-y-1/2 bg-gradient-to-l from-transparent to-primary-light dark:to-primary-light"
+                    className="absolute right-0 top-1/2 h-[2px] w-[38%] -translate-y-1/2 bg-gradient-to-l from-transparent to-primary-light dark:to-primary-light"
                     initial={{ width: 0 }}
-                    animate={{ width: isInView ? '42%' : 0 }}
+                    animate={{ width: isInView ? '38%' : 0 }}
                     transition={{ duration: 0.8, ease: 'easeOut', delay: 0.2 }}
                 />
 
@@ -79,10 +79,11 @@ const SectionDivider = ({
                     <motion.div
                         variants={katanaVariants}
                         initial="idle"
-                        whileHover="slash"
+                        whileTap="slash"
+                        className="cursor-pointer"
                     >
                         <Katana
-                            className="fill-primary-light drop-shadow-lg dark:fill-primary-light"
+                            className="fill-accent-light drop-shadow-lg dark:fill-accent-dark"
                             width={60}
                             height={60}
                             aria-hidden="true"

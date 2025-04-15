@@ -6,7 +6,6 @@ import PropTypes from 'prop-types';
 import { motion, AnimatePresence } from 'motion/react';
 
 import { Button } from '@/components';
-import { RightArrow } from '@/assets';
 
 import { ANIMATION_VARIANTS, ANIMATION_TIMINGS } from './animation';
 
@@ -150,10 +149,6 @@ export default function Intro({ intro }) {
                         aria-label={button.ariaLabel}
                     >
                         {button.text}
-                        <RightArrow
-                            className="ml-1 size-4"
-                            aria-hidden="true"
-                        />
                     </Button>
                 </motion.div>
             </motion.div>
