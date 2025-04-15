@@ -137,7 +137,7 @@ export default function ProjectPage({ project }) {
                     </Text>
                     <div className="flex flex-wrap gap-2">
                         {project.details.technologies.map((tech) => (
-                            <Tag key={tech} variant={tech.variant}>
+                            <Tag key={tech.name} variant={tech.variant}>
                                 {tech.name}
                             </Tag>
                         ))}
