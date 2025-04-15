@@ -3,7 +3,7 @@
 @import 'tailwindcss/utilities';
 
 * {
-    @apply transition-colors duration-100;
+    @apply transition-colors duration-200;
 }
 
 html {
