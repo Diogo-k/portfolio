@@ -64,7 +64,13 @@ export default function Projects({ projects, entirePage = false }) {
 
     const uniqueTags = [
         { name: 'All' },
-        ...new Set(projects.flatMap((project) => project.tags)),
+        ...Array.from(
+            new Map(
+                projects
+                    .flatMap((project) => project.tags)
+                    .map((tag) => [tag.name, tag])
+            ).values()
+        ),
     ];
 
     const swipeThreshold = 10000;
