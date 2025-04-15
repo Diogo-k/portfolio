@@ -1,10 +1,8 @@
-'use client';
-
 import PropTypes from 'prop-types';
 import Image from 'next/image';
 import { motion } from 'motion/react';
 
-import { Button, Tag } from '@/components';
+import { Link, Text, Button, Tag } from '@/components';
 
 import { RightArrow } from '@/assets';
 
@@ -14,7 +12,7 @@ const itemVariants = {
         opacity: 1,
         y: 0,
         transition: {
-            duration: 0.3,
+            duration: 0.4,
             ease: [0.4, 0, 0.2, 1],
         },
     },
@@ -28,63 +26,76 @@ const itemVariants = {
  * @param {string} props.name - The name of the project
  * @param {Array} props.tags - The tags for the project
  * @param {number} props.index - The index of the project
+ * @param {boolean} props.isDragging - Whether the parent container is being dragged
  */
-const ProjectCard = ({ image, slug, name, tags, index }) => {
+const ProjectCard = ({
+    image,
+    slug,
+    name,
+    tags,
+    index,
+    isDragging = false,
+}) => {
     return (
-        <motion.div
-            variants={index === 0 ? itemVariants : undefined}
-            initial={index !== 0 ? { opacity: 0, y: 0 } : undefined}
-            animate={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: '-50px' }}
-            className="group pointer-events-none relative size-full max-w-md overflow-hidden rounded-xl p-4 transition-all duration-300"
+        <Link
+            className={`${isDragging && 'pointer-events-none'}`}
+            draggable="false"
+            variant="empty"
+            href={`/projects/${slug}`}
         >
-            <div className="mb-4 rounded-2xl bg-surface-light dark:bg-surface-dark">
-                <motion.div
-                    whileHover={{ scale: 1.05 }}
-                    transition={{ duration: 0.3 }}
-                    className="size-full overflow-hidden rounded-2xl"
-                >
+            <motion.div
+                variants={index === 0 ? itemVariants : undefined}
+                initial={index !== 0 ? { opacity: 0, y: 0 } : undefined}
+                animate={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: '-50px' }}
+                className="group relative cursor-pointer overflow-hidden rounded-2xl bg-surface-light shadow-lg transition-shadow duration-300 hover:shadow-primary-light/20 dark:bg-surface-dark dark:hover:shadow-primary-dark/20"
+            >
+                <div className="relative h-64 overflow-hidden">
                     <Image
                         alt={`${name} project preview`}
                         src={image}
-                        className="size-full object-cover transition-transform duration-300 group-hover:scale-105"
-                        width="1280"
-                        height="720"
-                        // placeholder="blur"
+                        width="1920"
+                        height="1080"
+                        placeholder="blur"
+                        blurDataURL="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=="
                         draggable="false"
-                        // loading="lazy"
+                        loading="lazy"
+                        className="size-full object-cover transition-transform duration-500 group-hover:scale-105"
                     />
-                </motion.div>
-            </div>
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+                </div>
 
-            <div className="flex flex-col gap-4">
-                <div className="flex items-start justify-between gap-4">
-                    <h2 className="text-xl font-bold text-primary-light sm:text-2xl dark:text-text-dark">
-                        {name}
-                    </h2>
-                    <div className="pointer-events-auto flex gap-2">
-                        <Button
-                            variant="outline"
-                            size="sm"
-                            as="link"
-                            className="rounded-full p-2"
-                            href={`/projects/${slug}`}
-                            aria-label={`View ${name} details`}
+                <div className="flex flex-col gap-4 p-6">
+                    <div className="flex items-center justify-between">
+                        <Text
+                            as="h2"
+                            size="text-xl"
+                            weight="font-bold"
+                            responsiveSize={{ sm: 'text-2xl' }}
                         >
-                            <RightArrow className="size-5" />
-                        </Button>
+                            {name}
+                        </Text>
+                        <div className="flex gap-2">
+                            <Button
+                                variant="outline"
+                                size="sm"
+                                aria-label={`View ${name} details`}
+                            >
+                                <RightArrow className="size-5" />
+                            </Button>
+                        </div>
+                    </div>
+
+                    <div className="flex flex-wrap gap-2">
+                        {tags.map(({ name, variant }) => (
+                            <Tag key={name} variant={variant}>
+                                {name}
+                            </Tag>
+                        ))}
                     </div>
                 </div>
-
-                <div className="flex flex-wrap gap-2">
-                    {tags.map(({ name, variant }) => (
-                        <Tag key={name} variant={variant}>
-                            {name}
-                        </Tag>
-                    ))}
-                </div>
-            </div>
-        </motion.div>
+            </motion.div>
+        </Link>
     );
 };
 
@@ -99,6 +110,7 @@ ProjectCard.propTypes = {
         })
     ).isRequired,
     index: PropTypes.number.isRequired,
+    isDragging: PropTypes.bool.isRequired,
 };
 
 export default ProjectCard;

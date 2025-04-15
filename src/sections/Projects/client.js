@@ -41,10 +41,13 @@ const containerVariants = {
  * @returns {JSX.Element} The Projects section component
  */
 export default function Projects({ projects, entirePage = false }) {
-    const [page, setPage] = useState(0);
-    const [direction, setDirection] = useState(0);
     const [selectedTag, setSelectedTag] = useState('All');
+
+    const [page, setPage] = useState(0);
     const itemsPerPage = entirePage ? 10 : 2;
+
+    const [direction, setDirection] = useState(0);
+    const [isDragging, setIsDragging] = useState(false);
 
     const filteredProjects =
         selectedTag === 'All'
@@ -64,7 +67,7 @@ export default function Projects({ projects, entirePage = false }) {
         ...new Set(projects.flatMap((project) => project.tags)),
     ];
 
-    const swipeConfidenceThreshold = 10000;
+    const swipeThreshold = 10000;
     const swipePower = (offset, velocity) => {
         return Math.abs(offset) * velocity;
     };
@@ -124,7 +127,7 @@ export default function Projects({ projects, entirePage = false }) {
                             whileTap={{ scale: 0.95 }}
                             className={`rounded-full px-4 py-2 text-sm font-medium transition-all duration-300 focus:outline-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-text-light dark:focus-visible:outline-text-dark ${
                                 name === selectedTag
-                                    ? 'bg-primary-light text-white dark:bg-primary-dark'
+                                    ? 'bg-accent-light text-white dark:bg-accent-dark'
                                     : 'bg-surface-light text-muted-light hover:bg-surface-light/80 dark:bg-surface-dark dark:text-muted-dark dark:hover:bg-surface-dark/80'
                             }`}
                             role="tab"
@@ -173,7 +176,7 @@ export default function Projects({ projects, entirePage = false }) {
                             transition={{ delay: 0.3 }}
                             className="mb-6 flex flex-col items-center gap-4 sm:mb-8"
                         >
-                            <div className="flex items-center justify-center gap-4 text-sm text-gray-500 dark:text-gray-400">
+                            <div className="flex items-center justify-center gap-1 text-sm text-gray-500 dark:text-gray-400">
                                 <span className="hidden sm:inline">
                                     Swipe to navigate
                                 </span>
@@ -185,7 +188,7 @@ export default function Projects({ projects, entirePage = false }) {
                                         repeatType: 'reverse',
                                         delay: 1,
                                     }}
-                                    className="flex items-center gap-1"
+                                    className="flex items-center"
                                 >
                                     <svg
                                         className="size-4"
@@ -217,15 +220,17 @@ export default function Projects({ projects, entirePage = false }) {
                         initial="enter"
                         animate="center"
                         exit="exit"
-                        drag="x"
+                        drag={totalPages > 1 ? 'x' : false}
                         dragConstraints={{ left: 0, right: 0 }}
                         dragElastic={1}
+                        onDragStart={() => setIsDragging(true)}
                         onDragEnd={(e, { offset, velocity }) => {
+                            setIsDragging(false);
                             const swipe = swipePower(offset.x, velocity.x);
 
-                            if (swipe < -swipeConfidenceThreshold) {
+                            if (swipe < -swipeThreshold) {
                                 paginate(1);
-                            } else if (swipe > swipeConfidenceThreshold) {
+                            } else if (swipe > swipeThreshold) {
                                 paginate(-1);
                             }
                         }}
@@ -237,6 +242,7 @@ export default function Projects({ projects, entirePage = false }) {
                             <ProjectCard
                                 key={project.name}
                                 index={index}
+                                isDragging={isDragging}
                                 {...project}
                             />
                         ))}
