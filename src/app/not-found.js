@@ -1,13 +1,8 @@
-'use client';
-
-import { useState } from 'react';
-import { motion } from 'framer-motion';
+import * as motion from 'motion/react-client';
 
 import { Button, Link, Text } from '@/components';
 
 export default function NotFound() {
-    const [isHovered, setIsHovered] = useState(false);
-
     const containerVariants = {
         hidden: { opacity: 0 },
         visible: {
@@ -45,8 +40,6 @@ export default function NotFound() {
                         variants={numberVariants}
                         animate={'hover'}
                         whileHover="hover"
-                        onHoverStart={() => setIsHovered(true)}
-                        onHoverEnd={() => setIsHovered(false)}
                         className="cursor-pointer"
                     >
                         <Text
@@ -58,17 +51,6 @@ export default function NotFound() {
                             404
                         </Text>
                     </motion.div>
-
-                    {isHovered && (
-                        <motion.div
-                            initial={{ opacity: 0, scale: 0.8 }}
-                            animate={{ opacity: 1, scale: 1 }}
-                            exit={{ opacity: 0, scale: 0.8 }}
-                            className="absolute -right-4 -top-4 rounded-full bg-accent-light p-2 text-sm text-white dark:bg-accent-dark"
-                        >
-                            Oops!
-                        </motion.div>
-                    )}
                 </motion.div>
 
                 <motion.div variants={itemVariants}>

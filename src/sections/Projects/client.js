@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import PropTypes from 'prop-types';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence } from 'motion/react';
 
 import { Text, ProjectCard } from '@/components';
 
@@ -44,7 +44,7 @@ export default function Projects({ projects, entirePage = false }) {
     const [page, setPage] = useState(0);
     const [direction, setDirection] = useState(0);
     const [selectedTag, setSelectedTag] = useState('All');
-    const itemsPerPage = entirePage ? 10 : 4;
+    const itemsPerPage = entirePage ? 10 : 2;
 
     const filteredProjects =
         selectedTag === 'All'
@@ -92,7 +92,7 @@ export default function Projects({ projects, entirePage = false }) {
             aria-labelledby="projects-heading"
         >
             <motion.div
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: -20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: '-50px' }}
                 transition={{ duration: 0.5 }}
@@ -209,7 +209,7 @@ export default function Projects({ projects, entirePage = false }) {
             </motion.div>
 
             <div className="relative flex flex-1 flex-col overflow-hidden">
-                <AnimatePresence initial={false} mode="wait" custom={direction}>
+                <AnimatePresence mode="wait" custom={direction}>
                     <motion.div
                         key={page}
                         custom={direction}

@@ -2,7 +2,7 @@ import { getSpecificMDXContent } from '@/utils/mdx';
 
 import AboutClient from './client';
 
-export default async function About() {
+export default async function About({ motion }) {
     const about = await getSpecificMDXContent('about');
 
     if (!about) {
@@ -11,5 +11,5 @@ export default async function About() {
         );
     }
 
-    return <AboutClient about={about} />;
+    return <AboutClient motion={motion} about={about} />;
 }

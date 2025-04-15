@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
 
-import { motion } from 'framer-motion';
+import * as motion from 'motion/react-client';
 
 const variants = {
     primary: 'bg-primary-light dark:bg-primary-dark',

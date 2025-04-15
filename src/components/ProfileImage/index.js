@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import Image from 'next/image';
 
-import { motion } from 'framer-motion';
+import * as motion from 'motion/react-client';
 
 /**
  * ProfileImage component with error handling and loading state

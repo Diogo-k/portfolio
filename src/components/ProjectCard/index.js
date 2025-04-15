@@ -2,7 +2,7 @@
 
 import PropTypes from 'prop-types';
 import Image from 'next/image';
-import { motion } from 'framer-motion';
+import { motion } from 'motion/react';
 
 import { Button, Tag } from '@/components';
 
@@ -21,7 +21,7 @@ const itemVariants = {
 };
 
 /**
- * ProjectCard component that displays a project card with a modal for details.
+ * ProjectCard component that displays a project card
  *
  * @param {Object} props - The component props
  * @param {string} props.image - The image source for the project
@@ -33,7 +33,8 @@ const ProjectCard = ({ image, slug, name, tags, index }) => {
     return (
         <motion.div
             variants={index === 0 ? itemVariants : undefined}
-            initial={index !== 0 ? { opacity: 1, y: 0 } : undefined}
+            initial={index !== 0 ? { opacity: 0, y: 0 } : undefined}
+            animate={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-50px' }}
             className="group pointer-events-none relative size-full max-w-md overflow-hidden rounded-xl p-4 transition-all duration-300"
         >

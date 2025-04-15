@@ -3,7 +3,7 @@
 import { useRef } from 'react';
 import PropTypes from 'prop-types';
 
-import { motion, useInView } from 'framer-motion';
+import { motion, useInView } from 'motion/react';
 
 import { Katana } from '@/assets';
 

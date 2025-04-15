@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { motion } from 'framer-motion';
+import * as motion from 'motion/react-client';
 
 import {
     SiReact,

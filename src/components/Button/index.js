@@ -4,7 +4,7 @@ import { forwardRef } from 'react';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
 import Link from 'next/link';
-import { motion } from 'framer-motion';
+import { motion } from 'motion/react';
 
 /**
  * A versatile button component that supports different variants, sizes, and states.
