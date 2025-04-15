@@ -100,13 +100,13 @@ export default function About({ about }) {
                         whileHover={{ scale: 1.05 }}
                         whileTap={{ scale: 0.95 }}
                         as="a"
-                        href="/Joao_Paulo_Resume.pdf"
+                        href="/joao_diogo_paulo_resume.pdf"
                         target="_blank"
                         rel="noopener noreferrer"
                         size="md"
                         variant="primary"
                         className="mt-2 w-fit"
-                        aria-label="View CV (Joao_Paulo_Resume.pdf) in new tab"
+                        aria-label="View CV (joao_diogo_paulo_resume.pdf) in new tab"
                     >
                         View CV
                         <RightArrow
