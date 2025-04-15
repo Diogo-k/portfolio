@@ -107,7 +107,7 @@ Skills.propTypes = {
                 'cloud',
             ]).isRequired,
         })
-    ),
+    ).isRequired,
 };
 
 export default Skills;
