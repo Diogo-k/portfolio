@@ -47,16 +47,16 @@ const SectionDivider = ({
         >
             <div className="relative flex h-32 w-full items-center justify-center">
                 <motion.div
-                    className="absolute left-0 top-1/2 h-[2px] w-[38%] -translate-y-1/2 bg-gradient-to-r from-transparent to-primary-light dark:to-primary-light"
+                    className="absolute left-0 top-1/2 h-[2px] w-2/5 -translate-y-1/2 bg-gradient-to-r from-transparent to-primary-light dark:to-primary-light"
                     initial={{ width: 0 }}
-                    animate={{ width: isInView ? '38%' : 0 }}
+                    animate={{ width: isInView ? '40%' : 0 }}
                     transition={{ duration: 0.8, ease: 'easeOut' }}
                 />
 
                 <motion.div
-                    className="absolute right-0 top-1/2 h-[2px] w-[38%] -translate-y-1/2 bg-gradient-to-l from-transparent to-primary-light dark:to-primary-light"
+                    className="absolute right-0 top-1/2 h-[2px] w-2/5 -translate-y-1/2 bg-gradient-to-l from-transparent to-primary-light dark:to-primary-light"
                     initial={{ width: 0 }}
-                    animate={{ width: isInView ? '38%' : 0 }}
+                    animate={{ width: isInView ? '40%' : 0 }}
                     transition={{ duration: 0.8, ease: 'easeOut', delay: 0.2 }}
                 />
 
