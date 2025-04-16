@@ -1,7 +1,6 @@
 {
     "compilerOptions": {
         "paths": {
-            "@/context": ["./src/context/index"],
             "@/sections": ["./src/sections/index"],
             "@/components": ["./src/components/index"],
             "@/utils/*": ["./src/utils/*"],

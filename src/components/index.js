@@ -7,11 +7,11 @@ import Text from './Text';
 import Button from './Button';
 import Link from './Link';
 import Tag from './Tag';
-import SectionDivider from './SectionDivider';
 
 //* Specific Components
-import ThemeSwitcher from './ThemeSwitcher';
 import CherryBlossoms from './CherryBlossoms';
+import ThemeSwitcher from './ThemeSwitcher';
+import SectionDivider from './SectionDivider';
 
 //* Section Components
 import ProfileImage from './ProfileImage';
@@ -27,10 +27,10 @@ export {
     Button,
     Link,
     Tag,
-    SectionDivider,
     //* Specific Components
-    ThemeSwitcher,
     CherryBlossoms,
+    ThemeSwitcher,
+    SectionDivider,
     //* Section Components
     ProfileImage,
     Skills,
