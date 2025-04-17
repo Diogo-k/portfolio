@@ -260,7 +260,6 @@ export default function Contact() {
                         whileInView={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.5, delay: 0.2 }}
                         viewport={{ once: true }}
-                        className="space-y-6"
                         onSubmit={handleSubmit}
                         noValidate
                         aria-labelledby="contact-form-heading"
