@@ -276,61 +276,71 @@ export default function Header() {
 
             <AnimatePresence>
                 {isMobileMenuOpen && (
-                    <motion.div
-                        id="mobile-menu"
-                        variants={mobileMenuVariants}
-                        initial="closed"
-                        animate="open"
-                        exit="closed"
-                        className="mobile-menu fixed right-0 top-full z-50 w-64 rounded-bl-lg border-b-2 border-l-2 border-border-light bg-background-light/90 p-6 shadow-lg backdrop-blur-md md:hidden dark:border-border-dark dark:bg-background-dark/80"
-                        aria-label="Mobile navigation menu"
-                    >
-                        <nav aria-label="Mobile navigation" className="flex-1">
-                            <ul
-                                className="flex flex-col items-center space-y-6"
-                                role="menu"
+                    <>
+                        <div
+                            className="fixed right-0 top-full size-[200vh]"
+                            onClick={() => setIsMobileMenuOpen(false)}
+                            aria-hidden="true"
+                        />
+                        <motion.div
+                            id="mobile-menu"
+                            variants={mobileMenuVariants}
+                            initial="closed"
+                            animate="open"
+                            exit="closed"
+                            className="mobile-menu fixed right-0 top-full z-50 w-64 rounded-bl-lg border-b-2 border-l-2 border-border-light bg-background-light/90 p-6 shadow-lg backdrop-blur-md md:hidden dark:border-border-dark dark:bg-background-dark/80"
+                            aria-label="Mobile navigation menu"
+                        >
+                            <nav
+                                aria-label="Mobile navigation"
+                                className="flex-1"
                             >
-                                {navItems.map((item) => (
-                                    <motion.li
-                                        key={item.id}
-                                        whileHover={{ scale: 1.05 }}
-                                        whileFocus={{ scale: 1.05 }}
-                                        transition={{
-                                            type: 'spring',
-                                            stiffness: 300,
-                                        }}
-                                        className="relative"
-                                        role="none"
-                                    >
-                                        <Link
-                                            variant="header"
-                                            href={item.href}
-                                            onClick={() =>
-                                                setIsMobileMenuOpen(false)
-                                            }
-                                            ariaLabel={`Navigate to ${item.name} section`}
-                                            ariaCurrent={
-                                                item.href === hash
-                                                    ? 'page'
-                                                    : undefined
-                                            }
-                                            active={isNavItemActive(
-                                                item,
-                                                hash,
-                                                pathname
-                                            )}
-                                            role="menuitem"
+                                <ul
+                                    className="flex flex-col items-center space-y-6"
+                                    role="menu"
+                                >
+                                    {navItems.map((item) => (
+                                        <motion.li
+                                            key={item.id}
+                                            whileHover={{ scale: 1.05 }}
+                                            whileFocus={{ scale: 1.05 }}
+                                            transition={{
+                                                type: 'spring',
+                                                stiffness: 300,
+                                            }}
+                                            className="relative"
+                                            role="none"
                                         >
-                                            {item.name}
-                                        </Link>
-                                    </motion.li>
-                                ))}
-                                <li role="none">
-                                    <ThemeSwitcher />
-                                </li>
-                            </ul>
-                        </nav>
-                    </motion.div>
+                                            <Link
+                                                variant="header"
+                                                href={item.href}
+                                                onClick={() =>
+                                                    setIsMobileMenuOpen(false)
+                                                }
+                                                ariaLabel={`Navigate to ${item.name} section`}
+                                                ariaCurrent={
+                                                    item.href === hash
+                                                        ? 'page'
+                                                        : undefined
+                                                }
+                                                active={isNavItemActive(
+                                                    item,
+                                                    hash,
+                                                    pathname
+                                                )}
+                                                role="menuitem"
+                                            >
+                                                {item.name}
+                                            </Link>
+                                        </motion.li>
+                                    ))}
+                                    <li role="none">
+                                        <ThemeSwitcher />
+                                    </li>
+                                </ul>
+                            </nav>
+                        </motion.div>
+                    </>
                 )}
             </AnimatePresence>
         </motion.header>
