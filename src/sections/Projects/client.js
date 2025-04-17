@@ -4,14 +4,15 @@ import { useState } from 'react';
 import PropTypes from 'prop-types';
 import { motion, AnimatePresence } from 'motion/react';
 
-import { Text, ProjectCard } from '@/components';
+import { Text, ProjectCard, Button } from '@/components';
+import { Swipe, RightArrow } from '@/assets';
 
 const containerVariants = {
     enter: (direction) => ({
-        x: direction > 0 ? 450 : -450,
+        x: direction > 0 ? 400 : -400,
         opacity: 0,
         transition: {
-            duration: 0.4,
+            duration: 0.25,
             type: 'spring',
             stiffness: 300,
             damping: 30,
@@ -21,17 +22,17 @@ const containerVariants = {
         x: 0,
         opacity: 1,
         transition: {
-            duration: 0.4,
+            duration: 0.25,
             type: 'spring',
             stiffness: 300,
             damping: 30,
         },
     },
     exit: (direction) => ({
-        x: direction < 0 ? 450 : -450,
+        x: direction < 0 ? 400 : -400,
         opacity: 0,
         transition: {
-            duration: 0.4,
+            duration: 0.25,
             type: 'spring',
             stiffness: 300,
             damping: 30,
@@ -46,11 +47,11 @@ const containerVariants = {
  * @param {Object} props.projects - The projects data
  * @returns {JSX.Element} The Projects section component
  */
-export default function Projects({ projects, entirePage = false }) {
+export default function Projects({ projects, isProjectRoute = false }) {
     const [selectedTag, setSelectedTag] = useState('All');
 
     const [page, setPage] = useState(0);
-    const itemsPerPage = entirePage ? 10 : 2;
+    const itemsPerPage = isProjectRoute ? 10 : 2;
 
     const [direction, setDirection] = useState(0);
     const [isDragging, setIsDragging] = useState(false);
@@ -101,8 +102,8 @@ export default function Projects({ projects, entirePage = false }) {
     return (
         <section
             id="projects"
-            className={`mx-auto flex w-full max-w-5xl flex-col px-4 py-20 sm:px-6 md:py-24 lg:py-28 ${
-                entirePage ? 'min-h-screen' : 'min-h-[60vh]'
+            className={`mx-auto flex w-full max-w-5xl flex-col overflow-x-hidden px-4 py-20 sm:px-6 md:py-24 lg:py-28 ${
+                isProjectRoute ? 'min-h-screen' : 'min-h-[60vh]'
             }`}
             aria-labelledby="projects-heading"
         >
@@ -119,36 +120,49 @@ export default function Projects({ projects, entirePage = false }) {
                         sm: 'text-5xl',
                     }}
                     weight="font-bold"
-                    className="mb-8 sm:mb-12"
+                    className="mb-4"
                     id="projects-heading"
                     role="heading"
                     aria-label="Projects portfolio section"
                 >
                     Projects
                 </Text>
-                <div
-                    className="mb-6 flex flex-wrap gap-2 sm:mb-8"
-                    role="tablist"
-                    aria-label="Project filter tabs"
+                <Text
+                    as="h2"
+                    size="text-sm"
+                    weight="font-normal"
+                    id="projects-intro-heading"
+                    role="heading"
+                    aria-label="Projects section introduction"
+                    className="mb-4 sm:mb-6"
                 >
-                    {uniqueTags.map(({ name }, index) => (
-                        <motion.button
-                            key={`${name}-${index}`}
-                            onClick={() => handleTagClick(name)}
-                            whileHover={{ scale: 1.05 }}
-                            whileTap={{ scale: 0.95 }}
-                            className={`rounded-full px-4 py-2 text-sm font-medium focus:outline-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-text-light dark:focus-visible:outline-text-dark ${
-                                name === selectedTag
-                                    ? 'bg-accent-light text-white dark:bg-accent-dark'
-                                    : 'bg-surface-light text-muted-light hover:bg-surface-light/80 dark:bg-surface-dark dark:text-surface-light dark:hover:bg-surface-dark/80'
-                            }`}
-                            role="tab"
-                            aria-selected={name === selectedTag}
-                        >
-                            {name}
-                        </motion.button>
-                    ))}
-                </div>
+                    Here you will see my most recent projects
+                </Text>
+                {isProjectRoute && (
+                    <div
+                        className="mb-6 flex flex-wrap gap-2 sm:mb-8"
+                        role="tablist"
+                        aria-label="Project filter tabs"
+                    >
+                        {uniqueTags.map(({ name }, index) => (
+                            <motion.button
+                                key={`${name}-${index}`}
+                                onClick={() => handleTagClick(name)}
+                                whileHover={{ scale: 1.05 }}
+                                whileTap={{ scale: 0.95 }}
+                                className={`rounded-full px-4 py-2 text-sm font-medium focus:outline-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-text-light dark:focus-visible:outline-text-dark ${
+                                    name === selectedTag
+                                        ? 'bg-accent-light text-white dark:bg-accent-dark'
+                                        : 'bg-surface-light text-muted-light hover:bg-surface-light/80 dark:bg-surface-dark dark:text-surface-light dark:hover:bg-surface-dark/80'
+                                }`}
+                                role="tab"
+                                aria-selected={name === selectedTag}
+                            >
+                                {name}
+                            </motion.button>
+                        ))}
+                    </div>
+                )}
                 {totalPages > 1 && (
                     <>
                         <div className="flex flex-col items-center gap-4 pb-4">
@@ -188,34 +202,16 @@ export default function Projects({ projects, entirePage = false }) {
                             transition={{ delay: 0.3 }}
                             className="mb-6 flex flex-col items-center gap-4 sm:mb-8"
                         >
-                            <div className="flex items-center justify-center gap-1 text-sm text-gray-500 dark:text-gray-400">
-                                <span className="hidden sm:inline">
-                                    Swipe to navigate
-                                </span>
+                            <div className="flex items-center justify-center gap-2 text-sm text-gray-500 dark:text-gray-400">
+                                <span>Swipe to navigate</span>
                                 <motion.div
                                     animate={{ x: [0, 10, 0] }}
                                     transition={{
                                         duration: 1.5,
                                         repeat: Infinity,
-                                        repeatType: 'reverse',
-                                        delay: 1,
                                     }}
-                                    className="flex items-center"
                                 >
-                                    <svg
-                                        className="size-4"
-                                        fill="none"
-                                        viewBox="0 0 24 24"
-                                        stroke="currentColor"
-                                        aria-hidden="true"
-                                    >
-                                        <path
-                                            strokeLinecap="round"
-                                            strokeLinejoin="round"
-                                            strokeWidth={2}
-                                            d="M14 5l7 7m0 0l-7 7m7-7H3"
-                                        />
-                                    </svg>
+                                    <Swipe className="size-5 fill-gray-500 dark:fill-gray-400" />
                                 </motion.div>
                             </div>
                         </motion.div>
@@ -251,6 +247,7 @@ export default function Projects({ projects, entirePage = false }) {
                 >
                     {currentProjects.map((project, index) => (
                         <ProjectCard
+                            isProjectRoute={isProjectRoute}
                             key={`${project.name}-${index}`}
                             index={index}
                             isDragging={isDragging}
@@ -259,6 +256,26 @@ export default function Projects({ projects, entirePage = false }) {
                     ))}
                 </motion.div>
             </AnimatePresence>
+            {!isProjectRoute && (
+                <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.5 }}
+                    className="mt-8 flex w-full grow items-center justify-center"
+                >
+                    <Button
+                        as="link"
+                        href="/projects"
+                        variant="ghost"
+                        size="md"
+                        className="w-fit"
+                    >
+                        View all projects
+                        <RightArrow className="ml-1 size-4" />
+                    </Button>
+                </motion.div>
+            )}
         </section>
     );
 }

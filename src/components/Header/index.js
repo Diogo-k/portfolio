@@ -10,7 +10,7 @@ import { ThemeSwitcher, Button, Link } from '@/components';
 const navItems = [
     { name: 'Home', href: '/#home', id: 'nav-home' },
     { name: 'About Me', href: '/#about-me', id: 'nav-about-me' },
-    { name: 'Projects', href: '/projects', id: 'nav-projects', route: true },
+    { name: 'Projects', href: '/#projects', id: 'nav-projects' },
     { name: 'Contact', href: '/#contact', id: 'nav-contact' },
 ];
 
@@ -22,13 +22,11 @@ const navItems = [
  * @returns {boolean} Whether the item is active
  */
 const isNavItemActive = (item, hash, pathname) => {
-    if (item.route) {
-        return (
-            item.href === hash.replace('#', '') &&
-            pathname.split('/').length !== 3
-        );
+    if (pathname.split('/')[1] === 'projects') {
+        return item.href.replace('#', '') === pathname;
     }
-    return item.href === hash;
+
+    return item.href === hash && pathname.split('/').length !== 3;
 };
 
 // Animation variants for mobile menu
@@ -101,11 +99,8 @@ export default function Header() {
     useEffect(() => {
         const handleScroll = () => {
             const sections = navItems.map((item) => ({
-                id: item.route ? item.href.slice(1) : item.href.slice(2),
-                route: item.route || false,
-                element: document.getElementById(
-                    item.route ? item.href.slice(1) : item.href.slice(2)
-                ),
+                id: item.href.slice(2),
+                element: document.getElementById(item.href.slice(2)),
             }));
 
             // Get the current scroll position and viewport height
@@ -138,7 +133,8 @@ export default function Header() {
 
             if (
                 currentSection &&
-                currentSection.id !== hash.slice(currentSection.route ? 1 : 2)
+                currentSection.id !== hash.slice(2) &&
+                pathname.split('/')[1] !== 'projects'
             ) {
                 window.history.replaceState(
                     null,
@@ -161,7 +157,7 @@ export default function Header() {
             window.removeEventListener('scroll', debouncedHandleScroll);
             clearTimeout(timeoutId);
         };
-    }, [hash]);
+    }, [pathname, hash]);
 
     // Close mobile menu when clicking outside
     useEffect(() => {
@@ -219,7 +215,12 @@ export default function Header() {
                         >
                             <Link
                                 variant="header"
-                                href={item.href}
+                                href={
+                                    item.href === '/#projects' &&
+                                    pathname === '/projects'
+                                        ? '/projects'
+                                        : item.href
+                                }
                                 ariaLabel={`Navigate to ${item.name} section`}
                                 ariaCurrent={
                                     item.href === hash ? 'page' : undefined
@@ -313,7 +314,13 @@ export default function Header() {
                                         >
                                             <Link
                                                 variant="header"
-                                                href={item.href}
+                                                href={
+                                                    item.href ===
+                                                        '/#projects' &&
+                                                    pathname === '/projects'
+                                                        ? '/projects'
+                                                        : item.href
+                                                }
                                                 onClick={() =>
                                                     setIsMobileMenuOpen(false)
                                                 }

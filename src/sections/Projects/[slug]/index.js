@@ -2,11 +2,11 @@
 
 import { useEffect } from 'react';
 import Image from 'next/image';
+import { useSearchParams } from 'next/navigation';
 import { motion } from 'motion/react';
 
 import { Text, Button, Tag } from '@/components';
 import { ArrowLink, SourceCode, LeftArrow } from '@/assets';
-
 const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -31,6 +31,9 @@ const itemVariants = {
 };
 
 export default function ProjectPage({ project }) {
+    const searchParams = useSearchParams();
+    const fromHome = searchParams.get('fromHome');
+
     useEffect(() => {
         window.scrollTo(0, 0);
     }, []);
@@ -48,7 +51,7 @@ export default function ProjectPage({ project }) {
                     size="sm"
                     as="link"
                     className="group flex items-center gap-2 rounded-full"
-                    href="/projects"
+                    href={fromHome ? '/#projects' : '/projects'}
                     aria-label="Back to Projects"
                 >
                     <LeftArrow className="size-4 transition-transform duration-300 group-hover:-translate-x-1" />

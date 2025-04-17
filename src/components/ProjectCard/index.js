@@ -28,20 +28,28 @@ const itemVariants = {
  * @returns {React.ReactNode} The rendered component
  */
 const ProjectCard = ({
-    thumbnail,
+    isProjectRoute,
+    index,
+    isDragging = false,
     slug,
+    thumbnail,
     name,
     description,
     tags,
-    index,
-    isDragging = false,
 }) => {
     return (
         <Link
             className={`block w-full ${isDragging && 'pointer-events-none'}`}
             draggable="false"
             variant="empty"
-            href={`/projects/${slug}`}
+            href={
+                isProjectRoute
+                    ? `/projects/${slug}`
+                    : {
+                          pathname: `/projects/${slug}`,
+                          query: { fromHome: true },
+                      }
+            }
         >
             <motion.div
                 variants={index === 0 ? itemVariants : undefined}
@@ -81,7 +89,7 @@ const ProjectCard = ({
                             as="h2"
                             size="text-sm"
                             responsiveSize={{ sm: 'text-base' }}
-                            className="line-clamp-3 w-full"
+                            className="line-clamp-3 min-h-[40px] w-full"
                         >
                             {description}
                         </Text>
