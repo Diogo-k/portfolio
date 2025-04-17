@@ -53,7 +53,7 @@ const ProjectCard = ({
                 <div className="relative h-64 overflow-hidden">
                     <Image
                         alt={`${name} project preview`}
-                        src={thumbnail || '/placeholder.png'}
+                        src={thumbnail || '/static/placeholder.svg'}
                         width="1920"
                         height="1080"
                         placeholder="blur"

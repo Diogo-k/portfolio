@@ -57,7 +57,7 @@ export default function Intro({ intro }) {
                 }}
                 className="mx-auto flex max-w-5xl flex-col px-4 py-16 sm:px-6 sm:py-20 md:py-24 lg:py-28"
             >
-                <h1 className="mb-12 flex flex-wrap" aria-label={name}>
+                <h1 className="mb-6 flex flex-wrap md:mb-12" aria-label={name}>
                     {name.split('').map((char, index) => (
                         <motion.span
                             key={index}
@@ -123,7 +123,7 @@ export default function Intro({ intro }) {
                                         calculateWordDelay(index) +
                                         ANIMATION_TIMINGS.revealDelay,
                                 }}
-                                className="relative text-7xl font-bold md:text-9xl"
+                                className="relative text-6xl font-bold md:text-9xl"
                                 aria-hidden="true"
                             >
                                 {word}
