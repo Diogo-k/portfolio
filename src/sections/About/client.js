@@ -65,7 +65,6 @@ export default function About({ about }) {
                             sm: 'text-2xl',
                         }}
                         weight="font-bold"
-                        className="mb-3 sm:mb-4"
                         id="about-intro-heading"
                         role="heading"
                         aria-label="Get to know me section"
@@ -87,6 +86,9 @@ export default function About({ about }) {
                             >
                                 <Text
                                     size="text-sm"
+                                    responsiveSize={{
+                                        md: 'text-base',
+                                    }}
                                     id={`about-paragraph-${index}`}
                                     role="article"
                                     dangerouslySetInnerHTML={{
@@ -105,7 +107,7 @@ export default function About({ about }) {
                         rel="noopener noreferrer"
                         size="md"
                         variant="primary"
-                        className="mt-2 w-fit"
+                        className="w-fit"
                         aria-label="View CV (joao_diogo_paulo_resume.pdf) in new tab"
                     >
                         View CV

@@ -95,7 +95,7 @@ export default function Projects({ projects, entirePage = false }) {
     return (
         <section
             id="projects"
-            className={`mx-auto flex w-full max-w-5xl flex-col px-4 py-16 sm:px-6 sm:py-20 md:py-24 lg:py-28 ${
+            className={`mx-auto flex w-full max-w-5xl flex-col px-4 py-20 sm:px-6 md:py-24 lg:py-28 ${
                 entirePage ? 'min-h-screen' : 'min-h-[60vh]'
             }`}
             aria-labelledby="projects-heading"
@@ -217,45 +217,43 @@ export default function Projects({ projects, entirePage = false }) {
                 )}
             </motion.div>
 
-            <div className="relative flex flex-1 flex-col overflow-hidden">
-                <AnimatePresence mode="wait" custom={direction}>
-                    <motion.div
-                        key={page}
-                        custom={direction}
-                        variants={containerVariants}
-                        initial="enter"
-                        animate="center"
-                        exit="exit"
-                        drag={totalPages > 1 ? 'x' : false}
-                        dragConstraints={{ left: 0, right: 0 }}
-                        dragElastic={1}
-                        onDragStart={() => setIsDragging(true)}
-                        onDragEnd={(e, { offset, velocity }) => {
-                            setIsDragging(false);
-                            const swipe = swipePower(offset.x, velocity.x);
+            <AnimatePresence mode="wait" custom={direction}>
+                <motion.div
+                    key={page}
+                    custom={direction}
+                    variants={containerVariants}
+                    initial="enter"
+                    animate="center"
+                    exit="exit"
+                    drag={totalPages > 1 ? 'x' : false}
+                    dragConstraints={{ left: 0, right: 0 }}
+                    dragElastic={1}
+                    onDragStart={() => setIsDragging(true)}
+                    onDragEnd={(e, { offset, velocity }) => {
+                        setIsDragging(false);
+                        const swipe = swipePower(offset.x, velocity.x);
 
-                            if (swipe < -swipeThreshold) {
-                                paginate(1);
-                            } else if (swipe > swipeThreshold) {
-                                paginate(-1);
-                            }
-                        }}
-                        className="grid min-h-[500px] flex-1 grid-cols-1 place-items-center gap-6 sm:gap-8 md:grid-cols-2"
-                        role="tabpanel"
-                        aria-label={`Project page ${page + 1}`}
-                        id="project-list"
-                    >
-                        {currentProjects.map((project, index) => (
-                            <ProjectCard
-                                key={`${project.name}-${index}`}
-                                index={index}
-                                isDragging={isDragging}
-                                {...project}
-                            />
-                        ))}
-                    </motion.div>
-                </AnimatePresence>
-            </div>
+                        if (swipe < -swipeThreshold) {
+                            paginate(1);
+                        } else if (swipe > swipeThreshold) {
+                            paginate(-1);
+                        }
+                    }}
+                    className="grid grid-cols-1 gap-6 sm:gap-8 md:grid-cols-2"
+                    role="tabpanel"
+                    aria-label={`Project page ${page + 1}`}
+                    id="project-list"
+                >
+                    {currentProjects.map((project, index) => (
+                        <ProjectCard
+                            key={`${project.name}-${index}`}
+                            index={index}
+                            isDragging={isDragging}
+                            {...project}
+                        />
+                    ))}
+                </motion.div>
+            </AnimatePresence>
         </section>
     );
 }

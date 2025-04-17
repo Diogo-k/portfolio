@@ -75,14 +75,14 @@ export default function NotFound() {
 
                 <motion.div
                     variants={itemVariants}
-                    className="mt-8 flex flex-col justify-center gap-4 sm:flex-row"
+                    className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row"
                 >
                     <Button
                         as="link"
                         href="/"
                         variant="primary"
                         size="lg"
-                        className="group"
+                        className="group w-fit"
                     >
                         Take Me Home
                         <span className="ml-2 transition-transform group-hover:rotate-12">

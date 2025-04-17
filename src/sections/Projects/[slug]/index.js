@@ -42,7 +42,7 @@ export default function ProjectPage({ project }) {
             variants={containerVariants}
             className="mx-auto flex min-h-screen max-w-5xl flex-col px-4 py-16 sm:px-6 sm:py-20 md:py-24 lg:py-28"
         >
-            <motion.div variants={itemVariants} className="mb-8 mt-12">
+            <motion.div variants={itemVariants} className="my-8">
                 <Button
                     variant="ghost"
                     size="sm"

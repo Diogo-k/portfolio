@@ -38,7 +38,7 @@ const ProjectCard = ({
 }) => {
     return (
         <Link
-            className={`${isDragging && 'pointer-events-none'}`}
+            className={`block w-full ${isDragging && 'pointer-events-none'}`}
             draggable="false"
             variant="empty"
             href={`/projects/${slug}`}
@@ -48,9 +48,9 @@ const ProjectCard = ({
                 initial={index !== 0 ? { opacity: 0, y: 0 } : undefined}
                 animate={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: '-50px' }}
-                className="group relative cursor-pointer overflow-hidden rounded-2xl bg-surface-light shadow-lg transition-shadow duration-300 hover:shadow-primary-light/20 dark:bg-surface-dark dark:hover:shadow-primary-dark/20"
+                className="group relative flex size-full cursor-pointer flex-col overflow-hidden rounded-2xl bg-surface-light shadow-lg transition-shadow duration-300 hover:shadow-primary-light/20 dark:bg-surface-dark dark:hover:shadow-primary-dark/20"
             >
-                <div className="relative h-64 overflow-hidden">
+                <div className="relative h-64 w-full overflow-hidden">
                     <Image
                         alt={`${name} project preview`}
                         src={thumbnail || '/static/placeholder.svg'}
@@ -65,7 +65,7 @@ const ProjectCard = ({
                     <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
                 </div>
 
-                <div className="flex flex-col gap-4 p-6">
+                <div className="flex grow flex-col gap-4 p-6">
                     <div className="flex items-center justify-between">
                         <Text
                             as="h2"
@@ -76,16 +76,17 @@ const ProjectCard = ({
                             {name}
                         </Text>
                     </div>
-                    <div className="flex items-center justify-start">
+                    <div className="flex w-full items-center justify-start">
                         <Text
                             as="h2"
                             size="text-sm"
                             responsiveSize={{ sm: 'text-base' }}
+                            className="line-clamp-3 w-full"
                         >
                             {description}
                         </Text>
                     </div>
-                    <div className="flex flex-wrap gap-2">
+                    <div className="mt-auto flex flex-wrap gap-2">
                         {tags.map(({ name, variant }) => (
                             <Tag key={name} variant={variant}>
                                 {name}
