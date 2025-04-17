@@ -14,6 +14,23 @@ const navItems = [
     { name: 'Contact', href: '/#contact', id: 'nav-contact' },
 ];
 
+/**
+ * Determines if a navigation item is currently active
+ * @param {Object} item - The navigation item to check
+ * @param {string} hash - The current URL hash
+ * @param {string} pathname - The current pathname
+ * @returns {boolean} Whether the item is active
+ */
+const isNavItemActive = (item, hash, pathname) => {
+    if (item.route) {
+        return (
+            item.href === hash.replace('#', '') &&
+            pathname.split('/').length !== 3
+        );
+    }
+    return item.href === hash;
+};
+
 // Animation variants for mobile menu
 const mobileMenuVariants = {
     closed: {
@@ -207,11 +224,7 @@ export default function Header() {
                                 ariaCurrent={
                                     item.href === hash ? 'page' : undefined
                                 }
-                                active={
-                                    item.route
-                                        ? item.href === hash.replace('#', '')
-                                        : item.href === hash
-                                }
+                                active={isNavItemActive(item, hash, pathname)}
                                 role="menuitem"
                             >
                                 {item.name}
@@ -301,12 +314,11 @@ export default function Header() {
                                                     ? 'page'
                                                     : undefined
                                             }
-                                            active={
-                                                item.route
-                                                    ? item.href ===
-                                                      hash.replace('#', '')
-                                                    : item.href === hash
-                                            }
+                                            active={isNavItemActive(
+                                                item,
+                                                hash,
+                                                pathname
+                                            )}
                                             role="menuitem"
                                         >
                                             {item.name}

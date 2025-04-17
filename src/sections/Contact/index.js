@@ -160,7 +160,7 @@ export default function Contact() {
                     error: false,
                     message: null,
                 });
-            }, 1500);
+            }, 2500);
 
             setIsSubmitting(false);
         }

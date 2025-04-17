@@ -23,7 +23,7 @@ jdiogok@gmail.com
 
 _______________________________________________________________________________
 
-TECHNOLOGY
+TECHNOLOGIES
 
 Next.js
 https://nextjs.org/
@@ -39,7 +39,7 @@ https://www.npmjs.com/package/framer-motion
 
 _______________________________________________________________________________
 
-GRAPHIC ASSETS
+ASSETS
 
 Sora (font)
 https://fonts.google.com/specimen/Sora
