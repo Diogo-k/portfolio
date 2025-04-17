@@ -1,3 +1,4 @@
+import { Suspense } from 'react';
 import { notFound } from 'next/navigation';
 
 import ProjectPage from '../../../sections/Projects/[slug]';
@@ -18,5 +19,9 @@ export default async function Page({ params }) {
         notFound();
     }
 
-    return <ProjectPage project={project} />;
+    return (
+        <Suspense>
+            <ProjectPage project={project} />
+        </Suspense>
+    );
 }
