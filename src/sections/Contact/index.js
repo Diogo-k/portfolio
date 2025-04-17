@@ -203,7 +203,7 @@ export default function Contact() {
                 Contact
             </Text>
 
-            <div className="mt-8 flex w-full max-w-6xl flex-col gap-8 md:flex-row md:items-center">
+            <div className="mt-8 flex flex-col gap-8 md:flex-row">
                 <div className="flex-1">
                     <motion.div
                         className="space-y-6"
@@ -276,7 +276,7 @@ export default function Contact() {
                             Contact Form
                         </Text>
 
-                        <div>
+                        <div className="mb-6">
                             <label
                                 htmlFor="name"
                                 className="block text-sm font-semibold text-muted-light dark:text-muted-dark"
@@ -319,7 +319,7 @@ export default function Contact() {
                             </div>
                         </div>
 
-                        <div>
+                        <div className="mb-6">
                             <label
                                 htmlFor="email"
                                 className="block text-sm font-semibold text-muted-light dark:text-muted-dark"
@@ -362,7 +362,7 @@ export default function Contact() {
                             </div>
                         </div>
 
-                        <div>
+                        <div className="mb-6">
                             <label
                                 htmlFor="message"
                                 className="block text-sm font-semibold text-muted-light dark:text-muted-dark"
@@ -418,6 +418,7 @@ export default function Contact() {
                         </div>
 
                         <Button
+                            className="mt-6"
                             type="submit"
                             variant="primary"
                             size="lg"
