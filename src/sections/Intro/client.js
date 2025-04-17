@@ -123,7 +123,7 @@ export default function Intro({ intro }) {
                                         calculateWordDelay(index) +
                                         ANIMATION_TIMINGS.revealDelay,
                                 }}
-                                className="relative text-6xl font-bold md:text-9xl"
+                                className="relative text-6xl font-bold md:text-8xl lg:text-9xl"
                                 aria-hidden="true"
                             >
                                 {word}

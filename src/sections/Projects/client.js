@@ -8,8 +8,14 @@ import { Text, ProjectCard } from '@/components';
 
 const containerVariants = {
     enter: (direction) => ({
-        x: direction > 0 ? 1000 : -1000,
+        x: direction > 0 ? 450 : -450,
         opacity: 0,
+        transition: {
+            duration: 0.4,
+            type: 'spring',
+            stiffness: 300,
+            damping: 30,
+        },
     }),
     center: {
         x: 0,
@@ -22,7 +28,7 @@ const containerVariants = {
         },
     },
     exit: (direction) => ({
-        x: direction < 0 ? 1000 : -1000,
+        x: direction < 0 ? 450 : -450,
         opacity: 0,
         transition: {
             duration: 0.4,
@@ -216,7 +222,6 @@ export default function Projects({ projects, entirePage = false }) {
                     </>
                 )}
             </motion.div>
-
             <AnimatePresence mode="wait" custom={direction}>
                 <motion.div
                     key={page}
@@ -239,7 +244,7 @@ export default function Projects({ projects, entirePage = false }) {
                             paginate(-1);
                         }
                     }}
-                    className="grid grid-cols-1 gap-6 sm:gap-8 md:grid-cols-2"
+                    className="grid h-full grid-cols-1 gap-6 sm:gap-8 md:grid-cols-2"
                     role="tabpanel"
                     aria-label={`Project page ${page + 1}`}
                     id="project-list"

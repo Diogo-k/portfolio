@@ -288,7 +288,7 @@ export default function Header() {
                             initial="closed"
                             animate="open"
                             exit="closed"
-                            className="mobile-menu fixed right-0 top-full z-50 w-64 rounded-bl-lg border-b-2 border-l-2 border-border-light bg-background-light/90 p-6 shadow-lg backdrop-blur-md md:hidden dark:border-border-dark dark:bg-background-dark/80"
+                            className="mobile-menu fixed right-0 top-full z-50 mt-[2px] w-64 rounded-bl-lg border-b-2 border-l-2 border-border-light bg-background-light/90 p-6 shadow-lg backdrop-blur-md md:hidden dark:border-border-dark dark:bg-background-dark/80"
                             aria-label="Mobile navigation menu"
                         >
                             <nav
