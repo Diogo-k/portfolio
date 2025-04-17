@@ -195,7 +195,7 @@ export default function Header() {
             animate="visible"
             className={clsx(
                 'supports-[backdrop-filter]:bg-background/60',
-                'fixed z-50 flex w-full items-center justify-end border-b-2 border-border-light p-2 backdrop-blur md:justify-center md:p-6',
+                'fixed z-50 flex w-full items-center justify-between border-b-2 border-border-light p-2 backdrop-blur md:justify-center md:p-6',
                 'dark:border-b-4 dark:border-border-dark'
             )}
             role="banner"
@@ -238,6 +238,16 @@ export default function Header() {
             <div className="hidden md:block">
                 <ThemeSwitcher className="absolute right-4 top-4" />
             </div>
+
+            <Button
+                as="link"
+                href="/"
+                variant="ghost"
+                className="md:hidden"
+                aria-label="Go to home page"
+            >
+                JDP
+            </Button>
 
             <Button
                 aria-label="Toggle mobile menu"

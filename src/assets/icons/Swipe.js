@@ -3,7 +3,6 @@ const Swipe = (props) => (
         viewBox="0 0 136 136"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
-        className="size-5 fill-gray-500 dark:fill-gray-400"
         {...props}
     >
         <g>
