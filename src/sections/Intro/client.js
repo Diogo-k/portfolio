@@ -139,7 +139,7 @@ export default function Intro({ intro }) {
                         duration: 0.5,
                         delay: calculateWordDelay(title.split(' ').length - 1),
                     }}
-                    className="pt-3 md:pt-6"
+                    className="mt-6 md:mt-12"
                 >
                     <Button
                         variant="primary"
