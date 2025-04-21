@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 
 import { motion, AnimatePresence } from 'motion/react';
 
-import { Button } from '@/components';
+import { CherryBlossoms, Button } from '@/components';
 
 import { ANIMATION_VARIANTS, ANIMATION_TIMINGS } from './animation';
 
@@ -47,6 +47,7 @@ export default function Intro({ intro }) {
             aria-label="Introduction"
             role="banner"
         >
+            <CherryBlossoms />
             <motion.div
                 variants={ANIMATION_VARIANTS.container}
                 initial="hidden"
