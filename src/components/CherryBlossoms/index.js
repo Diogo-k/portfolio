@@ -169,7 +169,7 @@ function Petal({ index, width, ...props }) {
 }
 
 function Petals() {
-    const { nodes } = useGLTF('/petal02.glb');
+    const { nodes } = useGLTF('/petal.glb');
     const material = usePetalMaterial(nodes.petal.material);
 
     const { viewport } = useThree();
