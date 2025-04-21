@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 
 import { motion, AnimatePresence } from 'motion/react';
 
-import { Button } from '@/components';
+import { CherryBlossoms, Button } from '@/components';
 
 import { ANIMATION_VARIANTS, ANIMATION_TIMINGS } from './animation';
 
@@ -47,6 +47,7 @@ export default function Intro({ intro }) {
             aria-label="Introduction"
             role="banner"
         >
+            <CherryBlossoms />
             <motion.div
                 variants={ANIMATION_VARIANTS.container}
                 initial="hidden"
@@ -55,7 +56,7 @@ export default function Intro({ intro }) {
                     duration: 0.5,
                     delay: ANIMATION_TIMINGS.containerDelay,
                 }}
-                className="mx-auto flex max-w-5xl flex-col px-4 py-16 sm:px-6 sm:py-20 md:py-24 lg:py-28"
+                className="z-10 mx-auto flex max-w-5xl flex-col px-4 py-16 sm:px-6 sm:py-20 md:py-24 lg:py-28"
             >
                 <h1 className="mb-6 flex flex-wrap md:mb-12" aria-label={name}>
                     {name.split('').map((char, index) => (

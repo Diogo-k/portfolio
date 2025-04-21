@@ -1,448 +1,257 @@
 'use client';
 
-import { useRef, useEffect, useState } from 'react';
-import { Canvas, useFrame } from '@react-three/fiber';
-import { useGLTF } from '@react-three/drei';
+import React, { useMemo, useRef } from 'react';
+import { Canvas, useThree, useFrame } from '@react-three/fiber';
+import {
+    useGLTF,
+    Preload,
+    Stats,
+    useDetectGPU,
+    Instances,
+    Instance,
+    InstancedAttribute,
+} from '@react-three/drei';
 import * as THREE from 'three';
 
-// Configuration constants
-const CONFIG = {
-    INTRO: {
-        PETAL_COUNT: 150,
-        DURATION: 2750,
-        START_X: -1,
-        START_Y: 15,
-        CONTROL_X: 10,
-        CONTROL_Y: -8,
-        END_X: 25,
-        END_Y: -15,
-        Z_POSITION: 4.5,
-        ROTATION: -0.35,
-        ROTATION_SPEED: 0.01,
-    },
-    MAIN: {
-        PETAL_COUNT: 30,
-        SCALE: [0.1, 0.1, 0.1],
-        MATERIAL: {
-            COLOR: new THREE.Color(1, 0.3, 0.3),
-            OPACITY: 0.8,
-        },
-        VELOCITY: {
-            X: {
-                MIN: -0.007,
-                MAX: 0.007,
-            },
-            Y: {
-                MIN: -0.008,
-                MAX: -0.005,
-            },
-            Z: 0,
-        },
-        ROTATION: {
-            SPEED: 0.003,
-            VARIANCE: 0.8,
-        },
-        COLLISION: {
-            SPHERE_RADIUS: 0.2,
-            SLIDE_FACTOR: 0.01,
-            MIN_VELOCITY_Y: -0.015,
-            DAMPENING: 0.7,
-            CHECK_RADIUS: 2,
-        },
-        FADE: {
-            TOP_Y: -2,
-            BOTTOM_Y: -6,
-            VARIANCE: 2,
-        },
-        BOUNDS: {
-            TOP: 15,
-            BOTTOM: -10,
-            SPAWN_Y_MIN: 9,
-            SPAWN_Y_MAX: 13,
-        },
-    },
-    CAMERA: {
-        POSITION: [0, 0, 10],
-        FOV: 75,
-    },
-    LIGHTING: {
-        AMBIENT: { INTENSITY: 0.8 },
-        DIRECTIONAL: { POSITION: [2, 2, 2], INTENSITY: 1 },
-    },
-};
-
-// Preload the petal model
 useGLTF.preload('/petal.glb');
 
-// Load the cherry blossom petal model
-const PetalModel = () => {
-    const { scene } = useGLTF('/petal.glb');
-    return <primitive object={scene.clone()} />;
-};
+const PETAL_COUNT = 100;
 
-const IntroContainer = ({
-    canvasWidth,
-    allIntroPetals,
-    setIsIntroFinished,
-    children,
-}) => {
-    const group = useRef();
-    const startTime = useRef(performance.now());
+function usePetalMaterial(petalMaterial) {
+    return useMemo(() => {
+        const material = petalMaterial.clone();
 
-    useFrame(() => {
-        const elapsed =
-            (performance.now() - startTime.current) / CONFIG.INTRO.DURATION;
+        material.color = new THREE.Color(1, 0.3, 0.3);
+        material.transparent = true;
+        material.depthWrite = false;
 
-        // Curved path: Quadratic Bezier-like curve from top-left to middle, then right
-        const startX = -canvasWidth;
-        const startY = CONFIG.INTRO.START_Y;
-        const controlX = CONFIG.INTRO.CONTROL_X;
-        const controlY = CONFIG.INTRO.CONTROL_Y;
-        const endX = canvasWidth + CONFIG.INTRO.END_X;
-        const endY = CONFIG.INTRO.END_Y;
-
-        // Quadratic Bezier curve formula
-        const t = Math.min(elapsed, 1);
-        const u = 1 - t;
-
-        group.current.rotation.set(0, 0, CONFIG.INTRO.ROTATION);
-
-        group.current.position.x =
-            u * u * startX + 2 * u * t * controlX + t * t * endX;
-
-        group.current.position.y =
-            u * u * startY + 2 * u * t * controlY + t * t * endY;
-
-        group.current.position.z = CONFIG.INTRO.Z_POSITION;
-
-        // Delete if off screen
-        if (group.current.position.x > canvasWidth + 20) {
-            allIntroPetals.length = 0;
-            setIsIntroFinished(true);
-        }
-    });
-
-    return <group ref={group}>{children}</group>;
-};
-
-const IntroPetal = ({ canvasWidth, index, allIntroPetals }) => {
-    const mesh = useRef();
-    const isInitialized = useRef(false);
-    const initialPosition = useRef(
-        new THREE.Vector3(
-            (Math.random() - 0.5) * canvasWidth,
-            Math.random() * 6 + -3,
-            0
-        )
-    );
-
-    useEffect(() => {
-        if (mesh.current) {
-            mesh.current.position.copy(initialPosition.current);
-            mesh.current.rotation.set(
-                Math.random() * Math.PI,
-                Math.random() * Math.PI,
-                Math.random() * Math.PI
+        material.onBeforeCompile = (shader) => {
+            shader.vertexShader = shader.vertexShader.replace(
+                '#include <common>',
+                `
+                #include <common>
+                attribute float aOpacity; // Add aOpacity attribute
+                varying float vOpacity; // Pass aOpacity to fragment shader
+                `
             );
-
-            // Apply Material Properties
-            mesh.current.traverse((child) => {
-                if (child.isMesh) {
-                    child.material.color = CONFIG.MAIN.MATERIAL.COLOR;
-                    child.material.transparent = true;
-                    child.material.opacity = CONFIG.MAIN.MATERIAL.OPACITY;
-                }
-            });
-
-            allIntroPetals[index] = mesh.current;
-            isInitialized.current = true;
-        }
-    }, []); // eslint-disable-line
-
-    useFrame(() => {
-        if (!isInitialized.current) return;
-
-        mesh.current.rotation.x += CONFIG.INTRO.ROTATION_SPEED * Math.random();
-        mesh.current.rotation.y += CONFIG.INTRO.ROTATION_SPEED * Math.random();
-    });
-
-    return (
-        <mesh ref={mesh} scale={CONFIG.MAIN.SCALE}>
-            <PetalModel />
-        </mesh>
-    );
-};
-
-const Petal = ({ canvasWidth, index, allPetals }) => {
-    const mesh = useRef();
-    const isInitialized = useRef(false);
-    const initialPosition = useRef(
-        new THREE.Vector3(
-            (Math.random() - 0.5) * canvasWidth,
-            Math.random() *
-                (CONFIG.MAIN.BOUNDS.SPAWN_Y_MAX -
-                    CONFIG.MAIN.BOUNDS.SPAWN_Y_MIN) +
-                CONFIG.MAIN.BOUNDS.SPAWN_Y_MIN,
-            0
-        )
-    );
-
-    useEffect(() => {
-        if (mesh.current) {
-            mesh.current.position.copy(initialPosition.current);
-
-            mesh.current.userData = {
-                velocity: new THREE.Vector3(
-                    THREE.MathUtils.lerp(
-                        CONFIG.MAIN.VELOCITY.X.MIN,
-                        CONFIG.MAIN.VELOCITY.X.MAX,
-                        Math.random()
-                    ),
-                    THREE.MathUtils.lerp(
-                        CONFIG.MAIN.VELOCITY.Y.MIN,
-                        CONFIG.MAIN.VELOCITY.Y.MAX,
-                        Math.random()
-                    ),
-                    CONFIG.MAIN.VELOCITY.Z
-                ),
-                boundingSphere: new THREE.Sphere(
-                    mesh.current.position,
-                    CONFIG.MAIN.COLLISION.SPHERE_RADIUS
-                ),
-            };
-
-            mesh.current.rotation.set(
-                Math.random() * Math.PI,
-                Math.random() * Math.PI,
-                Math.random() * Math.PI
+            shader.vertexShader = shader.vertexShader.replace(
+                '#include <begin_vertex>',
+                `
+                #include <begin_vertex>
+                vOpacity = aOpacity; // Assign aOpacity to vOpacity
+                `
             );
-
-            // Apply Material Properties
-            mesh.current.traverse((child) => {
-                if (child.isMesh) {
-                    child.material = child.material.clone();
-                    child.material.color = CONFIG.MAIN.MATERIAL.COLOR;
-                    child.material.transparent = true;
-                    child.material.opacity = CONFIG.MAIN.MATERIAL.OPACITY;
-                }
-            });
-
-            allPetals[index] = mesh.current;
-            isInitialized.current = true;
-        }
-    }, []); // eslint-disable-line
-
-    useFrame(() => {
-        if (!isInitialized.current) return;
-
-        if (mesh.current?.userData?.velocity) {
-            const { position, userData } = mesh.current;
-
-            // Update position and rotation
-            position.add(userData.velocity);
-            mesh.current.rotation.x +=
-                CONFIG.MAIN.ROTATION.SPEED *
-                (1 + Math.random() * CONFIG.MAIN.ROTATION.VARIANCE);
-            mesh.current.rotation.y +=
-                CONFIG.MAIN.ROTATION.SPEED *
-                (1 + Math.random() * CONFIG.MAIN.ROTATION.VARIANCE);
-
-            // Update bounding sphere
-            userData.boundingSphere.center.copy(position);
-
-            // Optimized collision detection
-            const checkRadius = CONFIG.MAIN.COLLISION.CHECK_RADIUS;
-            allPetals.forEach((otherPetal, i) => {
-                if (i !== index && otherPetal) {
-                    const distance = position.distanceTo(otherPetal.position);
-                    if (distance > checkRadius) return; // Skip distant petals
-
-                    const otherSphere = otherPetal.userData.boundingSphere;
-                    const minDistance =
-                        userData.boundingSphere.radius + otherSphere.radius;
-
-                    if (distance < minDistance) {
-                        const collisionDir = position
-                            .clone()
-                            .sub(otherPetal.position)
-                            .normalize();
-                        const slideFactor =
-                            collisionDir.x > 0
-                                ? CONFIG.MAIN.COLLISION.SLIDE_FACTOR
-                                : -CONFIG.MAIN.COLLISION.SLIDE_FACTOR;
-
-                        userData.velocity.x += slideFactor;
-                        userData.velocity.y = Math.min(
-                            userData.velocity.y,
-                            CONFIG.MAIN.COLLISION.MIN_VELOCITY_Y
-                        );
-
-                        otherPetal.userData.velocity.x -= slideFactor;
-                        otherPetal.userData.velocity.y = Math.min(
-                            otherPetal.userData.velocity.y,
-                            CONFIG.MAIN.COLLISION.MIN_VELOCITY_Y
-                        );
-
-                        userData.velocity.multiplyScalar(
-                            CONFIG.MAIN.COLLISION.DAMPENING
-                        );
-                        otherPetal.userData.velocity.multiplyScalar(
-                            CONFIG.MAIN.COLLISION.DAMPENING
-                        );
-                    }
-                }
-            });
-
-            let opacity = CONFIG.MAIN.MATERIAL.OPACITY;
-            const { TOP_Y, BOTTOM_Y } = CONFIG.MAIN.FADE;
-
-            // Calculate fade based on distance from bottom
-            if (position.y <= TOP_Y) {
-                // Start fading when reaching TOP_Y
-                const distanceFromBottom = position.y - BOTTOM_Y;
-                const fadeRange = TOP_Y - BOTTOM_Y;
-                const fadeProgress = Math.max(
-                    0,
-                    1 - distanceFromBottom / fadeRange
-                );
-
-                // Use a smoother easing function for the fade
-                opacity = THREE.MathUtils.clamp(
-                    CONFIG.MAIN.MATERIAL.OPACITY *
-                        (1 - Math.pow(fadeProgress, 1.5)),
-                    0,
-                    CONFIG.MAIN.MATERIAL.OPACITY
-                );
-            }
-
-            // Ensure complete fade at bottom
-            if (position.y <= BOTTOM_Y) {
-                opacity = 0;
-            }
-
-            mesh.current.traverse((child) => {
-                if (child.isMesh) {
-                    child.material.opacity = opacity;
-                    child.material.needsUpdate = true;
-                }
-            });
-
-            // Reset if off screen
-            if (
-                position.y < CONFIG.MAIN.BOUNDS.BOTTOM ||
-                position.y > CONFIG.MAIN.BOUNDS.TOP ||
-                position.x < -canvasWidth / 2 ||
-                position.x > canvasWidth / 2
-            ) {
-                position.set(
-                    (Math.random() - 0.5) * canvasWidth,
-                    Math.random() *
-                        (CONFIG.MAIN.BOUNDS.SPAWN_Y_MAX -
-                            CONFIG.MAIN.BOUNDS.SPAWN_Y_MIN) +
-                        CONFIG.MAIN.BOUNDS.SPAWN_Y_MIN,
-                    0
-                );
-            }
-        } else {
-            console.warn(`Petal ${index} has incomplete data`);
-        }
-    });
-
-    return (
-        <mesh ref={mesh} scale={CONFIG.MAIN.SCALE}>
-            <PetalModel />
-        </mesh>
-    );
-};
-
-const CherryBlossoms = () => {
-    const allIntroPetals = useRef([]);
-    const allPetals = useRef([]);
-    const canvasRef = useRef();
-    const [canvasWidth, setCanvasWidth] = useState(20);
-    const [isIntroFinished, setIsIntroFinished] = useState(false);
-    const [showMainPetals, setShowMainPetals] = useState(false);
-
-    useEffect(() => {
-        allIntroPetals.current = Array(CONFIG.INTRO.PETAL_COUNT).fill(null);
-        allPetals.current = Array(CONFIG.MAIN.PETAL_COUNT).fill(null);
-    }, []);
-
-    useEffect(() => {
-        if (isIntroFinished) {
-            // Add a small delay before showing main petals to ensure smooth transition
-            const timer = setTimeout(() => {
-                setShowMainPetals(true);
-            }, 100);
-            return () => clearTimeout(timer);
-        }
-    }, [isIntroFinished]);
-
-    useEffect(() => {
-        const updateWidth = () => {
-            if (canvasRef.current) {
-                const width = window.innerWidth / 50;
-                setCanvasWidth(width);
-            }
+            shader.fragmentShader = shader.fragmentShader.replace(
+                '#include <common>',
+                `
+                #include <common>
+                varying float vOpacity; // Receive opacity value from vertex shader
+                `
+            );
+            shader.fragmentShader = shader.fragmentShader.replace(
+                '#include <dithering_fragment>',
+                `
+                gl_FragColor.a *= vOpacity; // Multiply alpha by opacity
+                #include <dithering_fragment>
+                `
+            );
         };
 
-        updateWidth();
-        window.addEventListener('resize', updateWidth);
-        return () => window.removeEventListener('resize', updateWidth);
-    }, []);
+        return material;
+    }, [petalMaterial]);
+}
+
+function Petal({ index, width, ...props }) {
+    const ref = useRef();
+
+    const prevTime = useRef(0);
+
+    const initialRotationSpeed = useRef({
+        x: props.speed.rotationX,
+        y: props.speed.rotationY,
+        z: props.speed.rotationZ,
+    });
+
+    useFrame((state) => {
+        if (!ref.current) return;
+
+        const { geometry, position, rotation } = ref.current;
+
+        const time = state.clock.getElapsedTime();
+        const deltaTime = time - prevTime.current;
+        prevTime.current = time;
+
+        //! Y AXIS LOGIC
+        position.y -= props.speed.fall * deltaTime * 60;
+
+        //! X AXIS LOGIC
+        const primaryXMovement =
+            Math.sin(
+                time * props.floatParams.freqX + props.floatParams.phaseX
+            ) *
+            props.floatParams.ampX *
+            deltaTime *
+            2;
+        const secondaryXMovement =
+            Math.sin(
+                time * props.floatParams.freqX * 2.5 +
+                    props.floatParams.phaseX * 1.7
+            ) *
+            props.floatParams.ampX *
+            0.4 *
+            deltaTime *
+            2;
+
+        position.x += primaryXMovement + secondaryXMovement;
+
+        const heightFactor = Math.max(0, Math.min(1, (20 - position.y) / 28));
+        position.x +=
+            heightFactor * props.driftDirection * 0.02 * deltaTime * 60;
+
+        //! Z AXIS LOGIC
+        position.z +=
+            Math.sin(
+                time * props.floatParams.freqZ + props.floatParams.phaseZ
+            ) *
+            props.floatParams.ampZ *
+            deltaTime *
+            2;
+
+        //! ROTATION LOGIC
+        const rotationModX = Math.sin(time * 0.3 + props.seed * 7) * 0.2 + 1;
+        const rotationModY = Math.sin(time * 0.5 + props.seed * 3) * 0.3 + 1;
+        const rotationModZ = Math.cos(time * 0.4 + props.seed * 5) * 0.2 + 1;
+        rotation.x +=
+            initialRotationSpeed.current.x * rotationModX * deltaTime * 60;
+        rotation.y +=
+            initialRotationSpeed.current.y * rotationModY * deltaTime * 60;
+        rotation.z +=
+            initialRotationSpeed.current.z * rotationModZ * deltaTime * 60;
+
+        //! RESET LOGIC
+        let startFade = -3;
+        let endFade = -6;
+        if (position.y <= startFade) {
+            const distanceFromEnd = position.y - endFade;
+            const fadeRange = startFade - endFade;
+            const fadeProgress = Math.max(0, 1 - distanceFromEnd / fadeRange);
+
+            // More gentle fade out curve
+            const opacity = THREE.MathUtils.clamp(
+                0.85 * (1 - Math.pow(fadeProgress, 2)),
+                0,
+                0.85
+            );
+
+            geometry.attributes.aOpacity.needsUpdate = true;
+            geometry.attributes.aOpacity.array[index] = opacity;
+        }
+
+        const xLimit = width;
+        const yLimit = -8;
+        if (
+            position.x > xLimit ||
+            position.x < -xLimit ||
+            position.y < yLimit
+        ) {
+            position.set(
+                THREE.MathUtils.randFloatSpread(width),
+                THREE.MathUtils.randFloat(12, 20),
+                THREE.MathUtils.randFloat(-4, 0)
+            );
+
+            geometry.attributes.aOpacity.array[index] = 0.8;
+        }
+        //! RESET LOGIC
+    });
+
+    return <Instance ref={ref} {...props} />;
+}
+
+function Petals() {
+    const { nodes } = useGLTF('/petal02.glb');
+    const material = usePetalMaterial(nodes.petal.material);
+
+    const { viewport } = useThree();
+    const data = useMemo(
+        () =>
+            Array.from({ length: PETAL_COUNT }, () => {
+                const seed = Math.random();
+
+                return {
+                    position: new THREE.Vector3(
+                        THREE.MathUtils.randFloatSpread(viewport.width),
+                        THREE.MathUtils.randFloat(12, 20),
+                        THREE.MathUtils.randFloat(-4, 0)
+                    ),
+                    rotation: new THREE.Euler(
+                        THREE.MathUtils.randFloat(0, Math.PI * 2),
+                        THREE.MathUtils.randFloat(0, Math.PI * 2),
+                        THREE.MathUtils.randFloat(0, Math.PI * 2)
+                    ),
+                    scale: new THREE.Vector3().setScalar(
+                        THREE.MathUtils.randFloat(0.8, 1.2)
+                    ),
+                    speed: {
+                        fall: THREE.MathUtils.randFloat(0.01, 0.025),
+                        rotationX: THREE.MathUtils.randFloat(-0.0015, 0.0015),
+                        rotationY: THREE.MathUtils.randFloat(-0.001, 0.001),
+                        rotationZ: THREE.MathUtils.randFloat(-0.0012, 0.0012),
+                    },
+                    floatParams: {
+                        freqX: THREE.MathUtils.randFloat(0.2, 0.5), // Frequency of x-axis oscillation
+                        ampX: THREE.MathUtils.randFloat(0.01, 0.03), // Amplitude of x-axis oscillation
+                        phaseX: THREE.MathUtils.randFloat(0, Math.PI * 2),
+                        freqZ: THREE.MathUtils.randFloat(0.2, 0.4), // Frequency of z-axis oscillation
+                        ampZ: THREE.MathUtils.randFloat(0.01, 0.02), // Amplitude of z-axis oscillation
+                        phaseZ: THREE.MathUtils.randFloat(0, Math.PI * 2),
+                    },
+                    windFactor: THREE.MathUtils.randFloat(0.6, 2.0),
+                    driftDirection: THREE.MathUtils.randFloat(-1, 1), // Random drift direction
+                    seed,
+                };
+            }),
+        [] // eslint-disable-line react-hooks/exhaustive-deps
+    );
+
+    return (
+        <Instances
+            limit={PETAL_COUNT}
+            range={PETAL_COUNT}
+            geometry={nodes.petal.geometry}
+            material={material}
+        >
+            <InstancedAttribute name="aOpacity" defaultValue={0.8} />
+            {data.map((props, i) => (
+                <Petal key={i} index={i} width={viewport.width} {...props} />
+            ))}
+        </Instances>
+    );
+}
+
+export default function CherryBlossom3D() {
+    const detectedGPU = useDetectGPU();
+    console.log(detectedGPU);
 
     return (
         <Canvas
-            ref={canvasRef}
-            camera={{
-                position: CONFIG.CAMERA.POSITION,
-                fov: CONFIG.CAMERA.FOV,
-            }}
+            camera={{ position: [0, 0, 10], fov: 75 }}
             style={{
                 position: 'absolute',
                 top: 0,
                 left: 0,
-                right: 0,
-                bottom: 0,
                 width: '100%',
                 height: '100%',
             }}
-            className="bg-background-light dark:bg-background-dark"
         >
-            {!isIntroFinished && (
-                <IntroContainer
-                    canvasWidth={canvasWidth}
-                    allIntroPetals={allIntroPetals.current}
-                    setIsIntroFinished={setIsIntroFinished}
-                >
-                    {allIntroPetals.current.map((_, i) => (
-                        <IntroPetal
-                            key={i}
-                            canvasWidth={canvasWidth}
-                            index={i}
-                            allIntroPetals={allIntroPetals.current}
-                        />
-                    ))}
-                </IntroContainer>
-            )}
+            <ambientLight intensity={1} />
+            <directionalLight position={[10, 10, 5]} intensity={1} />
 
-            {showMainPetals &&
-                allPetals.current.map((_, i) => (
-                    <Petal
-                        key={i}
-                        canvasWidth={canvasWidth}
-                        index={i}
-                        allPetals={allPetals.current}
-                    />
-                ))}
+            <Preload all />
 
-            <ambientLight intensity={CONFIG.LIGHTING.AMBIENT.INTENSITY} />
-            <directionalLight
-                position={CONFIG.LIGHTING.DIRECTIONAL.POSITION}
-                intensity={CONFIG.LIGHTING.DIRECTIONAL.INTENSITY}
-            />
+            <Stats />
+
+            <Petals />
         </Canvas>
     );
-};
-
-export default CherryBlossoms;
+}
