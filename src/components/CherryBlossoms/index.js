@@ -4,7 +4,7 @@ import React, { memo, useState } from 'react';
 import { Canvas } from '@react-three/fiber';
 import { Preload } from '@react-three/drei';
 
-import IntroPetals from './IntroPetals';
+// import IntroPetals from './IntroPetals';
 import FlyingPetals from './FlyingPetals';
 // import FallingPetals from './FallingPetals';
 
@@ -12,7 +12,7 @@ export default memo(function CherryBlossomsContainer({
     isIntroCrossedCenter,
     setIsIntroCrossedCenter,
 }) {
-    const [isIntroComplete, setIsIntroComplete] = useState(false);
+    const [isIntroComplete, setIsIntroComplete] = useState(true);
 
     return (
         <Canvas
@@ -31,14 +31,14 @@ export default memo(function CherryBlossomsContainer({
 
             <Preload all />
 
-            {!isIntroComplete && (
+            {/* {!isIntroComplete && (
                 <IntroPetals
                     isIntroCrossedCenter={isIntroCrossedCenter}
                     setIsIntroCrossedCenter={setIsIntroCrossedCenter}
                     isIntroComplete={isIntroComplete}
                     setIsIntroComplete={setIsIntroComplete}
                 />
-            )}
+            )} */}
 
             {isIntroComplete && <FlyingPetals />}
         </Canvas>

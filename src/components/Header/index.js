@@ -73,7 +73,7 @@ export default function Header() {
                 stiffness: 100,
                 damping: 15,
                 duration: 0.5,
-                delay: pathname === '/' ? 2.95 : 0.25,
+                delay: pathname === '/' ? 0.25 : 0.25,
             },
         },
     };

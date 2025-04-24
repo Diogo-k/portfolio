@@ -51,7 +51,7 @@ export default function Intro({ intro }) {
     return (
         <section
             id="home"
-            className={`flex h-screen flex-col items-center justify-center`}
+            className={`mx-auto flex h-screen max-w-5xl flex-col justify-center px-4 py-16 sm:px-6 sm:py-20 md:py-24 lg:py-28`}
             aria-label="Introduction"
             role="banner"
         >
@@ -60,7 +60,7 @@ export default function Intro({ intro }) {
                 setIsIntroCrossedCenter={setIsIntroCrossedCenter}
             />
 
-            {isIntroCrossedCenter && (
+            {true && (
                 <motion.div
                     variants={ANIMATION_VARIANTS.container}
                     initial="hidden"
@@ -69,7 +69,7 @@ export default function Intro({ intro }) {
                         duration: 0.5,
                         delay: ANIMATION_TIMINGS.containerDelay,
                     }}
-                    className="z-10 mx-auto flex max-w-5xl flex-col px-4 py-16 sm:px-6 sm:py-20 md:py-24 lg:py-28"
+                    className="z-10"
                 >
                     <h1
                         className="mb-6 flex flex-wrap md:mb-12"
@@ -96,11 +96,11 @@ export default function Intro({ intro }) {
                             </motion.span>
                         ))}
                     </h1>
-                    <h2 className="flex flex-wrap" aria-label={title}>
+                    <h2 className="relative flex flex-col" aria-label={title}>
                         {titleWords.map((word, index) => (
                             <div
                                 key={index}
-                                className="relative overflow-hidden"
+                                className="relative w-fit overflow-hidden"
                             >
                                 <AnimatePresence>
                                     {visibleWords[index] && (
@@ -143,7 +143,7 @@ export default function Intro({ intro }) {
                                             calculateWordDelay(index) +
                                             ANIMATION_TIMINGS.revealDelay,
                                     }}
-                                    className="relative text-6xl font-bold md:text-8xl lg:text-9xl"
+                                    className="relative text-6xl font-bold md:text-7xl lg:text-8xl"
                                     aria-hidden="true"
                                 >
                                     {word}
