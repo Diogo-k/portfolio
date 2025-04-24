@@ -108,9 +108,9 @@ const Petal = memo(function Petal({ index, width, height, ...props }) {
             (position.x >= resetBoundaryX && position.y <= resetBoundaryY);
 
         if (needsReset) {
-            console.log(
-                `Reset petal ${index} at x=${position.x.toFixed(2)}, y=${position.y.toFixed(2)}`
-            );
+            // console.log(
+            //     `Reset petal ${index} at x=${position.x.toFixed(2)}, y=${position.y.toFixed(2)}`
+            // );
 
             // Reset position to starting position with some randomness
             position.x = -width + THREE.MathUtils.randFloatSpread(width);

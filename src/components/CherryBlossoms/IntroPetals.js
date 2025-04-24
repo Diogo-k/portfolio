@@ -59,7 +59,7 @@ const Petal = memo(function Petal({
             position.x > 0 &&
             !isIntroCrossedCenter
         ) {
-            console.log('Intro Crossed the Center!');
+            // console.log('Intro Crossed the Center!');
             setIsIntroCrossedCenter(true);
         }
 
@@ -69,7 +69,7 @@ const Petal = memo(function Petal({
             position.x > rightEdge &&
             !isIntroComplete
         ) {
-            console.log('Intro Complete - All Petals are Off Screen!');
+            // console.log('Intro Complete - All Petals are Off Screen!');
             setIsIntroComplete(true);
         }
     });
