@@ -95,7 +95,7 @@ export default memo(function IntroPetals({
                 return {
                     index: i,
                     offset: (i / PETAL_COUNT) * 0.5,
-                    speed: 0.1, // 0.65
+                    speed: 0.65, // 0.65
                     position: new THREE.Vector3(
                         THREE.MathUtils.randFloatSpread(width * 0.2),
                         THREE.MathUtils.randFloatSpread(height * 0.4),
