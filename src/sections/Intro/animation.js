@@ -23,7 +23,7 @@ export const ANIMATION_VARIANTS = {
 };
 
 export const ANIMATION_TIMINGS = {
-    containerDelay: 1.25,
+    containerDelay: 0,
     letterDelay: 0.05,
     wordDelay: 0.2,
     revealDelay: 0.4,
