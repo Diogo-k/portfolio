@@ -90,8 +90,10 @@ export default function ProjectPage({ project }) {
                         alt={`${project.name} project preview`}
                         src={project.image || '/placeholder.png'}
                         fill
+                        sizes="(max-width: 768px) 50vw, 100vw"
+                        placeholder="blur"
+                        blurDataURL="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=="
                         className="object-cover"
-                        priority
                     />
                 </div>
             </motion.div>

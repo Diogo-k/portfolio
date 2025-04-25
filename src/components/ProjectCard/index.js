@@ -62,12 +62,12 @@ const ProjectCard = ({
                     <Image
                         alt={`${name} project preview`}
                         src={thumbnail || '/static/placeholder.svg'}
-                        width="1920"
-                        height="1080"
+                        fill
+                        sizes="(max-width: 768px) 50vw, 100vw"
+                        loading="lazy"
                         placeholder="blur"
                         blurDataURL="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=="
                         draggable="false"
-                        loading="lazy"
                         className="size-full object-cover transition-transform duration-500 group-hover:scale-105"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
