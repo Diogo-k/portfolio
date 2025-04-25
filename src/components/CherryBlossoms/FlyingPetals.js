@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { useThree, useFrame } from '@react-three/fiber';
 import { Instances, Instance, InstancedAttribute } from '@react-three/drei';
 import { Vector3, Euler, MathUtils } from 'three';
@@ -108,6 +108,17 @@ const Petal = function Petal({ index, width, height, speed }) {
 export default function FlyingPetals({ geometry, material, speed }) {
     const { viewport } = useThree();
     const { width, height } = viewport;
+
+    useEffect(() => {
+        return () => {
+            if (geometry) {
+                geometry.dispose();
+            }
+            if (material) {
+                material.dispose();
+            }
+        };
+    }, [geometry, material]);
 
     return (
         <Instances
