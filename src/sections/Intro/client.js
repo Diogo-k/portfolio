@@ -10,14 +10,7 @@ import { Link } from '@/components';
 import { CherryBlossom } from '@/assets';
 
 const CherryBlossoms = dynamic(
-    () =>
-        import('../../components/CherryBlossoms').then((component) => {
-            return new Promise((resolve) => {
-                setTimeout(() => {
-                    resolve(component.default);
-                }, 1000);
-            });
-        }),
+    () => import('../../components/CherryBlossoms'),
     {
         ssr: false,
         loading: () => (
@@ -40,7 +33,7 @@ const CherryBlossoms = dynamic(
                             ease: 'easeInOut',
                         }}
                     >
-                        <CherryBlossom />
+                        <CherryBlossom className="fill-primary-light/80 dark:fill-primary-dark/80" />
                     </motion.div>
                 </motion.div>
             </div>
