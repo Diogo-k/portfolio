@@ -47,7 +47,7 @@ const ProjectCard = ({
                     ? `/projects/${slug}`
                     : {
                           pathname: `/projects/${slug}`,
-                          query: { fromHome: true },
+                          query: { from: 'home' },
                       }
             }
         >

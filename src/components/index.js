@@ -7,6 +7,7 @@ import Text from './Text';
 import Button from './Button';
 import Link from './Link';
 import Tag from './Tag';
+import Loading from './Loading';
 
 //* Specific Components
 import CherryBlossoms from './CherryBlossoms';
@@ -27,6 +28,7 @@ export {
     Button,
     Link,
     Tag,
+    Loading,
     //* Specific Components
     CherryBlossoms,
     ThemeSwitcher,

@@ -1,4 +1,3 @@
-import { Suspense } from 'react';
 import { Sora } from 'next/font/google';
 import '@/styles/globals.css';
 
@@ -87,9 +86,7 @@ export default function RootLayout({ children }) {
                     defaultTheme="system"
                     enableSystem
                 >
-                    <Suspense>
-                        <Header />
-                    </Suspense>
+                    <Header />
                     <main>{children}</main>
                     <Footer />
                 </ThemeProvider>

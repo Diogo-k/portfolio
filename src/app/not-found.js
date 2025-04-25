@@ -97,7 +97,7 @@ export default function NotFound() {
                         size="text-sm"
                         className="text-muted-light dark:text-muted-dark"
                     >
-                        Need help? <Link href="/#contact">Contact us</Link>
+                        Need help? <Link href="/#contact">Contact me</Link>
                     </Text>
                 </motion.div>
             </motion.div>

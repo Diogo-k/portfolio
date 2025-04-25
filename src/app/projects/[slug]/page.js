@@ -1,7 +1,8 @@
 import { Suspense } from 'react';
 import { notFound } from 'next/navigation';
 
-import ProjectPage from '../../../sections/Projects/[slug]';
+import { Project } from '@/sections';
+import { Loading } from '@/components';
 
 import { getAllSlugsFromContent, getContentData } from '@/utils/mdx';
 
@@ -20,8 +21,8 @@ export default async function Page({ params }) {
     }
 
     return (
-        <Suspense>
-            <ProjectPage project={project} />
+        <Suspense fallback={<Loading />}>
+            <Project project={project} />
         </Suspense>
     );
 }
