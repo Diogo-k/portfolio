@@ -234,7 +234,6 @@ export default function Contact() {
                                     <Text
                                         as="span"
                                         size="text-sm"
-                                        className="text-muted-light dark:text-muted-dark"
                                         id={`${method.title.toLowerCase()}-value`}
                                         aria-label={`${method.title} ${method.title === 'Email' ? 'address' : 'username'}`}
                                     >

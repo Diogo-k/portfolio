@@ -89,7 +89,7 @@ function Link({
 }
 
 Link.propTypes = {
-    variant: PropTypes.oneOf(['header', 'inline']),
+    variant: PropTypes.oneOf(['header', 'inline', false]),
     href: PropTypes.string.isRequired,
     isExternal: PropTypes.bool,
     children: PropTypes.node.isRequired,

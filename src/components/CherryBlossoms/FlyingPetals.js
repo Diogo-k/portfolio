@@ -1,6 +1,6 @@
 'use client';
 
-import React, { memo, useMemo, useRef } from 'react';
+import React, { memo, useMemo, useRef, useState } from 'react';
 import { useThree, useFrame } from '@react-three/fiber';
 import {
     useGLTF,
@@ -12,168 +12,149 @@ import * as THREE from 'three';
 
 import usePetalMaterial from './usePetalMaterial';
 
-const PETAL_COUNT = 100;
+const PETAL_COUNT = 75;
 
-const Petal = memo(function Petal({ index, width, height, ...props }) {
+const Petal = memo(function Petal({ index, width, height, speed }) {
     const ref = useRef();
-    const animationProgress = useRef(0);
-    const timeOffset = index / PETAL_COUNT;
+    const progress = useRef(index / PETAL_COUNT);
 
-    const initialRotationSpeed = useRef({
-        x: props.speed.rotationX,
-        y: props.speed.rotationY,
-        z: props.speed.rotationZ,
-    });
-
-    const randomOffset = useRef({
-        x: THREE.MathUtils.randFloatSpread(width), //* Spread of the petals inside a line
-        y: THREE.MathUtils.randFloatSpread(height), //* Spread of the petals inside a line
-        speedFactor: THREE.MathUtils.randFloat(0.05, 0.075), //* Speed of the petals
+    const [data] = useState({
+        index,
+        offset: {
+            x: THREE.MathUtils.randFloatSpread(width),
+            y: THREE.MathUtils.randFloatSpread(height),
+        },
+        scale: new THREE.Vector3().setScalar(
+            THREE.MathUtils.randFloat(0.8, 1.2)
+        ),
+        position: new THREE.Vector3(
+            -width,
+            height,
+            THREE.MathUtils.randFloat(-3, 0)
+        ),
+        rotation: new THREE.Euler(
+            THREE.MathUtils.randFloat(0, Math.PI * 2),
+            THREE.MathUtils.randFloat(0, Math.PI * 2),
+            THREE.MathUtils.randFloat(0, Math.PI * 2)
+        ),
+        spin: {
+            x: THREE.MathUtils.randFloat(0.1, 0.3),
+            y: THREE.MathUtils.randFloat(0.1, 0.3),
+            z: THREE.MathUtils.randFloat(0.1, 0.3),
+        },
     });
 
     useFrame((state, delta) => {
         if (!ref.current) return;
 
         const { geometry, position, rotation } = ref.current;
-
         const time = state.clock.getElapsedTime();
 
-        //* UPDATE ANIMATION PROGRESS
-        animationProgress.current +=
-            delta * 0.5 * randomOffset.current.speedFactor;
+        //* Update progress
+        progress.current += delta * speed;
 
-        //* CALCULATE PROGRESS FOR THIS FRAME
-        const progress = Math.min(
-            Math.max(0, animationProgress.current - timeOffset),
-            1
+        //* Animation calculations
+        const t = Math.min(
+            1,
+            Math.max(0, progress.current - index / PETAL_COUNT)
         );
-        const easedProgress = 1 - (1 - progress) * (1 - progress); // Inline easeOutQuad
+        const eased = 1 - (1 - t) * (1 - t); // easeOutQuad
 
-        //* Y AXIS LOGIC
-        position.y =
-            (1 - easedProgress * 2) * height * 1.2 + randomOffset.current.y;
-
-        //* X AXIS LOGIC
-        position.x =
-            (-1 + easedProgress * 2) * width * 1.2 + randomOffset.current.x;
-
-        //* Z AXIS LOGIC
-        position.z +=
-            Math.sin(
-                time * props.floatParams.freqZ + props.floatParams.phaseZ
-            ) *
-            props.floatParams.ampZ *
-            delta *
-            2;
+        //* POSITION LOGIC
+        position.x = (-1 + eased * 2) * width + data.offset.x;
+        position.y = (1 - eased * 2) * height + data.offset.y;
+        position.z += Math.sin(time + index) * 0.01 * delta;
 
         //* ROTATION LOGIC
-        const rotationModX = Math.sin(time * 0.3 + props.seed * 7) * 0.2 + 1;
-        const rotationModY = Math.sin(time * 0.5 + props.seed * 3) * 0.3 + 1;
-        const rotationModZ = Math.cos(time * 0.4 + props.seed * 5) * 0.2 + 1;
-        rotation.x +=
-            initialRotationSpeed.current.x * rotationModX * delta * 60;
-        rotation.y +=
-            initialRotationSpeed.current.y * rotationModY * delta * 60;
-        rotation.z +=
-            initialRotationSpeed.current.z * rotationModZ * delta * 60;
+        rotation.x += delta * data.spin.x * (1 + Math.sin(time * 0.5) * 0.2);
+        rotation.y += delta * data.spin.y * (1 + Math.sin(time * 0.3) * 0.2);
+        rotation.z += delta * data.spin.z * (1 + Math.sin(time * 0.4) * 0.2);
 
-        //! FADE LOGIC (NEEDS FIX)
-        // let startFade = -height * 0.8; // Adjusted to be relative to viewport
-        // let endFade = -height * 1.1; // Adjusted to be relative to viewport
-        // if (position.y <= startFade) {
-        //     const distanceFromEnd = position.y - endFade;
-        //     const fadeRange = startFade - endFade;
-        //     const fadeProgress = Math.max(0, 1 - distanceFromEnd / fadeRange);
+        //* FADE OUT LOGIC
+        if (geometry.attributes.aOpacity) {
+            const startFadeY = -height * 0.3;
+            const endFadeY = -height * 0.4;
+            if (position.y <= startFadeY) {
+                const distanceFromEnd = position.y - endFadeY;
+                const fadeRange = startFadeY - endFadeY;
 
-        //     // More gentle fade out curve
-        //     const opacity = THREE.MathUtils.clamp(
-        //         0.8 * (1 - Math.pow(fadeProgress, 2)),
-        //         0,
-        //         0.8
-        //     );
+                const fadeProgress = Math.max(
+                    0,
+                    1 - distanceFromEnd / fadeRange
+                );
 
-        //     if (geometry.attributes.aOpacity) {
-        //         geometry.attributes.aOpacity.needsUpdate = true;
-        //         geometry.attributes.aOpacity.array[index] = opacity;
-        //     }
-        // }
-        //! FADE LOGIC (NEEDS FIX)
+                const opacity = THREE.MathUtils.clamp(
+                    0.8 * (1 - Math.pow(fadeProgress, 2)),
+                    0,
+                    0.8
+                );
 
-        //* RESET LOGIC (NEEDS VALIDATION)
-        const resetBoundaryX = width / 2 + 5;
-        const resetBoundaryY = -height / 2 + 5;
+                geometry.attributes.aOpacity.needsUpdate = true;
+                geometry.attributes.aOpacity.array[index] = opacity;
+            }
+        }
 
-        const needsReset =
-            progress >= 0.99 ||
-            (position.x >= resetBoundaryX && position.y <= resetBoundaryY);
+        //* RESET LOGIC
+        const isOffscreenX = position.x > width * 0.8;
+        const isOffscreenY = position.y < -height * 0.6;
+        const isComplete = t >= 0.99;
 
-        if (needsReset) {
-            // console.log(
-            //     `Reset petal ${index} at x=${position.x.toFixed(2)}, y=${position.y.toFixed(2)}`
-            // );
+        if (isComplete || isOffscreenX || isOffscreenY) {
+            //* Reset position to starting position with some randomness
+            position.x = -width;
+            position.y = height;
+            position.z = THREE.MathUtils.randFloat(-3, 3);
 
-            // Reset position to starting position with some randomness
-            position.x = -width + THREE.MathUtils.randFloatSpread(width);
-            position.y = height + THREE.MathUtils.randFloatSpread(height);
-            position.z = THREE.MathUtils.randFloat(-3, 0);
+            //* Reset animation progress
+            progress.current = index / PETAL_COUNT;
 
-            // Reset animation progress with some randomness to avoid syncing
-            animationProgress.current = timeOffset - 0.01; //! Validate value
-
-            // Reset opacity to initial value
             if (geometry.attributes.aOpacity) {
                 geometry.attributes.aOpacity.needsUpdate = true;
                 geometry.attributes.aOpacity.array[index] = 0.8;
             }
         }
-        //* RESET LOGIC (NEEDS VALIDATION)
     });
 
-    return <Instance ref={ref} {...props} />;
+    return <Instance ref={ref} {...data} />;
 });
 
-export default memo(function FlyingPetals() {
+export default memo(function FlyingPetals({ speed }) {
     const { nodes } = useGLTF('/petal.glb');
     const material = usePetalMaterial(nodes.petal.material);
 
     const { viewport } = useThree();
     const { width, height } = viewport;
 
-    const petals = useMemo(
-        () =>
-            Array.from({ length: PETAL_COUNT }, (_, i) => {
-                const seed = Math.random();
-
-                return {
-                    index: i,
-                    position: new THREE.Vector3(
-                        -width,
-                        height,
-                        THREE.MathUtils.randFloat(-3, 0)
-                    ),
-                    rotation: new THREE.Euler(
-                        THREE.MathUtils.randFloat(0, Math.PI * 2),
-                        THREE.MathUtils.randFloat(0, Math.PI * 2),
-                        THREE.MathUtils.randFloat(0, Math.PI * 2)
-                    ),
-                    scale: new THREE.Vector3().setScalar(
-                        THREE.MathUtils.randFloat(0.8, 1.2)
-                    ),
-                    speed: {
-                        rotationX: THREE.MathUtils.randFloat(-0.0015, 0.0015),
-                        rotationY: THREE.MathUtils.randFloat(-0.001, 0.001),
-                        rotationZ: THREE.MathUtils.randFloat(-0.0012, 0.0012),
-                    },
-                    floatParams: {
-                        freqZ: THREE.MathUtils.randFloat(0.2, 0.4),
-                        ampZ: THREE.MathUtils.randFloat(0.01, 0.02),
-                        phaseZ: THREE.MathUtils.randFloat(0, Math.PI * 2),
-                    },
-                    seed,
-                };
-            }),
-        [] // eslint-disable-line react-hooks/exhaustive-deps
-    );
+    // const petals = useMemo(
+    //     () =>
+    //         Array.from({ length: PETAL_COUNT }, (_, index) => ({
+    //             index,
+    //             offset: {
+    //                 x: THREE.MathUtils.randFloatSpread(width),
+    //                 y: THREE.MathUtils.randFloatSpread(height),
+    //             },
+    //             speed,
+    //             scale: new THREE.Vector3().setScalar(
+    //                 THREE.MathUtils.randFloat(0.8, 1.2)
+    //             ),
+    //             position: new THREE.Vector3(
+    //                 -width,
+    //                 height,
+    //                 THREE.MathUtils.randFloat(-3, 0)
+    //             ),
+    //             rotation: new THREE.Euler(
+    //                 THREE.MathUtils.randFloat(0, Math.PI * 2),
+    //                 THREE.MathUtils.randFloat(0, Math.PI * 2),
+    //                 THREE.MathUtils.randFloat(0, Math.PI * 2)
+    //             ),
+    //             spin: {
+    //                 x: THREE.MathUtils.randFloat(0.1, 0.3),
+    //                 y: THREE.MathUtils.randFloat(0.1, 0.3),
+    //                 z: THREE.MathUtils.randFloat(0.1, 0.3),
+    //             },
+    //         })),
+    //     [speed, width, height]
+    // );
 
     return (
         <Instances
@@ -184,8 +165,14 @@ export default memo(function FlyingPetals() {
             frustumCulled={true}
         >
             <InstancedAttribute name="aOpacity" defaultValue={0.8} />
-            {petals.map((props, i) => (
-                <Petal key={i} width={width} height={height} {...props} />
+            {Array.from({ length: PETAL_COUNT }, (_, i) => (
+                <Petal
+                    key={i}
+                    index={i}
+                    width={width}
+                    height={height}
+                    speed={speed}
+                />
             ))}
         </Instances>
     );

@@ -16,7 +16,7 @@ export const ANIMATION_VARIANTS = {
         visible: { width: '100%', x: 0 },
         exit: { width: '100%', x: '100%' },
     },
-    button: {
+    rangeSlider: {
         hidden: { opacity: 0, y: 20 },
         visible: { opacity: 1, y: 0 },
     },
