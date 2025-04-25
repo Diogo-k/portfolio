@@ -1,6 +1,6 @@
 'use client';
 
-import React, { memo, useMemo, useRef, useState } from 'react';
+import React, { memo, useRef, useState } from 'react';
 import { useThree, useFrame } from '@react-three/fiber';
 import {
     useGLTF,
@@ -124,37 +124,6 @@ export default memo(function FlyingPetals({ speed }) {
 
     const { viewport } = useThree();
     const { width, height } = viewport;
-
-    // const petals = useMemo(
-    //     () =>
-    //         Array.from({ length: PETAL_COUNT }, (_, index) => ({
-    //             index,
-    //             offset: {
-    //                 x: THREE.MathUtils.randFloatSpread(width),
-    //                 y: THREE.MathUtils.randFloatSpread(height),
-    //             },
-    //             speed,
-    //             scale: new THREE.Vector3().setScalar(
-    //                 THREE.MathUtils.randFloat(0.8, 1.2)
-    //             ),
-    //             position: new THREE.Vector3(
-    //                 -width,
-    //                 height,
-    //                 THREE.MathUtils.randFloat(-3, 0)
-    //             ),
-    //             rotation: new THREE.Euler(
-    //                 THREE.MathUtils.randFloat(0, Math.PI * 2),
-    //                 THREE.MathUtils.randFloat(0, Math.PI * 2),
-    //                 THREE.MathUtils.randFloat(0, Math.PI * 2)
-    //             ),
-    //             spin: {
-    //                 x: THREE.MathUtils.randFloat(0.1, 0.3),
-    //                 y: THREE.MathUtils.randFloat(0.1, 0.3),
-    //                 z: THREE.MathUtils.randFloat(0.1, 0.3),
-    //             },
-    //         })),
-    //     [speed, width, height]
-    // );
 
     return (
         <Instances

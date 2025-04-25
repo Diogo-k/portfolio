@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useRef, useCallback, useMemo } from 'react';
+import { useState, useCallback, useMemo } from 'react';
 import PropTypes from 'prop-types';
 
 import { motion, AnimatePresence } from 'motion/react';
@@ -22,7 +22,6 @@ export default function Intro({ intro }) {
 
     const [isIntroCrossedCenter, setIsIntroCrossedCenter] = useState(false);
 
-    const sliderRef = useRef(null);
     const [flyingSpeed, setFlyingSpeed] = useState(0.02);
 
     const handleSpeedChange = (e) => {
@@ -182,10 +181,7 @@ export default function Intro({ intro }) {
                             </div>
                             <div className="relative w-full">
                                 <div className="relative">
-                                    <div
-                                        ref={sliderRef}
-                                        className="relative h-2 w-full"
-                                    >
+                                    <div className="relative h-2 w-full">
                                         <div className="absolute h-2 w-full rounded bg-surface-light dark:bg-surface-dark" />
                                         <div
                                             className="absolute h-2 rounded bg-primary-light dark:bg-primary-dark"
