@@ -1,20 +1,13 @@
 'use client';
 
-import React, { memo, useMemo, useRef } from 'react';
+import React, { useMemo, useRef } from 'react';
 import { useThree, useFrame } from '@react-three/fiber';
-import {
-    useGLTF,
-    Instances,
-    Instance,
-    InstancedAttribute,
-} from '@react-three/drei';
+import { Instances, Instance, InstancedAttribute } from '@react-three/drei';
 import * as THREE from 'three';
-
-import usePetalMaterial from './usePetalMaterial';
 
 const PETAL_COUNT = 126;
 
-const Petal = memo(function Petal({
+const Petal = function Petal({
     index,
     width,
     height,
@@ -67,17 +60,16 @@ const Petal = memo(function Petal({
     });
 
     return <Instance ref={ref} {...props} />;
-});
+};
 
-export default memo(function IntroPetals({
+export default function IntroPetals({
+    geometry,
+    material,
     setIsIntroCrossedCenter,
     isIntroCrossedCenter,
     setIsIntroComplete,
     isIntroComplete,
 }) {
-    const { nodes } = useGLTF('/petal.glb');
-    const material = usePetalMaterial(nodes.petal.material);
-
     const { viewport } = useThree();
     const { width, height } = viewport;
 
@@ -115,8 +107,9 @@ export default memo(function IntroPetals({
         <Instances
             limit={PETAL_COUNT}
             range={PETAL_COUNT}
-            geometry={nodes.petal.geometry}
+            geometry={geometry}
             material={material}
+            frustumCulled={true}
         >
             <InstancedAttribute name="aOpacity" defaultValue={0.8} />
             {petals.map((props, i) => (
@@ -133,4 +126,4 @@ export default memo(function IntroPetals({
             ))}
         </Instances>
     );
-});
+}

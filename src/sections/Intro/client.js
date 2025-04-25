@@ -2,10 +2,51 @@
 
 import { useState, useCallback, useMemo } from 'react';
 import PropTypes from 'prop-types';
+import dynamic from 'next/dynamic';
 
 import { motion, AnimatePresence } from 'motion/react';
 
-import { CherryBlossoms, Link } from '@/components';
+import { Link } from '@/components';
+import { CherryBlossom } from '@/assets';
+
+const CherryBlossoms = dynamic(
+    () =>
+        import('../../components/CherryBlossoms').then((component) => {
+            return new Promise((resolve) => {
+                setTimeout(() => {
+                    resolve(component.default);
+                }, 1000);
+            });
+        }),
+    {
+        ssr: false,
+        loading: () => (
+            <div className="absolute inset-0 flex items-center justify-center">
+                <motion.div
+                    className="size-20"
+                    animate={{ rotate: 360 }}
+                    transition={{
+                        repeat: Infinity,
+                        duration: 2.5,
+                        ease: 'linear',
+                    }}
+                >
+                    <motion.div
+                        className="size-full"
+                        animate={{ scale: [1, 1.5, 1] }}
+                        transition={{
+                            repeat: Infinity,
+                            duration: 2,
+                            ease: 'easeInOut',
+                        }}
+                    >
+                        <CherryBlossom />
+                    </motion.div>
+                </motion.div>
+            </div>
+        ),
+    }
+);
 
 import { ANIMATION_VARIANTS, ANIMATION_TIMINGS } from './animation';
 

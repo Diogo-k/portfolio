@@ -1,6 +1,7 @@
 import Sun from './icons/Sun';
 import Moon from './icons/Moon';
 import Katana from './icons/Katana';
+import CherryBlossom from './icons/CherryBlossom';
 
 import Swipe from './icons/Swipe';
 import LeftArrow from './icons/LeftArrow';
@@ -18,6 +19,7 @@ export {
     Sun,
     Moon,
     Katana,
+    CherryBlossom,
     Swipe,
     LeftArrow,
     RightArrow,

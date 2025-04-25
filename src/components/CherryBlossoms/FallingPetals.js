@@ -2,17 +2,8 @@
 
 import React, { useMemo, useRef } from 'react';
 import { useThree, useFrame } from '@react-three/fiber';
-import {
-    useGLTF,
-    Instances,
-    Instance,
-    InstancedAttribute,
-} from '@react-three/drei';
+import { Instances, Instance, InstancedAttribute } from '@react-three/drei';
 import * as THREE from 'three';
-
-import usePetalMaterial from './usePetalMaterial';
-
-useGLTF.preload('/petal.glb');
 
 const PETAL_COUNT = 100;
 
@@ -126,10 +117,7 @@ function Petal({ index, width, ...props }) {
     return <Instance ref={ref} {...props} />;
 }
 
-export default function FallingPetals() {
-    const { nodes } = useGLTF('/petal.glb');
-    const material = usePetalMaterial(nodes.petal.material);
-
+export default function FallingPetals({ geometry, material }) {
     const { viewport } = useThree();
     const { width } = viewport;
 
@@ -176,7 +164,7 @@ export default function FallingPetals() {
         <Instances
             limit={PETAL_COUNT}
             range={PETAL_COUNT}
-            geometry={nodes.petal.geometry}
+            geometry={geometry}
             material={material}
         >
             <InstancedAttribute name="aOpacity" defaultValue={0.8} />

@@ -1,20 +1,13 @@
 'use client';
 
-import React, { memo, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { useThree, useFrame } from '@react-three/fiber';
-import {
-    useGLTF,
-    Instances,
-    Instance,
-    InstancedAttribute,
-} from '@react-three/drei';
+import { Instances, Instance, InstancedAttribute } from '@react-three/drei';
 import * as THREE from 'three';
-
-import usePetalMaterial from './usePetalMaterial';
 
 const PETAL_COUNT = 75;
 
-const Petal = memo(function Petal({ index, width, height, speed }) {
+const Petal = function Petal({ index, width, height, speed }) {
     const ref = useRef();
     const progress = useRef(index / PETAL_COUNT);
 
@@ -116,12 +109,9 @@ const Petal = memo(function Petal({ index, width, height, speed }) {
     });
 
     return <Instance ref={ref} {...data} />;
-});
+};
 
-export default memo(function FlyingPetals({ speed }) {
-    const { nodes } = useGLTF('/petal.glb');
-    const material = usePetalMaterial(nodes.petal.material);
-
+export default function FlyingPetals({ geometry, material, speed }) {
     const { viewport } = useThree();
     const { width, height } = viewport;
 
@@ -129,7 +119,7 @@ export default memo(function FlyingPetals({ speed }) {
         <Instances
             limit={PETAL_COUNT}
             range={PETAL_COUNT}
-            geometry={nodes.petal.geometry}
+            geometry={geometry}
             material={material}
             frustumCulled={true}
         >
@@ -145,4 +135,4 @@ export default memo(function FlyingPetals({ speed }) {
             ))}
         </Instances>
     );
-});
+}

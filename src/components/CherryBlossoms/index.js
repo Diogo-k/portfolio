@@ -1,17 +1,24 @@
 'use client';
 
-import React, { memo, useState } from 'react';
+import React, { useState } from 'react';
 import { Canvas } from '@react-three/fiber';
-import { Preload } from '@react-three/drei';
+import { Preload, useGLTF } from '@react-three/drei';
 
 import IntroPetals from './IntroPetals';
 import FlyingPetals from './FlyingPetals';
 
-export default memo(function CherryBlossomsContainer({
+import usePetalMaterial from './usePetalMaterial';
+
+useGLTF.preload('/petal.glb');
+
+export default function CherryBlossomsContainer({
     isIntroCrossedCenter,
     setIsIntroCrossedCenter,
     flyingSpeed,
 }) {
+    const { nodes } = useGLTF('/petal.glb');
+    const material = usePetalMaterial(nodes.petal.material);
+
     const [isIntroComplete, setIsIntroComplete] = useState(false);
 
     return (
@@ -32,6 +39,8 @@ export default memo(function CherryBlossomsContainer({
 
             {!isIntroComplete && (
                 <IntroPetals
+                    geometry={nodes.petal.geometry}
+                    material={material}
                     isIntroCrossedCenter={isIntroCrossedCenter}
                     setIsIntroCrossedCenter={setIsIntroCrossedCenter}
                     isIntroComplete={isIntroComplete}
@@ -39,7 +48,13 @@ export default memo(function CherryBlossomsContainer({
                 />
             )}
 
-            {isIntroComplete && <FlyingPetals speed={flyingSpeed} />}
+            {isIntroComplete && (
+                <FlyingPetals
+                    geometry={nodes.petal.geometry}
+                    material={material}
+                    speed={flyingSpeed}
+                />
+            )}
         </Canvas>
     );
-});
+}
