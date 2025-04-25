@@ -1,9 +1,9 @@
 'use client';
 
-import React, { useMemo, useRef } from 'react';
+import React, { useMemo, useRef, useEffect } from 'react';
 import { useThree, useFrame } from '@react-three/fiber';
 import { Instances, Instance, InstancedAttribute } from '@react-three/drei';
-import * as THREE from 'three';
+import { Vector3, Euler, MathUtils } from 'three';
 
 const PETAL_COUNT = 126;
 
@@ -80,28 +80,39 @@ export default function IntroPetals({
                     index,
                     offset: (index / PETAL_COUNT) * 0.5,
                     speed: 0.75,
-                    scale: new THREE.Vector3().setScalar(
-                        THREE.MathUtils.randFloat(0.8, 1.2)
+                    scale: new Vector3().setScalar(
+                        MathUtils.randFloat(0.8, 1.2)
                     ),
-                    position: new THREE.Vector3(
-                        THREE.MathUtils.randFloatSpread(width * 0.2),
-                        THREE.MathUtils.randFloatSpread(height * 0.4),
-                        THREE.MathUtils.randFloat(2, 4)
+                    position: new Vector3(
+                        MathUtils.randFloatSpread(width * 0.2),
+                        MathUtils.randFloatSpread(height * 0.4),
+                        MathUtils.randFloat(2, 4)
                     ),
-                    rotation: new THREE.Euler(
-                        THREE.MathUtils.randFloat(0, Math.PI * 2),
-                        THREE.MathUtils.randFloat(0, Math.PI * 2),
-                        THREE.MathUtils.randFloat(0, Math.PI * 2)
+                    rotation: new Euler(
+                        MathUtils.randFloat(0, Math.PI * 2),
+                        MathUtils.randFloat(0, Math.PI * 2),
+                        MathUtils.randFloat(0, Math.PI * 2)
                     ),
                     spin: {
-                        x: THREE.MathUtils.randFloat(0.2, 0.6),
-                        y: THREE.MathUtils.randFloat(0.2, 0.6),
-                        z: THREE.MathUtils.randFloat(0.2, 0.6),
+                        x: MathUtils.randFloat(0.2, 0.6),
+                        y: MathUtils.randFloat(0.2, 0.6),
+                        z: MathUtils.randFloat(0.2, 0.6),
                     },
                 };
             }),
         [] // eslint-disable-line react-hooks/exhaustive-deps
     );
+
+    useEffect(() => {
+        return () => {
+            if (geometry) {
+                geometry.dispose();
+            }
+            if (material) {
+                material.dispose();
+            }
+        };
+    }, [geometry, material]);
 
     return (
         <Instances

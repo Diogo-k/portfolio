@@ -3,7 +3,7 @@
 import React, { useMemo, useRef } from 'react';
 import { useThree, useFrame } from '@react-three/fiber';
 import { Instances, Instance, InstancedAttribute } from '@react-three/drei';
-import * as THREE from 'three';
+import { Vector3, Euler, MathUtils } from 'three';
 
 const PETAL_COUNT = 100;
 
@@ -84,7 +84,7 @@ function Petal({ index, width, ...props }) {
             const fadeProgress = Math.max(0, 1 - distanceFromEnd / fadeRange);
 
             // More gentle fade out curve
-            const opacity = THREE.MathUtils.clamp(
+            const opacity = MathUtils.clamp(
                 0.85 * (1 - Math.pow(fadeProgress, 2)),
                 0,
                 0.85
@@ -104,9 +104,9 @@ function Petal({ index, width, ...props }) {
             position.y < yLimit
         ) {
             position.set(
-                THREE.MathUtils.randFloatSpread(width),
-                THREE.MathUtils.randFloat(12, 20),
-                THREE.MathUtils.randFloat(-4, 0)
+                MathUtils.randFloatSpread(width),
+                MathUtils.randFloat(12, 20),
+                MathUtils.randFloat(-4, 0)
             );
 
             geometry.attributes.aOpacity.array[index] = 0.8;
@@ -127,32 +127,32 @@ export default function FallingPetals({ geometry, material }) {
                 const seed = Math.random();
 
                 return {
-                    position: new THREE.Vector3(
-                        THREE.MathUtils.randFloatSpread(width),
-                        THREE.MathUtils.randFloat(12, 20),
-                        THREE.MathUtils.randFloat(-4, 0)
+                    position: new Vector3(
+                        MathUtils.randFloatSpread(width),
+                        MathUtils.randFloat(12, 20),
+                        MathUtils.randFloat(-4, 0)
                     ),
-                    rotation: new THREE.Euler(
-                        THREE.MathUtils.randFloat(0, Math.PI * 2),
-                        THREE.MathUtils.randFloat(0, Math.PI * 2),
-                        THREE.MathUtils.randFloat(0, Math.PI * 2)
+                    rotation: new Euler(
+                        MathUtils.randFloat(0, Math.PI * 2),
+                        MathUtils.randFloat(0, Math.PI * 2),
+                        MathUtils.randFloat(0, Math.PI * 2)
                     ),
-                    scale: new THREE.Vector3().setScalar(
-                        THREE.MathUtils.randFloat(0.8, 1.2)
+                    scale: new Vector3().setScalar(
+                        MathUtils.randFloat(0.8, 1.2)
                     ),
                     speed: {
-                        fall: THREE.MathUtils.randFloat(0.01, 0.025),
-                        rotationX: THREE.MathUtils.randFloat(-0.0015, 0.0015),
-                        rotationY: THREE.MathUtils.randFloat(-0.001, 0.001),
-                        rotationZ: THREE.MathUtils.randFloat(-0.0012, 0.0012),
+                        fall: MathUtils.randFloat(0.01, 0.025),
+                        rotationX: MathUtils.randFloat(-0.0015, 0.0015),
+                        rotationY: MathUtils.randFloat(-0.001, 0.001),
+                        rotationZ: MathUtils.randFloat(-0.0012, 0.0012),
                     },
                     floatParams: {
-                        freqX: THREE.MathUtils.randFloat(0.2, 0.5), // Frequency of x-axis oscillation
-                        ampX: THREE.MathUtils.randFloat(0.01, 0.03), // Amplitude of x-axis oscillation
-                        phaseX: THREE.MathUtils.randFloat(0, Math.PI * 2),
-                        freqZ: THREE.MathUtils.randFloat(0.2, 0.4), // Frequency of z-axis oscillation
-                        ampZ: THREE.MathUtils.randFloat(0.01, 0.02), // Amplitude of z-axis oscillation
-                        phaseZ: THREE.MathUtils.randFloat(0, Math.PI * 2),
+                        freqX: MathUtils.randFloat(0.2, 0.5), // Frequency of x-axis oscillation
+                        ampX: MathUtils.randFloat(0.01, 0.03), // Amplitude of x-axis oscillation
+                        phaseX: MathUtils.randFloat(0, Math.PI * 2),
+                        freqZ: MathUtils.randFloat(0.2, 0.4), // Frequency of z-axis oscillation
+                        ampZ: MathUtils.randFloat(0.01, 0.02), // Amplitude of z-axis oscillation
+                        phaseZ: MathUtils.randFloat(0, Math.PI * 2),
                     },
                     seed,
                 };

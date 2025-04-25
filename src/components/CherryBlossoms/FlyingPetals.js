@@ -3,7 +3,7 @@
 import React, { useRef, useState } from 'react';
 import { useThree, useFrame } from '@react-three/fiber';
 import { Instances, Instance, InstancedAttribute } from '@react-three/drei';
-import * as THREE from 'three';
+import { Vector3, Euler, MathUtils } from 'three';
 
 const PETAL_COUNT = 75;
 
@@ -14,26 +14,20 @@ const Petal = function Petal({ index, width, height, speed }) {
     const [data] = useState({
         index,
         offset: {
-            x: THREE.MathUtils.randFloatSpread(width),
-            y: THREE.MathUtils.randFloatSpread(height),
+            x: MathUtils.randFloatSpread(width),
+            y: MathUtils.randFloatSpread(height),
         },
-        scale: new THREE.Vector3().setScalar(
-            THREE.MathUtils.randFloat(0.8, 1.2)
-        ),
-        position: new THREE.Vector3(
-            -width,
-            height,
-            THREE.MathUtils.randFloat(-3, 0)
-        ),
-        rotation: new THREE.Euler(
-            THREE.MathUtils.randFloat(0, Math.PI * 2),
-            THREE.MathUtils.randFloat(0, Math.PI * 2),
-            THREE.MathUtils.randFloat(0, Math.PI * 2)
+        scale: new Vector3().setScalar(MathUtils.randFloat(0.8, 1.2)),
+        position: new Vector3(-width, height, MathUtils.randFloat(-3, 0)),
+        rotation: new Euler(
+            MathUtils.randFloat(0, Math.PI * 2),
+            MathUtils.randFloat(0, Math.PI * 2),
+            MathUtils.randFloat(0, Math.PI * 2)
         ),
         spin: {
-            x: THREE.MathUtils.randFloat(0.1, 0.3),
-            y: THREE.MathUtils.randFloat(0.1, 0.3),
-            z: THREE.MathUtils.randFloat(0.1, 0.3),
+            x: MathUtils.randFloat(0.1, 0.3),
+            y: MathUtils.randFloat(0.1, 0.3),
+            z: MathUtils.randFloat(0.1, 0.3),
         },
     });
 
@@ -76,7 +70,7 @@ const Petal = function Petal({ index, width, height, speed }) {
                     1 - distanceFromEnd / fadeRange
                 );
 
-                const opacity = THREE.MathUtils.clamp(
+                const opacity = MathUtils.clamp(
                     0.8 * (1 - Math.pow(fadeProgress, 2)),
                     0,
                     0.8
@@ -96,7 +90,7 @@ const Petal = function Petal({ index, width, height, speed }) {
             //* Reset position to starting position with some randomness
             position.x = -width;
             position.y = height;
-            position.z = THREE.MathUtils.randFloat(-3, 3);
+            position.z = MathUtils.randFloat(-3, 3);
 
             //* Reset animation progress
             progress.current = index / PETAL_COUNT;
