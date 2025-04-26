@@ -2,42 +2,35 @@ import * as motion from 'motion/react-client';
 
 import { Button, Link, Text } from '@/components';
 
+import { FADE_IN, FADE_IN_SLIDE_UP } from '../constants/animations';
+
 export default function NotFound() {
-    const containerVariants = {
-        hidden: { opacity: 0 },
-        visible: {
-            opacity: 1,
+    const NUMBER_TAP = {
+        tap: {
+            scale: [1, 1.1, 0.95, 1],
+            rotate: [0, -10, 10, -5, 2, 0],
             transition: {
-                staggerChildren: 0.2,
-                delayChildren: 0.3,
+                duration: 0.6,
+                ease: 'easeOut',
+                type: 'tween',
             },
         },
     };
 
-    const itemVariants = {
-        hidden: { opacity: 0, y: 20 },
-        visible: { opacity: 1, y: 0 },
-    };
-
-    const numberVariants = {
-        tap: {
-            scale: 1.1,
-            rotate: [0, -10, 10, -10, 0],
-            transition: { duration: 0.5 },
-        },
-    };
-
     return (
-        <div className="flex min-h-screen flex-col items-center justify-center">
+        <div className="flex min-h-screen flex-col items-center justify-center bg-background-light dark:bg-background-dark">
             <motion.div
-                variants={containerVariants}
                 initial="hidden"
                 animate="visible"
+                variants={FADE_IN}
+                transition={{
+                    ...FADE_IN.transition,
+                }}
                 className="mb-4 max-w-2xl text-center"
             >
-                <motion.div variants={itemVariants} className="relative">
+                <motion.div className="relative">
                     <motion.div
-                        variants={numberVariants}
+                        variants={NUMBER_TAP}
                         animate={'tap'}
                         whileTap="tap"
                         className="cursor-pointer"
@@ -48,7 +41,13 @@ export default function NotFound() {
                     </motion.div>
                 </motion.div>
 
-                <motion.div variants={itemVariants}>
+                <motion.div
+                    variants={FADE_IN_SLIDE_UP}
+                    transition={{
+                        ...FADE_IN_SLIDE_UP.transition,
+                        delay: 0.2,
+                    }}
+                >
                     <Text
                         as="h2"
                         size="text-2xl"
@@ -59,7 +58,13 @@ export default function NotFound() {
                     </Text>
                 </motion.div>
 
-                <motion.div variants={itemVariants}>
+                <motion.div
+                    variants={FADE_IN_SLIDE_UP}
+                    transition={{
+                        ...FADE_IN_SLIDE_UP.transition,
+                        delay: 0.4,
+                    }}
+                >
                     <Text
                         as="h3"
                         size="text-lg"
@@ -74,7 +79,11 @@ export default function NotFound() {
                 </motion.div>
 
                 <motion.div
-                    variants={itemVariants}
+                    variants={FADE_IN_SLIDE_UP}
+                    transition={{
+                        ...FADE_IN_SLIDE_UP.transition,
+                        delay: 0.6,
+                    }}
                     className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row"
                 >
                     <Button
@@ -91,7 +100,14 @@ export default function NotFound() {
                     </Button>
                 </motion.div>
 
-                <motion.div variants={itemVariants} className="mt-12">
+                <motion.div
+                    variants={FADE_IN_SLIDE_UP}
+                    transition={{
+                        ...FADE_IN_SLIDE_UP.transition,
+                        delay: 0.8,
+                    }}
+                    className="mt-12"
+                >
                     <Text
                         as="p"
                         size="text-sm"

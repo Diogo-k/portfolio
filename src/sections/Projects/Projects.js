@@ -47,7 +47,7 @@ const containerVariants = {
  * @param {Object} props.projects - The projects data
  * @returns {JSX.Element} The Projects section component
  */
-export default function Projects({ projects, isProjectRoute = false }) {
+export default function ProjectsSection({ projects, isProjectRoute = false }) {
     const [selectedTag, setSelectedTag] = useState('All');
 
     const [page, setPage] = useState(0);
@@ -280,7 +280,7 @@ export default function Projects({ projects, isProjectRoute = false }) {
     );
 }
 
-Projects.propTypes = {
+ProjectsSection.propTypes = {
     projects: PropTypes.array.isRequired,
-    page: PropTypes.bool,
+    isProjectRoute: PropTypes.bool,
 };

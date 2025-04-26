@@ -60,6 +60,8 @@ const eslintConfig = [
                         ['@/utils/mdx', './src/utils/mdx'],
                         ['@/assets', './src/assets/index'],
                         ['@/styles', './src/styles'],
+                        ['@/constants', './src/constants/index'],
+                        ['@/config', './src/config.json'],
                     ],
                     extensions: ['.js', '.jsx'],
                 },

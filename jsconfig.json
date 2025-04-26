@@ -6,7 +6,9 @@
             "@/utils/*": ["./src/utils/*"],
             "@/utils/mdx": ["./src/utils/mdx"],
             "@/assets": ["./src/assets/index"],
-            "@/styles/*": ["./src/styles/*"]
+            "@/styles/*": ["./src/styles/*"],
+            "@/constants/*": ["./src/constants/*"],
+            "@/config": ["./src/config.json"]
         }
     }
 }

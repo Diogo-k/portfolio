@@ -1,6 +1,6 @@
 import { getAllDataFromContent } from '@/utils/mdx';
 
-import ProjectsClient from './client';
+import ProjectsSection from './Projects';
 
 export default async function Projects({ isProjectRoute = false }) {
     const projects = await getAllDataFromContent('projects');
@@ -10,7 +10,7 @@ export default async function Projects({ isProjectRoute = false }) {
     });
 
     return (
-        <ProjectsClient
+        <ProjectsSection
             projects={sortedProjects}
             isProjectRoute={isProjectRoute}
         />

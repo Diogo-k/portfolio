@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import Image from 'next/image';
-import { motion } from 'motion/react';
+import * as motion from 'motion/react-client';
 
 import { Link, Text, Tag } from '@/components';
 

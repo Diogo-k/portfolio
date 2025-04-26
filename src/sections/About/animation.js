@@ -10,7 +10,7 @@ export const ANIMATION_VARIANTS = {
         },
     },
     column: {
-        initial: { opacity: 0, y: -10 },
+        initial: { opacity: 0, y: -20 },
         whileInView: {
             opacity: 1,
             y: 0,
@@ -21,7 +21,7 @@ export const ANIMATION_VARIANTS = {
         },
     },
     paragraphs: {
-        initial: { opacity: 0, y: -10 },
+        initial: { opacity: 0, y: -20 },
         whileInView: {
             opacity: 1,
             y: 0,
