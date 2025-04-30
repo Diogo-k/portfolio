@@ -1,9 +1,14 @@
-import * as motion from 'motion/react-client';
+'use client';
 
-import { Button, Link, Text } from '@/components';
+import { motion } from 'motion/react';
+import { Text, Button, Link } from '@/components';
+import { FADE_IN, FADE_IN_SLIDE_UP } from '@/constants/animations';
 
-import { FADE_IN, FADE_IN_SLIDE_UP } from '../constants/animations';
-
+/**
+ * NotFound component
+ *
+ * @returns {React.ReactNode} The rendered component
+ */
 export default function NotFound() {
     const NUMBER_TAP = {
         tap: {
@@ -52,7 +57,8 @@ export default function NotFound() {
                         as="h2"
                         size="text-2xl"
                         weight="font-semibold"
-                        className="mb-6 text-text-light dark:text-text-dark"
+                        align="center"
+                        className="mb-6"
                     >
                         Looks like you&apos;ve ventured into the void
                     </Text>
@@ -68,7 +74,8 @@ export default function NotFound() {
                     <Text
                         as="h3"
                         size="text-lg"
-                        className="mt-6 text-muted-light dark:text-muted-dark"
+                        align="center"
+                        className="mt-6"
                     >
                         This page could not be found. It either doesn&apos;t
                         exist or was deleted.
@@ -108,11 +115,7 @@ export default function NotFound() {
                     }}
                     className="mt-12"
                 >
-                    <Text
-                        as="p"
-                        size="text-sm"
-                        className="text-muted-light dark:text-muted-dark"
-                    >
+                    <Text as="p" size="text-sm" align="center">
                         Need help? <Link href="/#contact">Contact me</Link>
                     </Text>
                 </motion.div>

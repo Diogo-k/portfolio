@@ -3,6 +3,11 @@ import { Resend } from 'resend';
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
+/**
+ * Handles POST requests for the contact form
+ * @param {Request} request - The request object
+ * @returns {Promise<NextResponse>} A response object
+ */
 export async function POST(request) {
     try {
         if (!process.env.RESEND_API_KEY) {

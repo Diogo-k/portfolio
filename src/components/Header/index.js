@@ -9,7 +9,7 @@ import { ThemeSwitcher, Button, Link } from '@/components';
 
 const navItems = [
     { name: 'Home', href: '/#home', id: 'nav-home' },
-    { name: 'About Me', href: '/#about-me', id: 'nav-about-me' },
+    { name: 'About me', href: '/#about-me', id: 'nav-about-me' },
     { name: 'Projects', href: '/#projects', id: 'nav-projects' },
     { name: 'Contact', href: '/#contact', id: 'nav-contact' },
 ];

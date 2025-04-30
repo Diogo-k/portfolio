@@ -31,6 +31,7 @@ export default function CherryBlossomsContainer({
                 width: '100%',
                 height: '100%',
             }}
+            aria-hidden="true"
         >
             <ambientLight intensity={1} />
             <directionalLight position={[10, 10, 5]} intensity={1} />

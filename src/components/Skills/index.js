@@ -29,13 +29,11 @@ import {
 
 import { Tag } from '@/components';
 
-import { ANIMATION_VARIANTS } from './animation';
-
 const skillIconMap = {
     JavaScript: SiJavascript,
     TypeScript: SiTypescript,
     HTML5: SiHtml5,
-    'CSS/Sass': SiCss,
+    CSS: SiCss,
     'React.js': SiReact,
     'Next.js': SiNextdotjs,
     'React Native': SiReact,
@@ -60,20 +58,17 @@ const skillIconMap = {
 
 /**
  * Skills component that displays a grid of skill tags with animations
- * @param {Object} props - The component props
  * @param {Array} props.skills - The skills to display
+ * @param {Object} props - The component props
  * @returns {React.ReactNode} The rendered component
  */
-const Skills = ({ skills }) => {
+const Skills = ({ skills, ...props }) => {
     return (
         <motion.div
-            variants={ANIMATION_VARIANTS.container}
-            initial="initial"
-            whileInView="whileInView"
-            viewport={{ once: true }}
-            className="flex flex-wrap justify-center gap-2 overflow-hidden"
-            aria-label="Technical skills list"
             role="list"
+            aria-label="Technical skills list"
+            className="flex flex-wrap justify-center gap-2 overflow-hidden"
+            {...props}
         >
             {skills.map((skill) => {
                 const IconComponent = skillIconMap[skill.name] || null;
@@ -83,11 +78,7 @@ const Skills = ({ skills }) => {
                         role="listitem"
                         aria-label={`${skill.name} skill`}
                     >
-                        <Tag
-                            variant={skill.variant}
-                            icon={IconComponent}
-                            className="transition-all duration-300 hover:scale-105"
-                        >
+                        <Tag variant="ghost" icon={IconComponent}>
                             {skill.name}
                         </Tag>
                     </motion.div>

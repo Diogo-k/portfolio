@@ -1,15 +1,206 @@
-import { getSpecificMDXContent } from '@/utils/mdx';
+'use client';
 
-import AboutClient from './client';
+import PropTypes from 'prop-types';
+import { motion } from 'motion/react';
 
-export default async function About() {
-    const about = await getSpecificMDXContent('about');
+import { Text, Button, ProfileImage, Skills } from '@/components';
 
-    if (!about) {
-        console.warn(
-            '⚠️ About content is completely missing. Check your MDX file.'
-        );
-    }
+import { RightArrow } from '@/assets';
 
-    return <AboutClient about={about} />;
+import { FADE_IN, FADE_IN_SLIDE_DOWN } from '@/constants/animations';
+
+import config from '@/config';
+
+const MotionButton = motion.create(Button);
+
+/**
+ * About section component that displays personal information and skills
+ *
+ * @param {Object} props - Component props
+ * @param {Object} props.about - About data
+ * @returns {JSX.Element} The About section component
+ */
+export default function About() {
+    const { about, skills } = config;
+
+    return (
+        <section
+            id="about-me"
+            className="mx-auto flex min-h-[50vh] max-w-5xl flex-col overflow-hidden px-4 py-16 sm:px-6 sm:py-20 md:py-24 lg:py-28"
+            aria-label="About me section"
+            role="banner"
+        >
+            <Text
+                as="h1"
+                size="text-4xl"
+                weight="font-bold"
+                id="about-me-heading"
+                role="heading"
+                aria-label="About me section"
+                className="mb-4"
+                initial={{ opacity: 0, y: -15 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: '-50px' }}
+                transition={{
+                    ...FADE_IN_SLIDE_DOWN.transition,
+                }}
+            >
+                About me
+            </Text>
+            <Text
+                as="h2"
+                size="text-sm"
+                weight="font-normal"
+                id="about-me-intro-heading"
+                role="heading"
+                aria-label="Get to know me section"
+                className="mb-4 sm:mb-6"
+                initial={{ opacity: 0, y: -15 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{
+                    ...FADE_IN_SLIDE_DOWN.transition,
+                    delay: 0.2,
+                }}
+            >
+                Get to know me!
+            </Text>
+            <motion.div
+                variants={FADE_IN}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true }}
+                transition={{
+                    ...FADE_IN.transition,
+                    duration: 1,
+                    delay: 0.5,
+                }}
+                className="grid grid-cols-1 gap-8 sm:gap-12 lg:grid-cols-2"
+            >
+                <div className="flex flex-col justify-between">
+                    <div className="flex flex-col gap-3 sm:gap-4">
+                        {about.map((paragraph, index) => (
+                            <div key={index}>
+                                <Text
+                                    size="text-sm"
+                                    id={`about-paragraph-${index}`}
+                                    role="article"
+                                    dangerouslySetInnerHTML={{
+                                        __html: paragraph,
+                                    }}
+                                />
+                            </div>
+                        ))}
+                    </div>
+                    <MotionButton
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                        as="a"
+                        href="/joao_diogo_paulo_resume.pdf"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        size="md"
+                        variant="primary"
+                        className="w-fit"
+                        aria-label="View CV (joao_diogo_paulo_resume.pdf) in new tab"
+                    >
+                        View CV
+                        <RightArrow
+                            className="ml-1 size-4"
+                            aria-hidden="true"
+                        />
+                    </MotionButton>
+                </div>
+                <div className="flex flex-col">
+                    <ProfileImage />
+                </div>
+            </motion.div>
+
+            <motion.div
+                initial={{ opacity: 0, y: -15 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: '-50px' }}
+                transition={{
+                    ...FADE_IN_SLIDE_DOWN.transition,
+                    delay: 0.7,
+                }}
+                className="mt-32"
+            >
+                <Text
+                    as="h3"
+                    size="text-2xl"
+                    weight="font-semibold"
+                    align="text-center"
+                    id="skills-heading"
+                    role="heading"
+                    aria-label="My skills section"
+                >
+                    My Skills
+                </Text>
+            </motion.div>
+
+            <motion.div
+                variants={FADE_IN}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true }}
+                transition={{
+                    ...FADE_IN.transition,
+                    duration: 1,
+                    delay: 0.9,
+                }}
+                className="mt-8 grid grid-cols-1 justify-center gap-8 md:grid-cols-2 lg:grid-cols-2"
+            >
+                <div className="flex flex-col items-center rounded-xl bg-surface-light p-6 dark:bg-surface-dark">
+                    <Text
+                        as="h3"
+                        size="text-xl"
+                        weight="font-semibold"
+                        className="mb-4"
+                    >
+                        Frontend
+                    </Text>
+                    <Skills
+                        skills={skills.frontend}
+                        className="flex flex-wrap justify-center gap-2"
+                    />
+                </div>
+                <div className="flex flex-col items-center rounded-xl bg-surface-light p-6 dark:bg-surface-dark">
+                    <Text
+                        as="h3"
+                        size="text-xl"
+                        weight="font-semibold"
+                        className="mb-4"
+                    >
+                        Backend
+                    </Text>
+                    <Skills
+                        skills={skills.backend}
+                        className="flex flex-wrap justify-center gap-2"
+                    />
+                </div>
+                <div className="flex flex-col items-center rounded-xl bg-surface-light p-6 md:col-span-2 lg:col-span-1 dark:bg-surface-dark">
+                    <Text
+                        as="h3"
+                        size="text-xl"
+                        weight="font-semibold"
+                        className="mb-4"
+                    >
+                        Others
+                    </Text>
+                    <Skills
+                        skills={skills.others}
+                        className="flex flex-wrap justify-center gap-2"
+                    />
+                </div>
+            </motion.div>
+        </section>
+    );
 }
+
+About.propTypes = {
+    about: PropTypes.shape({
+        aboutMe: PropTypes.arrayOf(PropTypes.string).isRequired,
+        skills: PropTypes.arrayOf(PropTypes.string).isRequired,
+    }).isRequired,
+};

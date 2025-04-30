@@ -6,36 +6,52 @@ import { motion, AnimatePresence } from 'motion/react';
 
 import { Text, ProjectCard, Button } from '@/components';
 import { Swipe, RightArrow } from '@/assets';
+import { FADE_IN_SLIDE_DOWN } from '@/constants/animations';
 
-const containerVariants = {
+const swipeContainerVariants = {
     enter: (direction) => ({
         x: direction > 0 ? 400 : -400,
         opacity: 0,
         transition: {
-            duration: 0.25,
-            type: 'spring',
-            stiffness: 300,
-            damping: 30,
+            x: {
+                type: 'spring',
+                stiffness: 200,
+                damping: 25,
+                duration: 0.4,
+            },
+            opacity: {
+                duration: 0.3,
+            },
         },
     }),
     center: {
         x: 0,
         opacity: 1,
         transition: {
-            duration: 0.25,
-            type: 'spring',
-            stiffness: 300,
-            damping: 30,
+            x: {
+                type: 'spring',
+                stiffness: 200,
+                damping: 25,
+                duration: 0.4,
+            },
+            opacity: {
+                duration: 0.3,
+            },
         },
     },
     exit: (direction) => ({
         x: direction < 0 ? 400 : -400,
         opacity: 0,
         transition: {
-            duration: 0.25,
-            type: 'spring',
-            stiffness: 300,
-            damping: 30,
+            x: {
+                type: 'spring',
+                stiffness: 200,
+                damping: 25,
+                duration: 0.4,
+            },
+            opacity: {
+                duration: 0.3,
+            },
         },
     }),
 };
@@ -108,22 +124,19 @@ export default function ProjectsSection({ projects, isProjectRoute = false }) {
             aria-labelledby="projects-heading"
         >
             <motion.div
-                initial={{ opacity: 0, y: -20 }}
+                initial={{ opacity: 0, y: -15 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: '-50px' }}
-                transition={{ duration: 0.5 }}
+                viewport={{ once: true, margin: '-75px' }}
+                transition={{ ...FADE_IN_SLIDE_DOWN.transition }}
             >
                 <Text
                     as="h1"
                     size="text-4xl"
-                    responsiveSize={{
-                        sm: 'text-5xl',
-                    }}
                     weight="font-bold"
-                    className="mb-4"
                     id="projects-heading"
                     role="heading"
-                    aria-label="Projects portfolio section"
+                    aria-label="Projects section"
+                    className="mb-4"
                 >
                     Projects
                 </Text>
@@ -175,10 +188,15 @@ export default function ProjectsSection({ projects, isProjectRoute = false }) {
                                     (_, index) => (
                                         <motion.button
                                             key={index}
-                                            onClick={() => setPage(index)}
+                                            onClick={() => {
+                                                const newDirection =
+                                                    index > page ? 1 : -1;
+                                                setDirection(newDirection);
+                                                setPage(index);
+                                            }}
                                             whileHover={{ scale: 1.1 }}
                                             whileTap={{ scale: 0.9 }}
-                                            className={`h-2 rounded-full ${
+                                            className={`h-2 rounded-full focus:outline-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-text-light dark:focus-visible:outline-text-dark ${
                                                 page === index
                                                     ? 'w-8 bg-primary-light dark:bg-primary-dark'
                                                     : 'w-2 bg-gray-300 hover:bg-gray-400 dark:bg-gray-700 dark:hover:bg-gray-600'
@@ -195,13 +213,7 @@ export default function ProjectsSection({ projects, isProjectRoute = false }) {
                                 Page {page + 1} of {totalPages}
                             </div>
                         </div>
-                        <motion.div
-                            initial={{ opacity: 0 }}
-                            whileInView={{ opacity: 1 }}
-                            viewport={{ once: true, margin: '-50px' }}
-                            transition={{ delay: 0.3 }}
-                            className="mb-6 flex flex-col items-center gap-4 sm:mb-8"
-                        >
+                        <div className="mb-6 flex flex-col items-center gap-4 sm:mb-8">
                             <div className="flex items-center justify-center gap-2 text-sm text-gray-500 dark:text-gray-400">
                                 <span>Swipe to navigate</span>
                                 <motion.div
@@ -214,7 +226,7 @@ export default function ProjectsSection({ projects, isProjectRoute = false }) {
                                     <Swipe className="size-5 fill-gray-500 dark:fill-gray-400" />
                                 </motion.div>
                             </div>
-                        </motion.div>
+                        </div>
                     </>
                 )}
             </motion.div>
@@ -222,7 +234,7 @@ export default function ProjectsSection({ projects, isProjectRoute = false }) {
                 <motion.div
                     key={page}
                     custom={direction}
-                    variants={containerVariants}
+                    variants={swipeContainerVariants}
                     initial="enter"
                     animate="center"
                     exit="exit"
@@ -259,9 +271,9 @@ export default function ProjectsSection({ projects, isProjectRoute = false }) {
             {!isProjectRoute && (
                 <motion.div
                     initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                    transition={{ duration: 0.5 }}
+                    whileInView={{ opacity: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ ...FADE_IN_SLIDE_DOWN.transition }}
                     className="mt-8 flex w-full grow items-center justify-center"
                 >
                     <Button

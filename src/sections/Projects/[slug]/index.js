@@ -6,7 +6,7 @@ import { useSearchParams } from 'next/navigation';
 import { motion } from 'motion/react';
 
 import { Text, Button, Tag } from '@/components';
-import { ArrowLink, SourceCode, LeftArrow } from '@/assets';
+import { ArrowLink, SourceCode, RightArrow, LeftArrow } from '@/assets';
 const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -63,10 +63,6 @@ export default function ProjectPage({ project }) {
                 <Text
                     as="h1"
                     size="text-4xl"
-                    responsiveSize={{
-                        sm: 'text-5xl',
-                        md: 'text-6xl',
-                    }}
                     weight="font-bold"
                     className="mb-4"
                 >
@@ -125,7 +121,7 @@ export default function ProjectPage({ project }) {
                         className="flex items-center gap-2"
                     >
                         <span>View Live Demo</span>
-                        <ArrowLink className="size-6" />
+                        <RightArrow className="size-6" />
                     </Button>
                 )}
             </motion.div>

@@ -4,8 +4,8 @@ import { useState } from 'react';
 import { motion } from 'motion/react';
 
 import { Link, Text, Button } from '@/components';
-
 import { Mail, LinkedIn, Github } from '@/assets';
+import { FADE_IN_SLIDE_DOWN, FADE_IN } from '@/constants/animations';
 
 const contactMethods = [
     {
@@ -189,29 +189,52 @@ export default function Contact() {
             <Text
                 as="h1"
                 size="text-4xl"
-                responsiveSize={{
-                    sm: 'text-3xl',
-                    md: 'text-4xl',
-                    lg: 'text-5xl',
-                }}
                 weight="font-bold"
                 align="center"
                 id="contact-heading"
                 role="heading"
                 aria-label="Contact section"
+                className="mb-4"
+                initial={{ opacity: 0, y: -15 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{
+                    ...FADE_IN_SLIDE_DOWN.transition,
+                }}
             >
                 Contact
             </Text>
+            <Text
+                as="h2"
+                size="text-sm"
+                weight="font-normal"
+                id="about-me-intro-heading"
+                role="heading"
+                aria-label="Get to know me section"
+                initial={{ opacity: 0, y: -15 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{
+                    ...FADE_IN_SLIDE_DOWN.transition,
+                    delay: 0.2,
+                }}
+            >
+                Get to know me!
+            </Text>
 
-            <div className="mt-8 flex flex-col gap-8 md:flex-row">
+            <motion.div
+                variants={FADE_IN}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true }}
+                transition={{
+                    ...FADE_IN.transition,
+                    delay: 0.4,
+                }}
+                className="mt-8 flex flex-col gap-8 md:flex-row"
+            >
                 <div className="flex-1">
-                    <motion.div
-                        className="space-y-6"
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.5, delay: 0.2 }}
-                        viewport={{ once: true }}
-                    >
+                    <div className="space-y-6">
                         {contactMethods.map((method) => (
                             <div
                                 key={method.title}
@@ -250,15 +273,11 @@ export default function Contact() {
                                 </div>
                             </div>
                         ))}
-                    </motion.div>
+                    </div>
                 </div>
 
                 <div className="flex-1">
-                    <motion.form
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.5, delay: 0.2 }}
-                        viewport={{ once: true }}
+                    <form
                         onSubmit={handleSubmit}
                         noValidate
                         aria-labelledby="contact-form-heading"
@@ -464,9 +483,9 @@ export default function Contact() {
                                 {formStatus.error}
                             </motion.div>
                         )}
-                    </motion.form>
+                    </form>
                 </div>
-            </div>
+            </motion.div>
         </section>
     );
 }

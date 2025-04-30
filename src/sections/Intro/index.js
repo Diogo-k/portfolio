@@ -120,6 +120,7 @@ export default function Intro() {
                                 animate="visible"
                                 transition={{
                                     ...FADE_IN_SLIDE_DOWN.transition,
+                                    duration: 0.3,
                                     delay: index * 0.05,
                                 }}
                                 className={`${char === ' ' ? 'w-2' : ''}`}
@@ -223,7 +224,7 @@ export default function Intro() {
                                         step="0.01"
                                         value={flyingSpeed}
                                         onChange={handleSpeedChange}
-                                        className="absolute inset-0 h-2 w-full cursor-pointer appearance-none bg-transparent accent-text-light focus:outline-none dark:accent-text-dark"
+                                        className="absolute inset-0 h-2 w-full cursor-pointer appearance-none bg-transparent accent-text-light focus:outline-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-text-light dark:accent-text-dark dark:focus-visible:outline-text-dark"
                                         aria-label="Flying petals speed control"
                                     />
                                 </div>

@@ -4,14 +4,15 @@ import clsx from 'clsx';
 import * as motion from 'motion/react-client';
 
 const variants = {
-    primary: 'bg-primary-light dark:bg-primary-dark',
-    frontend: 'bg-primary-light dark:bg-primary-dark',
-    backend: 'bg-blue-800 dark:bg-blue-800',
-    database: 'bg-emerald-800 dark:bg-emerald-800',
-    tools: 'bg-violet-800 dark:bg-violet-800',
-    cloud: 'bg-orange-700 dark:bg-orange-700',
-    gamedev: 'bg-fuchsia-800 dark:bg-fuchsia-800',
-    others: 'bg-gray-700 dark:bg-gray-700',
+    ghost: 'text-text-light bg-primary-light/10 dark:text-text-dark dark:bg-accent-dark/30 border border-1 border-primary-light dark:border-primary-dark',
+    primary: 'bg-primary-light dark:bg-primary-dark text-white',
+    frontend: 'bg-primary-light dark:bg-primary-dark text-white',
+    backend: 'bg-blue-800 dark:bg-blue-800 text-white',
+    database: 'bg-emerald-800 dark:bg-emerald-800 text-white',
+    tools: 'bg-violet-800 dark:bg-violet-800 text-white',
+    cloud: 'bg-orange-700 dark:bg-orange-700 text-white',
+    gamedev: 'bg-fuchsia-800 dark:bg-fuchsia-800 text-white',
+    others: 'bg-gray-700 dark:bg-gray-700 text-white',
 };
 
 /**
@@ -35,7 +36,7 @@ export default function Tag({
     return (
         <motion.span
             className={clsx(
-                'inline-flex items-center gap-1.5 rounded-2xl px-3 py-1 text-xs font-semibold text-white',
+                'inline-flex items-center gap-1.5 rounded-2xl px-3 py-1 text-xs font-semibold',
                 variants[variant],
                 className
             )}
@@ -43,11 +44,7 @@ export default function Tag({
             transition={{ duration: 0.2 }}
         >
             {Icon && (
-                <Icon
-                    title={children}
-                    className="size-3.5 fill-white"
-                    aria-hidden="true"
-                />
+                <Icon aria-hidden="true" color="default" className="size-4" />
             )}
             {children}
         </motion.span>

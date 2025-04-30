@@ -1,35 +1,23 @@
 import PropTypes from 'prop-types';
 import Image from 'next/image';
-import * as motion from 'motion/react-client';
 
 import { Link, Text, Tag } from '@/components';
-
-const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: {
-        opacity: 1,
-        y: 0,
-        transition: {
-            duration: 0.4,
-            ease: [0.4, 0, 0.2, 1],
-        },
-    },
-};
 
 /**
  * ProjectCard component that displays a project card
  *
  * @param {Object} props - The component props
- * @param {string} props.image - The image source for the project
- * @param {string} props.name - The name of the project
- * @param {Array} props.tags - The tags for the project
- * @param {number} props.index - The index of the project
+ * @param {boolean} props.isProjectRoute - Whether the project card is in the project route
  * @param {boolean} props.isDragging - Whether the parent container is being dragged
+ * @param {string} props.slug - The slug of the project
+ * @param {string} props.thumbnail - The thumbnail of the project
+ * @param {string} props.name - The name of the project
+ * @param {string} props.description - The description of the project
+ * @param {Array} props.tags - The tags for the project
  * @returns {React.ReactNode} The rendered component
  */
 const ProjectCard = ({
     isProjectRoute,
-    index,
     isDragging = false,
     slug,
     thumbnail,
@@ -51,13 +39,7 @@ const ProjectCard = ({
                       }
             }
         >
-            <motion.div
-                variants={index === 0 ? itemVariants : undefined}
-                initial={index !== 0 ? { opacity: 0, y: 0 } : undefined}
-                animate={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: '-50px' }}
-                className="group relative flex size-full cursor-pointer flex-col overflow-hidden rounded-2xl bg-surface-light shadow-lg transition-shadow duration-300 hover:shadow-primary-light/20 dark:bg-surface-dark dark:hover:shadow-primary-dark/20"
-            >
+            <div className="group relative flex size-full cursor-pointer flex-col overflow-hidden rounded-2xl bg-surface-light shadow-lg transition-shadow duration-300 hover:shadow-primary-light/20 dark:bg-surface-dark dark:hover:shadow-primary-dark/20">
                 <div className="relative h-64 w-full overflow-hidden">
                     <Image
                         alt={`${name} project preview`}
@@ -75,12 +57,7 @@ const ProjectCard = ({
 
                 <div className="flex grow flex-col gap-4 p-6">
                     <div className="flex items-center justify-between">
-                        <Text
-                            as="h2"
-                            size="text-xl"
-                            weight="font-bold"
-                            responsiveSize={{ sm: 'text-2xl' }}
-                        >
+                        <Text as="h2" size="text-xl" weight="font-bold">
                             {name}
                         </Text>
                     </div>
@@ -88,7 +65,6 @@ const ProjectCard = ({
                         <Text
                             as="h2"
                             size="text-sm"
-                            responsiveSize={{ sm: 'text-base' }}
                             className="line-clamp-3 min-h-[40px] w-full"
                         >
                             {description}
@@ -102,14 +78,16 @@ const ProjectCard = ({
                         ))}
                     </div>
                 </div>
-            </motion.div>
+            </div>
         </Link>
     );
 };
 
 ProjectCard.propTypes = {
-    thumbnail: PropTypes.string.isRequired,
+    isProjectRoute: PropTypes.bool.isRequired,
+    isDragging: PropTypes.bool.isRequired,
     slug: PropTypes.string.isRequired,
+    thumbnail: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
     description: PropTypes.string.isRequired,
     tags: PropTypes.arrayOf(
@@ -118,8 +96,6 @@ ProjectCard.propTypes = {
             variant: PropTypes.string.isRequired,
         })
     ).isRequired,
-    index: PropTypes.number.isRequired,
-    isDragging: PropTypes.bool.isRequired,
 };
 
 export default ProjectCard;

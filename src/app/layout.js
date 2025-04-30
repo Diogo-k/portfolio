@@ -1,7 +1,7 @@
 import { Suspense } from 'react';
+import PropTypes from 'prop-types';
 import { Sora } from 'next/font/google';
 import '@/styles/globals.css';
-
 import { Header, Footer } from '@/components';
 import ThemeProvider from '@/utils/ThemeProvider';
 
@@ -74,6 +74,12 @@ export const metadata = {
     // },
 };
 
+/**
+ * Root layout component
+ *
+ * @param {Object} props - The component props
+ * @param {React.ReactNode} props.children - The content of the component
+ */
 export default function RootLayout({ children }) {
     return (
         <html
@@ -97,3 +103,7 @@ export default function RootLayout({ children }) {
         </html>
     );
 }
+
+RootLayout.propTypes = {
+    children: PropTypes.node.isRequired,
+};
