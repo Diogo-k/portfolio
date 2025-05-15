@@ -1,5 +1,7 @@
+'use client';
+
 import PropTypes from 'prop-types';
-import * as motion from 'motion/react-client';
+import { motion } from 'motion/react';
 
 import {
     //* Frontend

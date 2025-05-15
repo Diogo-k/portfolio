@@ -228,7 +228,7 @@ const MDCode = ({ children, ...props }) => {
 
     return (
         <code
-            className="mx-0.5 rounded-md bg-surface-light px-1.5 py-0.5 font-mono text-sm text-primary-light dark:bg-surface-dark dark:text-red-500"
+            className="mx-0.5 rounded-md bg-surface-light px-1.5 py-0.5 font-mono text-sm text-primary-light dark:bg-primary-dark dark:text-white"
             {...props}
         >
             {children}
@@ -272,14 +272,16 @@ const Td = (props) => (
     />
 );
 
-const MDImage = ({ src, ...props }) => {
+const MDImage = ({ src, alt, ...props }) => {
     return (
         <Image
+            alt={alt}
             src={src}
-            loading="lazy"
-            alt={props.alt}
             width={1920}
             height={1080}
+            sizes="(max-width: 1024px) 100vw, 1024px"
+            placeholder="blur"
+            blurDataURL="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=="
             className="h-auto w-full rounded-md"
             {...props}
         />

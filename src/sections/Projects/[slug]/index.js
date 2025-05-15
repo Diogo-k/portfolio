@@ -141,6 +141,7 @@ const ProjectPage = ({ project }) => {
                             src={project.image || '/placeholder.png'}
                             width={1920}
                             height={1080}
+                            sizes="(max-width: 1024px) 100vw, 1024px"
                             placeholder="blur"
                             blurDataURL="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=="
                             className="rounded-md"

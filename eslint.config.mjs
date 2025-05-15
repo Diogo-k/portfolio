@@ -1,13 +1,10 @@
 import { dirname } from 'path';
 import { fileURLToPath } from 'url';
 import { FlatCompat } from '@eslint/eslintrc';
-
 import js from '@eslint/js';
-import storybook from 'eslint-plugin-storybook';
 import tailwind from 'eslint-plugin-tailwindcss';
 import eslintPluginPrettierRecommended from 'eslint-plugin-prettier/recommended';
-
-import babelParser from '@babel/eslint-parser'; // <--- IMPORT PARSER
+import babelParser from '@babel/eslint-parser';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -21,7 +18,6 @@ const eslintConfig = [
     ...compat.extends('next/core-web-vitals'),
 
     js.configs.recommended,
-    ...storybook.configs['flat/recommended'],
     ...tailwind.configs['flat/recommended'],
 
     eslintPluginPrettierRecommended,
@@ -46,7 +42,7 @@ const eslintConfig = [
             'src/**/*.jsx',
             '**/*.stories.@(ts|tsx|js|jsx|mjs|cjs)',
         ],
-        ignores: ['.next', 'node_modules', '!.storybook'],
+        ignores: ['.next', 'node_modules'],
         rules: {
             'tailwindcss/no-custom-classname': 'off',
         },
