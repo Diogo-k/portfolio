@@ -1,7 +1,13 @@
-import * as motion from 'motion/react-client';
+'use client';
 
+import { motion } from 'motion/react';
 import { CherryBlossom } from '@/assets';
 
+/**
+ * A loading component that displays a rotating cherry blossom.
+ *
+ * @returns {React.ReactNode} The rendered component
+ */
 const Loading = () => {
     return (
         <div className="absolute inset-0 flex items-center justify-center">

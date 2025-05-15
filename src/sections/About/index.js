@@ -1,24 +1,17 @@
 'use client';
 
-import PropTypes from 'prop-types';
 import { motion } from 'motion/react';
-
 import { Text, Button, ProfileImage, Skills } from '@/components';
-
 import { RightArrow } from '@/assets';
-
 import { FADE_IN, FADE_IN_SLIDE_DOWN } from '@/constants/animations';
-
 import config from '@/config';
 
 /**
  * About section component that displays personal information and skills
  *
- * @param {Object} props - Component props
- * @param {Object} props.about - About data
- * @returns {JSX.Element} The About section component
+ * @returns {React.ReactNode} The About section component
  */
-export default function About() {
+const About = () => {
     const { about, skills } = config;
 
     return (
@@ -193,11 +186,6 @@ export default function About() {
             </motion.div>
         </section>
     );
-}
-
-About.propTypes = {
-    about: PropTypes.shape({
-        aboutMe: PropTypes.arrayOf(PropTypes.string).isRequired,
-        skills: PropTypes.arrayOf(PropTypes.string).isRequired,
-    }).isRequired,
 };
+
+export default About;

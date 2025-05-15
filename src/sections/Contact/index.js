@@ -2,7 +2,6 @@
 
 import { useState } from 'react';
 import { motion } from 'motion/react';
-
 import { Link, Text, Button } from '@/components';
 import { Mail, LinkedIn, Github } from '@/assets';
 import { FADE_IN_SLIDE_DOWN, FADE_IN } from '@/constants/animations';
@@ -16,7 +15,6 @@ const contactMethods = [
         linkText: 'Connect with me →',
         ariaLabel: 'Visit LinkedIn profile',
     },
-
     {
         icon: Github,
         title: 'GitHub',
@@ -38,9 +36,9 @@ const contactMethods = [
 /**
  * Contact section component that displays contact methods and a form for sending messages
  *
- * @returns {JSX.Element} The Contact section component
+ * @returns {React.ReactNode} The Contact section component
  */
-export default function Contact() {
+const Contact = () => {
     const [formData, setFormData] = useState({
         name: '',
         email: '',
@@ -488,6 +486,6 @@ export default function Contact() {
             </motion.div>
         </section>
     );
-}
+};
 
-Contact.propTypes = {};
+export default Contact;

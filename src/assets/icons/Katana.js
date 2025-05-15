@@ -1,3 +1,9 @@
+/**
+ * Katana icon component
+ *
+ * @param {Object} props - The component props
+ * @returns {React.ReactNode} The rendered component
+ */
 const Katana = (props) => (
     <svg
         width="64px"

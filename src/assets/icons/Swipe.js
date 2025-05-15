@@ -1,3 +1,9 @@
+/**
+ * Swipe icon component
+ *
+ * @param {Object} props - The component props
+ * @returns {React.ReactNode} The rendered component
+ */
 const Swipe = (props) => (
     <svg
         viewBox="0 0 136 136"

@@ -1,19 +1,17 @@
 import PropTypes from 'prop-types';
 import Image from 'next/image';
-
 import { Link, Text, Tag } from '@/components';
 
 /**
  * ProjectCard component that displays a project card
  *
- * @param {Object} props - The component props
- * @param {boolean} props.isProjectRoute - Whether the project card is in the project route
- * @param {boolean} props.isDragging - Whether the parent container is being dragged
- * @param {string} props.slug - The slug of the project
- * @param {string} props.thumbnail - The thumbnail of the project
- * @param {string} props.name - The name of the project
- * @param {string} props.description - The description of the project
- * @param {Array} props.tags - The tags for the project
+ * @param {boolean} isProjectRoute - Whether the project card is in the project route
+ * @param {boolean} isDragging - Whether the parent container is being dragged
+ * @param {string} slug - The slug of the project
+ * @param {string} thumbnail - The thumbnail of the project
+ * @param {string} name - The name of the project
+ * @param {string} description - The description of the project
+ * @param {Array} tags - The tags for the project
  * @returns {React.ReactNode} The rendered component
  */
 const ProjectCard = ({

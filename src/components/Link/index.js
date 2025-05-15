@@ -28,18 +28,17 @@ const linkStyles = {
 /**
  * A flexible link component that supports both internal and external links with different styling variants.
  *
- * @param {Object} props - Component props
- * @param {'header'|'inline'} [props.variant='inline'] - The visual style variant of the link
- * @param {string} props.href - The URL the link points to
- * @param {boolean} [props.isExternal=false] - Whether the link opens in a new tab
- * @param {React.ReactNode} props.children - The content to be rendered inside the link
- * @param {string} [props.ariaLabel] - Custom aria-label for accessibility
- * @param {string} [props.ariaCurrent] - Current state of the link for accessibility
- * @param {string} [props.className] - Additional CSS classes to apply
- * @param {boolean} [props.active=false] - Whether the link is active
+ * @param {'header'|'inline'} [variant='inline'] - The visual style variant of the link
+ * @param {string} href - The URL the link points to
+ * @param {boolean} [isExternal=false] - Whether the link opens in a new tab
+ * @param {React.ReactNode} children - The content to be rendered inside the link
+ * @param {string} [ariaLabel] - Custom aria-label for accessibility
+ * @param {string} [ariaCurrent] - Current state of the link for accessibility
+ * @param {string} [className] - Additional CSS classes to apply
+ * @param {boolean} [active=false] - Whether the link is active
  * @returns {React.ReactNode} A styled link component
  */
-function Link({
+const Link = ({
     variant = 'inline',
     href,
     isExternal = false,
@@ -49,7 +48,7 @@ function Link({
     className,
     active = false,
     ...props
-}) {
+}) => {
     const baseStyles = clsx(
         linkStyles.base,
         variant === 'header' && linkStyles.header,
@@ -86,7 +85,7 @@ function Link({
             {children}
         </NextLink>
     );
-}
+};
 
 Link.propTypes = {
     variant: PropTypes.oneOf(['header', 'inline', false]),

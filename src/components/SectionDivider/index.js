@@ -2,16 +2,13 @@
 
 import { useRef } from 'react';
 import PropTypes from 'prop-types';
-
 import { motion, useInView } from 'motion/react';
-
 import { Katana } from '@/assets';
 
 /**
  * SectionDivider component that displays a decorative katana slash animation
- * @param {Object} props - The component props
- * @param {string} props.className - The class name for the component
- * @param {string} props.ariaLabel - The aria label for the component
+ * @param {string} className - The class name for the component
+ * @param {string} ariaLabel - The aria label for the component
  * @returns {React.ReactNode} The rendered component
  */
 const SectionDivider = ({
@@ -21,7 +18,7 @@ const SectionDivider = ({
     const dividerRef = useRef(null);
     const isInView = useInView(dividerRef, { once: true, amount: 0.3 });
 
-    // Variants for the katana slash animation
+    //* Variants for the katana slash animation
     const katanaVariants = {
         idle: { rotate: 0, y: 0 },
         slash: {

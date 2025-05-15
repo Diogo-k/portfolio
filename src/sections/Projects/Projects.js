@@ -3,7 +3,6 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
 import { motion, AnimatePresence } from 'motion/react';
-
 import { Text, ProjectCard, Button } from '@/components';
 import { Swipe, RightArrow } from '@/assets';
 import { FADE_IN_SLIDE_DOWN } from '@/constants/animations';
@@ -59,11 +58,11 @@ const swipeContainerVariants = {
 /**
  * Projects section component that displays a list of projects with a pagination system.
  *
- * @param {Object} props - The component props
- * @param {Object} props.projects - The projects data
- * @returns {JSX.Element} The Projects section component
+ * @param {Array} projects - The projects data
+ * @param {boolean} isProjectRoute - Whether the section is in the project route
+ * @returns {React.ReactNode} The Projects section component
  */
-export default function ProjectsSection({ projects, isProjectRoute = false }) {
+const ProjectsSection = ({ projects, isProjectRoute = false }) => {
     const [selectedTag, setSelectedTag] = useState('All');
 
     const [page, setPage] = useState(0);
@@ -290,9 +289,15 @@ export default function ProjectsSection({ projects, isProjectRoute = false }) {
             )}
         </section>
     );
-}
+};
 
 ProjectsSection.propTypes = {
     projects: PropTypes.array.isRequired,
     isProjectRoute: PropTypes.bool,
 };
+
+ProjectsSection.defaultProps = {
+    isProjectRoute: false,
+};
+
+export default ProjectsSection;

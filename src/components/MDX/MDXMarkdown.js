@@ -1,8 +1,8 @@
 import { Children } from 'react';
+import Image from 'next/image';
 import NextLink from 'next/link';
 import clsx from 'clsx';
 import { Text, Link, List, ListItem, Code } from '@/components';
-import Image from 'next/image';
 
 const HeadingLink = ({ id, size }) => {
     const baseStyles =
@@ -147,6 +147,10 @@ const Paragraph = ({ children }) => {
     );
 };
 
+const Strong = (props) => {
+    return <strong className="font-bold" {...props} />;
+};
+
 const MDLink = ({ children, ...props }) => {
     const isExternal =
         props.href.startsWith('http') || props.href.endsWith('.pdf');
@@ -176,6 +180,21 @@ const Li = ({ children, ...props }) => {
     return <ListItem {...props}>{children}</ListItem>;
 };
 
+const Input = ({ ...props }) => {
+    if (props.type === 'checkbox' && props.disabled) {
+        return (
+            <input
+                type="checkbox"
+                className={`mr-2 size-4 rounded border-muted-light align-middle dark:border-muted-dark ${props.className}`}
+                checked={props.checked}
+                disabled={props.disabled}
+            />
+        );
+    }
+
+    return <input {...props} />;
+};
+
 const Blockquote = (props) => {
     return (
         <blockquote
@@ -189,24 +208,6 @@ const Hr = (props) => {
     return (
         <hr
             className="my-8 border-muted-light dark:border-muted-dark"
-            {...props}
-        />
-    );
-};
-
-const Strong = (props) => {
-    return <strong className="font-bold" {...props} />;
-};
-
-const MDImage = ({ src, ...props }) => {
-    return (
-        <Image
-            src={src}
-            loading="lazy"
-            alt={props.alt}
-            width={1920}
-            height={1080}
-            className="h-auto w-full rounded-md"
             {...props}
         />
     );
@@ -271,6 +272,20 @@ const Td = (props) => (
     />
 );
 
+const MDImage = ({ src, ...props }) => {
+    return (
+        <Image
+            src={src}
+            loading="lazy"
+            alt={props.alt}
+            width={1920}
+            height={1080}
+            className="h-auto w-full rounded-md"
+            {...props}
+        />
+    );
+};
+
 const Embed = ({ src }) => {
     return (
         <div className="my-6">
@@ -285,21 +300,41 @@ const Embed = ({ src }) => {
     );
 };
 
-const Input = ({ ...props }) => {
-    if (props.type === 'checkbox' && props.disabled) {
-        return (
-            <input
-                type="checkbox"
-                className={`mr-2 size-4 rounded border-muted-light align-middle dark:border-muted-dark ${props.className}`}
-                checked={props.checked}
-                disabled={props.disabled}
-            />
-        );
-    }
+/**
+ * @typedef {Object} MDXComponents
+ * @property {React.ComponentType<any>} h1 - Renders an H1 heading with a link.
+ * @property {React.ComponentType<any>} h2 - Renders an H2 heading with a link.
+ * @property {React.ComponentType<any>} h3 - Renders an H3 heading with a link.
+ * @property {React.ComponentType<any>} h4 - Renders an H4 heading.
+ * @property {React.ComponentType<any>} h5 - Renders an H5 heading.
+ * @property {React.ComponentType<any>} h6 - Renders an H6 heading.
+ * @property {React.ComponentType<any>} p - Renders a paragraph, preventing image wrapping.
+ * @property {React.ComponentType<any>} strong - Renders bold text.
+ * @property {React.ComponentType<any>} a - Renders a link, handling external links.
+ * @property {React.ComponentType<any>} ul - Renders an unordered list.
+ * @property {React.ComponentType<any>} ol - Renders an ordered list.
+ * @property {React.ComponentType<any>} li - Renders a list item.
+ * @property {React.ComponentType<any>} input - Renders an input element, with special handling for disabled checkboxes.
+ * @property {React.ComponentType<any>} blockquote - Renders a blockquote.
+ * @property {React.ComponentType<any>} hr - Renders a horizontal rule.
+ * @property {React.ComponentType<any>} pre - Renders preformatted text.
+ * @property {React.ComponentType<any>} code - Renders inline or block code, handling syntax highlighting classes.
+ * @property {React.ComponentType<any>} table - Renders a table.
+ * @property {React.ComponentType<any>} thead - Renders a table header.
+ * @property {React.ComponentType<any>} tbody - Renders a table body.
+ * @property {React.ComponentType<any>} tr - Renders a table row.
+ * @property {React.ComponentType<any>} th - Renders a table header cell.
+ * @property {React.ComponentType<any>} td - Renders a table data cell.
+ * @property {React.ComponentType<any>} img - Renders an image using Next.js Image component.
+ * @property {React.ComponentType<any>} Embed - Renders an embedded iframe.
+ */
 
-    return <input {...props} />;
-};
-
+/**
+ * Custom components to be used with MDX for rendering various HTML elements
+ * with custom styling and functionality. These components provide a consistent
+ * look and feel across the application's markdown content.
+ * @type {MDXComponents}
+ */
 export const components = {
     h1: H1,
     h2: H2,
@@ -308,14 +343,14 @@ export const components = {
     h5: H5,
     h6: H6,
     p: Paragraph,
+    strong: Strong,
     a: MDLink,
     ul: Ul,
     ol: Ol,
     li: Li,
+    input: Input,
     blockquote: Blockquote,
     hr: Hr,
-    img: MDImage,
-    strong: Strong,
     pre: Pre,
     code: MDCode,
     table: Table,
@@ -324,6 +359,6 @@ export const components = {
     tr: Tr,
     th: Th,
     td: Td,
-    input: Input,
+    img: MDImage,
     Embed,
 };

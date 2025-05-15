@@ -1,11 +1,22 @@
 'use client';
 
 import React, { useRef, useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import { useThree, useFrame } from '@react-three/fiber';
 import { Instances, Instance, InstancedAttribute } from '@react-three/drei';
 import { Vector3, Euler, MathUtils } from 'three';
 
-const Petal = function Petal({ index, width, height, speed, count }) {
+/**
+ * A single petal component for the cherry blossoms flying petals
+ *
+ * @param {number} index - The index of the petal
+ * @param {number} width - The width of the viewport
+ * @param {number} height - The height of the viewport
+ * @param {number} speed - The speed of the petals
+ * @param {number} count - The total number of petals
+ * @returns {React.ReactNode} The rendered component
+ */
+const Petal = ({ index, width, height, speed, count }) => {
     const ref = useRef();
     const progress = useRef(index / count);
 
@@ -100,12 +111,24 @@ const Petal = function Petal({ index, width, height, speed, count }) {
     return <Instance ref={ref} {...data} />;
 };
 
-export default function FlyingPetals({
-    geometry,
-    material,
-    speed,
-    count = 75,
-}) {
+Petal.propTypes = {
+    index: PropTypes.number.isRequired,
+    width: PropTypes.number.isRequired,
+    height: PropTypes.number.isRequired,
+    speed: PropTypes.number.isRequired,
+    count: PropTypes.number.isRequired,
+};
+
+/**
+ * The main component for the cherry blossoms flying petals
+ *
+ * @param {THREE.BufferGeometry} geometry - The geometry of the petals
+ * @param {THREE.MeshStandardMaterial} material - The material of the petals
+ * @param {number} speed - The speed of the petals
+ * @param {number} count - The total number of petals
+ * @returns {React.ReactNode} The rendered component
+ */
+const FlyingPetals = ({ geometry, material, speed, count = 75 }) => {
     const { viewport } = useThree();
     const { width, height } = viewport;
 
@@ -141,4 +164,13 @@ export default function FlyingPetals({
             ))}
         </Instances>
     );
-}
+};
+
+FlyingPetals.propTypes = {
+    geometry: PropTypes.object.isRequired, //* THREE.BufferGeometry
+    material: PropTypes.object.isRequired, //* THREE.MeshStandardMaterial
+    speed: PropTypes.number.isRequired,
+    count: PropTypes.number,
+};
+
+export default FlyingPetals;

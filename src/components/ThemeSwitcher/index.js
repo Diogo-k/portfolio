@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from 'react';
 import { useTheme } from 'next-themes';
-
 import { Button } from '@/components';
 import { Sun, Moon } from '@/assets';
 
@@ -12,7 +11,7 @@ import { Sun, Moon } from '@/assets';
  * @param {Object} props - The component props
  * @returns {React.ReactNode} The rendered component
  */
-export default function ThemeSwitcher({ ...props }) {
+const ThemeSwitcher = ({ ...props }) => {
     const [mounted, setMounted] = useState(false);
     const { setTheme, resolvedTheme } = useTheme();
 
@@ -37,6 +36,6 @@ export default function ThemeSwitcher({ ...props }) {
             </Button>
         )
     );
-}
+};
 
-ThemeSwitcher.propTypes = {};
+export default ThemeSwitcher;

@@ -1,3 +1,9 @@
+/**
+ * Calculate the reading time for a given content
+ *
+ * @param {string} content - The content to calculate the reading time for
+ * @returns {number} The reading time in minutes
+ */
 export default function calculateReadingTime(content) {
     if (!content) {
         return 0;

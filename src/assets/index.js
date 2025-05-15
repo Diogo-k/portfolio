@@ -1,32 +1,31 @@
-import Sun from './icons/Sun';
-import Moon from './icons/Moon';
-import Katana from './icons/Katana';
+import Book from './icons/Book';
 import CherryBlossom from './icons/CherryBlossom';
-
-import Swipe from './icons/Swipe';
+import Github from './icons/Github';
+import Katana from './icons/Katana';
 import LeftArrow from './icons/LeftArrow';
+import LinkedIn from './icons/LinkedIn';
+import LoadingSpinner from './icons/LoadingSpinner';
+import Mail from './icons/Mail';
+import Moon from './icons/Moon';
 import RightArrow from './icons/RightArrow';
 import SourceCode from './icons/SourceCode';
-import Book from './icons/Book';
-
-import Github from './icons/Github';
-import LinkedIn from './icons/LinkedIn';
-import Mail from './icons/Mail';
-
+import Sun from './icons/Sun';
+import Swipe from './icons/Swipe';
 import X from './icons/X';
 
 export {
-    Sun,
-    Moon,
-    Katana,
+    Book,
     CherryBlossom,
-    Swipe,
+    Github,
+    Katana,
     LeftArrow,
+    LinkedIn,
+    LoadingSpinner,
+    Mail,
+    Moon,
     RightArrow,
     SourceCode,
-    Book,
-    Github,
-    LinkedIn,
-    Mail,
+    Sun,
+    Swipe,
     X,
 };

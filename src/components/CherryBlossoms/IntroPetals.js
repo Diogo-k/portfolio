@@ -1,11 +1,25 @@
 'use client';
 
 import React, { useMemo, useRef, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import { useThree, useFrame } from '@react-three/fiber';
 import { Instances, Instance, InstancedAttribute } from '@react-three/drei';
 import { Vector3, Euler, MathUtils } from 'three';
 
-const Petal = function Petal({
+/**
+ * A single petal component for the cherry blossoms intro
+ *
+ * @param {number} index - The index of the petal
+ * @param {number} width - The width of the viewport
+ * @param {number} height - The height of the viewport
+ * @param {boolean} isIntroCrossedCenter - Whether the intro has crossed the center
+ * @param {function} setIsIntroCrossedCenter - Function to set the intro crossed center state
+ * @param {boolean} isIntroComplete - Whether the intro is complete
+ * @param {function} setIsIntroComplete - Function to set the intro complete state
+ * @param {number} count - The total number of petals
+ * @returns {React.ReactNode} The rendered component
+ */
+const Petal = ({
     index,
     width,
     height,
@@ -15,7 +29,7 @@ const Petal = function Petal({
     setIsIntroComplete,
     count,
     ...props
-}) {
+}) => {
     const ref = useRef();
     const progressRef = useRef(0);
 
@@ -57,7 +71,30 @@ const Petal = function Petal({
     return <Instance ref={ref} {...props} />;
 };
 
-export default function IntroPetals({
+Petal.propTypes = {
+    index: PropTypes.number.isRequired,
+    width: PropTypes.number.isRequired,
+    height: PropTypes.number.isRequired,
+    isIntroCrossedCenter: PropTypes.bool.isRequired,
+    setIsIntroCrossedCenter: PropTypes.func.isRequired,
+    isIntroComplete: PropTypes.bool.isRequired,
+    setIsIntroComplete: PropTypes.func.isRequired,
+    count: PropTypes.number.isRequired,
+};
+
+/**
+ * The main component for the cherry blossoms intro petals
+ *
+ * @param {THREE.BufferGeometry} geometry - The geometry of the petals
+ * @param {THREE.MeshStandardMaterial} material - The material of the petals
+ * @param {function} setIsIntroCrossedCenter - Function to set the intro crossed center state
+ * @param {boolean} isIntroCrossedCenter - Whether the intro has crossed the center
+ * @param {function} setIsIntroComplete - Function to set the intro complete state
+ * @param {boolean} isIntroComplete - Whether the intro is complete
+ * @param {number} count - The total number of petals
+ * @returns {React.ReactNode} The rendered component
+ */
+const IntroPetals = ({
     geometry,
     material,
     setIsIntroCrossedCenter,
@@ -65,7 +102,7 @@ export default function IntroPetals({
     setIsIntroComplete,
     isIntroComplete,
     count = 126,
-}) {
+}) => {
     const { viewport } = useThree();
     const { width, height } = viewport;
 
@@ -134,4 +171,20 @@ export default function IntroPetals({
             ))}
         </Instances>
     );
-}
+};
+
+IntroPetals.propTypes = {
+    geometry: PropTypes.object.isRequired, //* THREE.BufferGeometry
+    material: PropTypes.object.isRequired, //* THREE.MeshStandardMaterial
+    setIsIntroCrossedCenter: PropTypes.func.isRequired,
+    isIntroCrossedCenter: PropTypes.bool.isRequired,
+    setIsIntroComplete: PropTypes.func.isRequired,
+    isIntroComplete: PropTypes.bool.isRequired,
+    count: PropTypes.number,
+};
+
+IntroPetals.defaultProps = {
+    count: 126,
+};
+
+export default IntroPetals;

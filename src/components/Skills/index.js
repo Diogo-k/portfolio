@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import * as motion from 'motion/react-client';
 
 import {
-    // Frontend
+    //* Frontend
     SiJavascript,
     SiTypescript,
     SiHtml5,
@@ -16,7 +16,7 @@ import {
     SiStorybook,
     SiJest,
     SiTestinglibrary,
-    // Backend
+    //* Backend
     SiRust,
     SiNodedotjs,
     SiExpress,
@@ -26,7 +26,7 @@ import {
     SiMongodb,
     SiPostgresql,
     SiSqlite,
-    // Others
+    //* Others
     SiGit,
     SiVite,
     SiWebpack,
@@ -47,7 +47,7 @@ import {
 import { Tag } from '@/components';
 
 const skillIconMap = {
-    // Frontend
+    //* Frontend
     JavaScript: SiJavascript,
     TypeScript: SiTypescript,
     HTML: SiHtml5,
@@ -62,7 +62,7 @@ const skillIconMap = {
     Storybook: SiStorybook,
     Jest: SiJest,
     'React Testing Library': SiTestinglibrary,
-    // Backend
+    //* Backend
     Rust: SiRust,
     'Node.js': SiNodedotjs,
     Express: SiExpress,
@@ -72,7 +72,7 @@ const skillIconMap = {
     MongoDB: SiMongodb,
     PostgreSQL: SiPostgresql,
     SQLite: SiSqlite,
-    // Others
+    //* Others
     Git: SiGit,
     Vite: SiVite,
     Webpack: SiWebpack,

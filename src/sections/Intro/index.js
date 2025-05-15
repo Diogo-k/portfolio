@@ -2,7 +2,7 @@
 
 import { useRef, useState, useCallback, useEffect } from 'react';
 import dynamic from 'next/dynamic';
-import { motion, AnimatePresence } from 'motion/react';
+import { motion, AnimatePresence, useReducedMotion } from 'motion/react';
 import { useDetectGPU } from '@react-three/drei';
 import { Loading, Link } from '@/components';
 import {
@@ -25,9 +25,11 @@ const CherryBlossoms = dynamic(
  * Intro section component that displays the main hero section with animated text and a range slider to control the speed of the flying petals.
  * Features a cherry blossoms background and smooth text reveal animations.
  *
- * @returns {JSX.Element} The Intro section component
+ * @returns {React.ReactNode} The Intro section component
  */
-export default function Intro() {
+const Intro = () => {
+    const reducedMotion = useReducedMotion();
+
     const gpu = useDetectGPU(); // TODO: Find another way to handle useDetectGPU on the client side without causing hydration errors
     const [isClient, setIsClient] = useState(false); //* Temporary solution to prevent useDetectGPU from causing hydration errors
 
@@ -38,7 +40,7 @@ export default function Intro() {
     const [isIntroCrossedCenter, setIsIntroCrossedCenter] = useState(false);
     const [isIntroVisible, setIsIntroVisible] = useState(false);
 
-    const [flyingSpeed, setFlyingSpeed] = useState(0.02);
+    const [flyingSpeed, setFlyingSpeed] = useState(reducedMotion ? 0.01 : 0.03);
 
     const handleSpeedChange = (e) => {
         setFlyingSpeed(parseFloat(e.target.value));
@@ -302,6 +304,6 @@ export default function Intro() {
             )}
         </section>
     );
-}
+};
 
-Intro.propTypes = {};
+export default Intro;

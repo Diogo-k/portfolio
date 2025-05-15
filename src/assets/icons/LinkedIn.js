@@ -1,3 +1,9 @@
+/**
+ * LinkedIn icon component
+ *
+ * @param {Object} props - The component props
+ * @returns {React.ReactNode} The rendered component
+ */
 const LinkedIn = (props) => (
     <svg
         width="32px"

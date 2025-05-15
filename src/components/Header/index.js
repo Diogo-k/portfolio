@@ -2,9 +2,8 @@
 
 import { useState, useEffect } from 'react';
 import { usePathname, useSearchParams } from 'next/navigation';
-import clsx from 'clsx';
 import { motion, AnimatePresence } from 'motion/react';
-
+import clsx from 'clsx';
 import { ThemeSwitcher, Button, Link } from '@/components';
 
 const navItems = [
@@ -29,7 +28,7 @@ const isNavItemActive = (item, hash, pathname) => {
     return item.href === hash && pathname.split('/').length !== 3;
 };
 
-// Animation variants for mobile menu
+//* Animation variants for mobile menu
 const mobileMenuVariants = {
     closed: {
         opacity: 0,
@@ -54,15 +53,15 @@ const mobileMenuVariants = {
 /**
  * Header component that displays a navigation menu and a mobile menu.
  *
- * @returns {JSX.Element} The Header component
+ * @returns {React.ReactNode} The Header component
  */
-export default function Header() {
+const Header = () => {
     const [hash, setHash] = useState('');
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const pathname = usePathname();
     const searchParams = useSearchParams();
 
-    // Animation variants for header
+    //* Animation variants for header
     const headerVariants = {
         hidden: { y: -82, opacity: 0 },
         visible: {
@@ -78,7 +77,7 @@ export default function Header() {
         },
     };
 
-    // Sync hash with URL
+    //* Sync hash with URL
     useEffect(() => {
         const updateHash = () => {
             if (window.location.pathname.split('/')[1] === '') {
@@ -95,7 +94,7 @@ export default function Header() {
         return () => window.removeEventListener('hashchange', updateHash);
     }, [pathname, searchParams]);
 
-    // Update hash based on scroll position
+    //* Update hash based on scroll position
     useEffect(() => {
         const handleScroll = () => {
             const sections = navItems.map((item) => ({
@@ -145,7 +144,7 @@ export default function Header() {
             }
         };
 
-        // Add a small debounce to prevent too many updates
+        //* Add a small debounce to prevent too many updates
         let timeoutId;
         const debouncedHandleScroll = () => {
             clearTimeout(timeoutId);
@@ -159,7 +158,7 @@ export default function Header() {
         };
     }, [pathname, hash]);
 
-    // Close mobile menu when clicking outside
+    //* Close mobile menu when clicking outside
     useEffect(() => {
         const handleClickOutside = (event) => {
             if (
@@ -176,7 +175,7 @@ export default function Header() {
             document.removeEventListener('mousedown', handleClickOutside);
     }, [isMobileMenuOpen]);
 
-    // Handle keyboard navigation for accessibility
+    //* Handle keyboard navigation for accessibility
     useEffect(() => {
         const handleKeyDown = (e) => {
             if (e.key === 'Escape' && isMobileMenuOpen) {
@@ -362,6 +361,6 @@ export default function Header() {
             </AnimatePresence>
         </motion.header>
     );
-}
+};
 
-Header.propTypes = {};
+export default Header;

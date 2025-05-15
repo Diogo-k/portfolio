@@ -28,6 +28,4 @@ const ProfileImage = () => {
     );
 };
 
-ProfileImage.propTypes = {};
-
 export default ProfileImage;

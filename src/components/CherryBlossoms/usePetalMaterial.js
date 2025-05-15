@@ -1,11 +1,17 @@
 import { useMemo } from 'react';
-import * as THREE from 'three';
+import { Color } from 'three';
 
-export default function usePetalMaterial(petalMaterial) {
+/**
+ * Custom material for petals in the cherry blossoms component
+ *
+ * @param {THREE.MeshStandardMaterial} petalMaterial - The base material to clone
+ * @returns {THREE.MeshStandardMaterial} The modified material
+ */
+const usePetalMaterial = (petalMaterial) => {
     return useMemo(() => {
         const material = petalMaterial.clone();
 
-        material.color = new THREE.Color(1, 0.3, 0.3);
+        material.color = new Color(1, 0.3, 0.3);
         material.transparent = true;
         material.depthWrite = false;
 
@@ -42,5 +48,7 @@ export default function usePetalMaterial(petalMaterial) {
         };
 
         return material;
-    }, []); // eslint-disable-line react-hooks/exhaustive-deps
-}
+    }, [petalMaterial]);
+};
+
+export default usePetalMaterial;

@@ -1,14 +1,20 @@
 'use client';
 
 import { useEffect } from 'react';
-import { motion } from 'motion/react';
 import { useSearchParams } from 'next/navigation';
 import Image from 'next/image';
+import { motion } from 'motion/react';
 import { Text, Button, MDX } from '@/components';
 import { SourceCode, RightArrow, LeftArrow, Book } from '@/assets';
 import { SLIDE_UP, FADE_IN } from '@/constants/animations';
 
-export default function ProjectPage({ project }) {
+/**
+ * Project page component that displays a single project with a back button and a title.
+ *
+ * @param {Object} project - The project data
+ * @returns {React.ReactNode} The Project page component
+ */
+const ProjectPage = ({ project }) => {
     const searchParams = useSearchParams();
     const from = searchParams.get('from');
 
@@ -173,4 +179,6 @@ export default function ProjectPage({ project }) {
             </motion.div>
         </section>
     );
-}
+};
+
+export default ProjectPage;

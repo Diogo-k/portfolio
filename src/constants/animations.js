@@ -1,3 +1,6 @@
+//* This was a way to have consistent animations across the app
+//* I'm not sure if it's still needed, but I'm keeping it for now
+
 export const bezierFastoutSlowin = [0.4, 0.0, 0.2, 1];
 
 export const SLIDE_UP = {

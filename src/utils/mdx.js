@@ -6,11 +6,22 @@ import remarkGfm from 'remark-gfm';
 import rehypeSlug from 'rehype-slug';
 import calculateReadingTime from '@/utils/readingTime';
 
+/**
+ * Get the content directory for a given content type
+ *
+ * @param {string} contentType - The content type
+ * @returns {string} The content directory
+ */
 function getContentDirectory(contentType) {
     return path.join(process.cwd(), `src/content/${contentType}`);
 }
 
-// Get all slugs from a content type
+/**
+ * Get all slugs from a content type
+ *
+ * @param {string} contentType - The content type
+ * @returns {Array} An array of slugs
+ */
 export function getAllSlugsFromContent(contentType) {
     const contentDirectory = getContentDirectory(contentType);
 
@@ -26,7 +37,12 @@ export function getAllSlugsFromContent(contentType) {
     }));
 }
 
-// Get all data from selected content with metadata
+/**
+ * Get all data from selected content with metadata
+ *
+ * @param {string} contentType - The content type
+ * @returns {Array} An array of content data
+ */
 export function getAllDataFromContent(contentType) {
     const contentDirectory = getContentDirectory(contentType);
 
@@ -54,7 +70,13 @@ export function getAllDataFromContent(contentType) {
     return allContentData;
 }
 
-// Get a content data from selected content by slug
+/**
+ * Get a content data from selected content by slug
+ *
+ * @param {string} slug - The slug of the content
+ * @param {string} contentType - The content type
+ * @returns {Object} The content data
+ */
 export async function getContentData(slug, contentType) {
     const contentDirectory = getContentDirectory(contentType);
 

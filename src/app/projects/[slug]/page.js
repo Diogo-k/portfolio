@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import { notFound } from 'next/navigation';
 import { Project } from '@/sections';
 import { Loading } from '@/components';
-import { baseMeta } from '@/utils/meta';
 import { getAllSlugsFromContent, getContentData } from '@/utils/mdx';
+import { baseMeta } from '@/utils/meta';
 
 /**
  * Generates metadata for the project detail page
@@ -39,7 +39,6 @@ export async function generateMetadata({ params }) {
  */
 export async function generateStaticParams() {
     const slugs = getAllSlugsFromContent('projects');
-
     return slugs;
 }
 

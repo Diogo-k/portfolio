@@ -1,11 +1,23 @@
 'use client';
 
 import React, { useMemo, useRef } from 'react';
+import PropTypes from 'prop-types';
 import { useThree, useFrame } from '@react-three/fiber';
 import { Instances, Instance, InstancedAttribute } from '@react-three/drei';
 import { Vector3, Euler, MathUtils } from 'three';
 
-function Petal({ index, width, ...props }) {
+/**
+ * A single petal component for the cherry blossoms falling petals
+ *
+ * @param {number} index - The index of the petal
+ * @param {number} width - The width of the viewport
+ * @param {Object} props - The component props
+ * @param {Object} props.speed - The speed of the petals
+ * @param {Object} props.floatParams - The float parameters of the petals
+ * @param {number} props.seed - The seed of the petals
+ * @returns {React.ReactNode} The rendered component
+ */
+const Petal = ({ index, width, ...props }) => {
     const ref = useRef();
 
     const prevTime = useRef(0);
@@ -113,9 +125,25 @@ function Petal({ index, width, ...props }) {
     });
 
     return <Instance ref={ref} {...props} />;
-}
+};
 
-export default function FallingPetals({ geometry, material, count = 100 }) {
+Petal.propTypes = {
+    index: PropTypes.number.isRequired,
+    width: PropTypes.number.isRequired,
+    speed: PropTypes.object.isRequired,
+    floatParams: PropTypes.object.isRequired,
+    seed: PropTypes.number.isRequired,
+};
+
+/**
+ * The main component for the cherry blossoms falling petals
+ *
+ * @param {THREE.BufferGeometry} geometry - The geometry of the petals
+ * @param {THREE.MeshStandardMaterial} material - The material of the petals
+ * @param {number} count - The total number of petals
+ * @returns {React.ReactNode} The rendered component
+ */
+const FallingPetals = ({ geometry, material, count = 100 }) => {
     const { viewport } = useThree();
     const { width } = viewport;
 
@@ -171,4 +199,16 @@ export default function FallingPetals({ geometry, material, count = 100 }) {
             ))}
         </Instances>
     );
-}
+};
+
+FallingPetals.propTypes = {
+    geometry: PropTypes.object.isRequired, //* THREE.BufferGeometry
+    material: PropTypes.object.isRequired, //* THREE.MeshStandardMaterial
+    count: PropTypes.number,
+};
+
+FallingPetals.defaultProps = {
+    count: 100,
+};
+
+export default FallingPetals;

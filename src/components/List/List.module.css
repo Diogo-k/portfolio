@@ -1,3 +1,4 @@
+/* TODO: Update this CSS to tailwind although I prefer using css modules :/ */
 .item {
     --bulletSize: min(1.2em, 24px);
     --markerGap: 8px;

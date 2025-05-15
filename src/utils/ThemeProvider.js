@@ -1,5 +1,5 @@
-import { ThemeProvider as NextThemesProvider } from 'next-themes';
 import PropTypes from 'prop-types';
+import { ThemeProvider as NextThemesProvider } from 'next-themes';
 
 /**
  * ThemeProvider component that provides a theme to the application.

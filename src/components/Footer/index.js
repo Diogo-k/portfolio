@@ -3,9 +3,9 @@ import { Link } from '@/components';
 /**
  * Footer component that displays a copyright message and a link to the humans.txt file.
  *
- * @returns {JSX.Element} The Footer component
+ * @returns {React.ReactNode} The Footer component
  */
-export default function Footer() {
+const Footer = () => {
     return (
         <footer className="bg-background border-t-2 border-border-light py-8 dark:border-t-4 dark:border-border-dark">
             <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
@@ -24,6 +24,6 @@ export default function Footer() {
             </div>
         </footer>
     );
-}
+};
 
-Footer.propTypes = {};
+export default Footer;

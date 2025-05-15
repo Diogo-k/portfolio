@@ -1,3 +1,9 @@
+/**
+ * Cherry blossom icon component
+ *
+ * @param {Object} props - The component props
+ * @returns {React.ReactNode} The rendered component
+ */
 const CherryBlossom = (props) => {
     const petal = (
         <path

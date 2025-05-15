@@ -1,4 +1,12 @@
-export default function X({ className = '', width = 24, height = 24 }) {
+/**
+ * X icon component
+ *
+ * @param {string} className - The class name
+ * @param {number} width - The width of the icon
+ * @param {number} height - The height of the icon
+ * @returns {React.ReactNode} The rendered component
+ */
+const X = ({ className = '', width = 24, height = 24 }) => {
     return (
         <svg
             className={className}
@@ -18,4 +26,6 @@ export default function X({ className = '', width = 24, height = 24 }) {
             />
         </svg>
     );
-}
+};
+
+export default X;

@@ -1,4 +1,10 @@
-export default function Book(props) {
+/**
+ * Book icon component
+ *
+ * @param {Object} props - The component props
+ * @returns {React.ReactNode} The rendered component
+ */
+const Book = (props) => {
     return (
         <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -15,4 +21,6 @@ export default function Book(props) {
             />
         </svg>
     );
-}
+};
+
+export default Book;

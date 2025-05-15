@@ -5,9 +5,9 @@ import { Text } from '@/components';
  * Shows both light and dark mode variants of each color with their names.
  * Useful for development and design system documentation.
  *
- * @returns {JSX.Element} A grid of color swatches with their names
+ * @returns {React.ReactNode} A grid of color swatches with their names
  */
-export default function ColorPalette() {
+const ColorPalette = () => {
     const colors = [
         { name: 'Primary', className: 'bg-primary-light dark:bg-primary-dark' },
         { name: 'Accent', className: 'bg-accent-light dark:bg-accent-dark' },
@@ -35,7 +35,7 @@ export default function ColorPalette() {
                         key={color.name}
                         className="flex flex-col overflow-hidden rounded-lg border border-border-light dark:border-border-dark"
                     >
-                        <h3 className="border-b border-border-light bg-background-light px-4 py-2 text-lg font-semibold text-text-light dark:border-border-dark dark:bg-background-dark dark:text-text-dark">
+                        <h3 className="border-b border-border-light bg-surface-light px-4 py-2 text-lg font-semibold text-text-light dark:border-border-dark dark:bg-surface-dark dark:text-text-dark">
                             {color.name}
                         </h3>
                         <div className="flex">
@@ -48,4 +48,6 @@ export default function ColorPalette() {
             </div>
         </div>
     );
-}
+};
+
+export default ColorPalette;

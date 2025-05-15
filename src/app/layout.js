@@ -1,11 +1,12 @@
 import { Suspense } from 'react';
 import PropTypes from 'prop-types';
-import { MotionConfig } from 'motion/react';
 import { Sora } from 'next/font/google';
-import '@/styles/globals.css';
+import { MotionConfig } from 'motion/react';
 import { Header, Footer } from '@/components';
 import ThemeProvider from '@/utils/ThemeProvider';
 import { baseMeta } from '@/utils/meta';
+
+import '@/styles/globals.css';
 
 const sora = Sora({
     subsets: ['latin'],
@@ -25,8 +26,8 @@ export const metadata = {
 /**
  * Root layout component
  *
- * @param {Object} props - The component props
- * @param {React.ReactNode} props.children - The content of the component
+ * @param {React.ReactNode} children - The content of the component
+ * @returns {React.ReactNode} The rendered component
  */
 export default function RootLayout({ children }) {
     return (

@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
 import hljs from 'highlight.js';
 import 'highlight.js/styles/github-dark-dimmed.min.css';
 import javascript from 'highlight.js/lib/languages/javascript';
@@ -8,7 +9,14 @@ import typescript from 'highlight.js/lib/languages/typescript';
 hljs.registerLanguage('javascript', javascript);
 hljs.registerLanguage('typescript', typescript);
 
-export function Code({ children, language = '' }) {
+/**
+ * A code component that highlights code and allows copying
+ *
+ * @param {React.ReactNode} children - The code to highlight
+ * @param {string} language - The language of the code
+ * @returns {React.ReactNode} The rendered component
+ */
+const Code = ({ children, language = '' }) => {
     useEffect(() => {
         hljs.highlightAll();
     }, []);
@@ -48,6 +56,11 @@ export function Code({ children, language = '' }) {
             </div>
         </div>
     );
-}
+};
+
+Code.propTypes = {
+    children: PropTypes.node.isRequired,
+    language: PropTypes.string,
+};
 
 export default Code;

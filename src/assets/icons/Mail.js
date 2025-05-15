@@ -1,3 +1,9 @@
+/**
+ * Mail icon component
+ *
+ * @param {Object} props - The component props
+ * @returns {React.ReactNode} The rendered component
+ */
 const Mail = (props) => (
     <svg
         width="32px"

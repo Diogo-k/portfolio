@@ -1,3 +1,9 @@
+/**
+ * Right arrow icon component
+ *
+ * @param {Object} props - The component props
+ * @returns {React.ReactNode} The rendered component
+ */
 const RightArrow = (props) => (
     <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" {...props}>
         <path

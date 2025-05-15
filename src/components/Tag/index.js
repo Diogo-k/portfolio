@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types';
-import clsx from 'clsx';
-
 import * as motion from 'motion/react-client';
+import clsx from 'clsx';
 
 const variants = {
     ghost: 'text-text-light bg-primary-light/10 dark:text-text-dark dark:bg-accent-dark/30 border border-1 border-primary-light dark:border-primary-dark',
@@ -18,21 +17,20 @@ const variants = {
 /**
  * Tag component that displays a tag with a variant and an icon.
  *
- * @param {Object} props - The component props
- * @param {React.ReactNode} props.children - The content of the tag
- * @param {string} props.variant - The variant of the tag
- * @param {string} props.className - The class name of the tag
- * @param {React.ReactNode} props.icon - The icon of the tag
- * @param {boolean} props.whileHover - Whether the tag should scale on hover
+ * @param {React.ReactNode} children - The content of the tag
+ * @param {string} variant - The variant of the tag
+ * @param {string} className - The class name of the tag
+ * @param {React.ReactNode} icon - The icon of the tag
+ * @param {boolean} whileHover - Whether the tag should scale on hover
  * @returns {React.ReactNode} The rendered component
  */
-export default function Tag({
+const Tag = ({
     children,
     variant = 'primary',
     className,
     icon: Icon,
     whileHover = false,
-}) {
+}) => {
     return (
         <motion.span
             className={clsx(
@@ -49,7 +47,7 @@ export default function Tag({
             {children}
         </motion.span>
     );
-}
+};
 
 Tag.propTypes = {
     children: PropTypes.node.isRequired,
@@ -63,3 +61,5 @@ Tag.defaultProps = {
     icon: null,
     whileHover: false,
 };
+
+export default Tag;
