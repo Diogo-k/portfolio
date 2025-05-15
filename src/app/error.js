@@ -1,19 +1,24 @@
+'use client';
+
+import { useEffect } from 'react';
 import { Text, Button, Link } from '@/components';
 
 /**
- * NotFound Page
+ * Error Page
  *
  * @returns {React.ReactNode} The rendered component
  */
-export default function NotFound() {
+export default function Error({ error, reset }) {
+    useEffect(() => {
+        console.error(error);
+    }, [error]);
+
     return (
         <div className="flex min-h-screen flex-col items-center justify-center bg-background-light dark:bg-background-dark">
-            <div className="mb-4 max-w-2xl text-center">
-                <div className="relative">
-                    <h1 className="bg-gradient-to-r from-primary-light to-accent-light bg-clip-text text-9xl font-bold text-transparent dark:from-primary-dark dark:to-accent-dark">
-                        404
-                    </h1>
-                </div>
+            <div className="max-w-2xl text-center">
+                <h1 className="mb-4 bg-gradient-to-r from-primary-light to-accent-light bg-clip-text text-9xl font-bold text-transparent dark:from-primary-dark dark:to-accent-dark">
+                    500
+                </h1>
 
                 <Text
                     as="h2"
@@ -22,32 +27,34 @@ export default function NotFound() {
                     align="center"
                     className="mb-6"
                 >
-                    Looks like you&apos;ve ventured into the void
+                    Oops! Something went wrong on our end.
                 </Text>
 
                 <Text as="h3" size="text-lg" align="center" className="mt-6">
-                    This page could not be found. It either doesn&apos;t exist
-                    or was deleted.
-                    <br />
-                    Or perhaps you don&apos;t exist and this webpage
-                    couldn&apos;t find you.
+                    {`>`} {error.message}
                 </Text>
 
                 <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
                     <Button
-                        as="link"
-                        href="/"
+                        onClick={() => reset()}
                         variant="primary"
                         size="lg"
                         className="w-fit"
                     >
-                        Take Me Home
+                        Try Again
                     </Button>
                 </div>
 
                 <div className="mt-12">
                     <Text as="p" size="text-sm" align="center">
-                        Need help? <Link href="/#contact">Contact me</Link>
+                        Need help?{' '}
+                        <Link
+                            href="mailto:jdiogok@gmail.com"
+                            isExternal
+                            ariaLabel="Send email to jdiogok@gmail.com"
+                        >
+                            Contact me
+                        </Link>
                     </Text>
                 </div>
             </div>

@@ -1,6 +1,10 @@
 import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
+import { serialize } from 'next-mdx-remote/serialize';
+import remarkGfm from 'remark-gfm';
+import rehypeSlug from 'rehype-slug';
+import calculateReadingTime from '@/utils/readingTime';
 
 function getContentDirectory(contentType) {
     return path.join(process.cwd(), `src/content/${contentType}`);
@@ -62,31 +66,19 @@ export async function getContentData(slug, contentType) {
     }
 
     const fileContents = fs.readFileSync(fullPath, 'utf8');
-
-    const { data } = matter(fileContents);
+    const { data, content } = matter(fileContents);
+    const mdxSource = await serialize(content, {
+        mdxOptions: {
+            remarkPlugins: [remarkGfm],
+            rehypePlugins: [rehypeSlug],
+            format: 'mdx',
+        },
+    });
 
     return {
         slug,
         ...data,
-    };
-}
-
-// Get a specific MDX content by slug
-export async function getSpecificMDXContent(mdxSlug) {
-    const contentDirectory = path.join(process.cwd(), `src/content`);
-
-    const fullPath = path.join(contentDirectory, `${mdxSlug}.mdx`);
-
-    if (!fs.existsSync(fullPath)) {
-        console.warn(`❌ Content file not found: ${fullPath}`);
-        return null;
-    }
-
-    const fileContents = fs.readFileSync(fullPath, 'utf8');
-
-    const { data } = matter(fileContents);
-
-    return {
-        ...data,
+        source: mdxSource,
+        readingTime: calculateReadingTime(content),
     };
 }

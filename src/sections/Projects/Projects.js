@@ -91,7 +91,7 @@ export default function ProjectsSection({ projects, isProjectRoute = false }) {
             new Map(
                 projects
                     .flatMap((project) => project.tags)
-                    .map((tag) => [tag.name, tag])
+                    .map((tag) => [tag?.name, tag])
             ).values()
         ),
     ];

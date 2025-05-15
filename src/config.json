@@ -2,7 +2,7 @@
     "name": "João Diogo Paulo",
     "role": "Frontend Developer",
     "email": "jdiogok@gmail.com",
-    "url": "https://jdiogop.dev",
+    "url": "https://jdiogo.dev",
     "github": "https://github.com/Diogo-k",
     "repo": "https://github.com/Diogo-k/portfolio",
     "ascii": "     ▄█ ████████▄     ▄███████▄ \n    ███ ███   ▀███   ███    ███ \n    ███ ███    ███   ███    ███ \n    ███ ███    ███   ███    ███ \n    ███ ███    ███ ▀█████████▀  \n    ███ ███    ███   ███         \n    ███ ███   ▄███   ███         \n█▄ ▄███ ████████▀   ▄████▀      \n▀▀▀▀▀▀",
@@ -23,7 +23,7 @@
                 "variant": "frontend"
             },
             {
-                "name": "HTML5",
+                "name": "HTML",
                 "variant": "frontend"
             },
             {
@@ -43,11 +43,19 @@
                 "variant": "frontend"
             },
             {
-                "name": "Redux",
+                "name": "Expo",
                 "variant": "frontend"
             },
             {
-                "name": "React Query",
+                "name": "Tanstack",
+                "variant": "frontend"
+            },
+            {
+                "name": "GraphQL",
+                "variant": "backend"
+            },
+            {
+                "name": "Redux",
                 "variant": "frontend"
             },
             {
@@ -55,17 +63,45 @@
                 "variant": "frontend"
             },
             {
-                "name": "Framer Motion",
+                "name": "Storybook",
+                "variant": "frontend"
+            },
+            {
+                "name": "Jest",
+                "variant": "frontend"
+            },
+            {
+                "name": "React Testing Library",
                 "variant": "frontend"
             }
         ],
         "backend": [
+            {
+                "name": "JavaScript",
+                "variant": "backend"
+            },
+            {
+                "name": "TypeScript",
+                "variant": "backend"
+            },
+            {
+                "name": "Rust",
+                "variant": "backend"
+            },
             {
                 "name": "Node.js",
                 "variant": "backend"
             },
             {
                 "name": "Express",
+                "variant": "backend"
+            },
+            {
+                "name": "Mongoose",
+                "variant": "backend"
+            },
+            {
+                "name": "Redis",
                 "variant": "backend"
             },
             {
@@ -77,7 +113,11 @@
                 "variant": "database"
             },
             {
-                "name": "SQL",
+                "name": "PostgreSQL",
+                "variant": "database"
+            },
+            {
+                "name": "SQLite",
                 "variant": "database"
             }
         ],
@@ -87,7 +127,7 @@
                 "variant": "tools"
             },
             {
-                "name": "Docker",
+                "name": "Vite",
                 "variant": "tools"
             },
             {
@@ -95,24 +135,52 @@
                 "variant": "tools"
             },
             {
+                "name": "Babel",
+                "variant": "tools"
+            },
+            {
+                "name": "NPM",
+                "variant": "tools"
+            },
+            {
                 "name": "PNPM",
                 "variant": "tools"
             },
             {
-                "name": "AWS",
-                "variant": "cloud"
+                "name": "ESLint",
+                "variant": "tools"
+            },
+            {
+                "name": "Prettier",
+                "variant": "tools"
             },
             {
                 "name": "Vercel",
                 "variant": "cloud"
             },
             {
-                "name": "Netlify",
+                "name": "Jenkins",
                 "variant": "cloud"
             },
             {
-                "name": "Heroku",
+                "name": "AWS",
                 "variant": "cloud"
+            },
+            {
+                "name": "Stripe",
+                "variant": "tools"
+            },
+            {
+                "name": "Adyen",
+                "variant": "tools"
+            },
+            {
+                "name": "Jira",
+                "variant": "tools"
+            },
+            {
+                "name": "Confluence",
+                "variant": "tools"
             }
         ]
     }

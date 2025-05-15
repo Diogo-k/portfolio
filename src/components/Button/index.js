@@ -12,18 +12,18 @@ import { motion } from 'motion/react';
  * Can render as a button, link, or anchor element with motion animations.
  *
  * @param {Object} props - Component props
- * @param {('button'|'link'|'a')} [props.as='button'] - Element type to render
- * @param {string} [props.href] - URL for link/anchor variants
- * @param {React.ReactNode} props.children - Button content
- * @param {('primary'|'outline'|'ghost')} [props.variant='primary'] - Visual style variant
- * @param {('sm'|'md'|'lg')} [props.size='md'] - Size variant
- * @param {boolean} [props.fullWidth=false] - Whether to take full width
- * @param {boolean} [props.disabled=false] - Disabled state
- * @param {boolean} [props.loading=false] - Loading state
- * @param {boolean} [props.loadingText=true] - Show text during loading
- * @param {string} [props.className] - Additional CSS classes
- * @param {string} [props.ariaLabel] - Accessibility label
- * @param {('button'|'submit'|'reset')} [props.type='button'] - Button type
+ * @param {('button'|'link'|'a')} [as='button'] - Element type to render
+ * @param {string} [href] - URL for link/anchor variants
+ * @param {React.ReactNode} children - Button content
+ * @param {('primary'|'outline'|'ghost')} [variant='primary'] - Visual style variant
+ * @param {('sm'|'md'|'lg')} [size='md'] - Size variant
+ * @param {boolean} [fullWidth=false] - Whether to take full width
+ * @param {boolean} [disabled=false] - Disabled state
+ * @param {boolean} [loading=false] - Loading state
+ * @param {boolean} [loadingText=true] - Show text during loading
+ * @param {string} [className] - Additional CSS classes
+ * @param {string} [ariaLabel] - Accessibility label
+ * @param {('button'|'submit'|'reset')} [type='button'] - Button type
  * @param {React.Ref} ref - Forwarded ref
  * @returns {React.ReactNode} The rendered component
  */
@@ -49,7 +49,7 @@ const Button = forwardRef(
         const MotionLink = motion.create(Link);
 
         const baseStyles =
-            'font-semibold tracking-wide focus:outline-none focus-visible:outline-offset-4 focus-visible:outline-2 focus-visible:outline focus-visible:outline-text-light dark:focus-visible:outline-text-dark';
+            'inline-flex items-center justify-center font-semibold tracking-wide focus:outline-none focus-visible:outline-offset-4 focus-visible:outline-2 focus-visible:outline focus-visible:outline-text-light dark:focus-visible:outline-text-dark';
 
         const variantStyles = {
             primary:
@@ -68,7 +68,6 @@ const Button = forwardRef(
         const disabledStyles = 'opacity-50 cursor-not-allowed';
 
         const combinedStyles = clsx(
-            'inline-flex items-center justify-center',
             baseStyles,
             variantStyles[variant],
             sizeStyles[size],
@@ -153,7 +152,10 @@ const Button = forwardRef(
         }
 
         if (as === 'a' && href && !disabled && !loading) {
-            const isExternal = href.startsWith('http') || href.endsWith('.pdf');
+            const isExternal =
+                href.startsWith('http') ||
+                href.endsWith('.pdf') ||
+                href === '/joao_diogo_paulo_resume.pdf'; // TODO: Remove this hardcoded condition
             return (
                 <motion.a
                     {...commonProps}

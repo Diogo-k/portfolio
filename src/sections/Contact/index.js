@@ -477,10 +477,10 @@ export default function Contact() {
                             <motion.div
                                 initial={{ opacity: 0 }}
                                 animate={{ opacity: 1 }}
-                                className="rounded-md bg-red-50 p-4 text-red-700 dark:bg-red-900/20 dark:text-red-400"
+                                className="mt-4 rounded-md bg-red-50 p-4 text-red-700 dark:bg-red-900/20 dark:text-red-400"
                                 role="alert"
                             >
-                                {formStatus.error}
+                                {formStatus.message}
                             </motion.div>
                         )}
                     </form>

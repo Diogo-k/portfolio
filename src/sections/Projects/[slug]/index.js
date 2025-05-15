@@ -1,182 +1,176 @@
 'use client';
 
 import { useEffect } from 'react';
-import Image from 'next/image';
-import { useSearchParams } from 'next/navigation';
 import { motion } from 'motion/react';
-
-import { Text, Button, Tag } from '@/components';
-import { ArrowLink, SourceCode, RightArrow, LeftArrow } from '@/assets';
-const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-        opacity: 1,
-        transition: {
-            staggerChildren: 0.1,
-            delayChildren: 0.2,
-        },
-    },
-};
-
-const itemVariants = {
-    hidden: { opacity: 0, y: -20 },
-    visible: {
-        opacity: 1,
-        y: 0,
-        transition: {
-            duration: 0.5,
-            ease: [0.4, 0, 0.2, 1],
-        },
-    },
-};
+import { useSearchParams } from 'next/navigation';
+import Image from 'next/image';
+import { Text, Button, MDX } from '@/components';
+import { SourceCode, RightArrow, LeftArrow, Book } from '@/assets';
+import { SLIDE_UP, FADE_IN } from '@/constants/animations';
 
 export default function ProjectPage({ project }) {
     const searchParams = useSearchParams();
     const from = searchParams.get('from');
 
     useEffect(() => {
+        const hash = window.location.hash;
+        if (hash) {
+            const id = hash.substring(1);
+            const element = document.getElementById(id);
+            if (element) {
+                const elementPosition =
+                    element.getBoundingClientRect().top + window.scrollY;
+                const offsetPosition = elementPosition - 100;
+
+                window.scrollTo({
+                    top: offsetPosition,
+                    behavior: 'smooth',
+                });
+                return;
+            }
+        }
         window.scrollTo(0, 0);
     }, []);
 
+    const titleDelay = project.name.split(' ').length * 0.1 + 0.5;
+
     return (
-        <motion.div
-            initial="hidden"
-            animate="visible"
-            variants={containerVariants}
-            className="mx-auto flex min-h-screen max-w-5xl flex-col px-4 py-16 sm:px-6 sm:py-20 md:py-24 lg:py-28"
-        >
-            <motion.div variants={itemVariants} className="my-8">
+        <section className="mx-auto flex min-h-screen max-w-5xl flex-col px-4 py-16 sm:px-6 sm:py-20 md:py-24 lg:py-28">
+            <motion.div
+                initial={{ opacity: 0, x: -25 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{
+                    ...SLIDE_UP.transition,
+                    delay: titleDelay,
+                }}
+                className="my-8"
+            >
                 <Button
                     variant="ghost"
                     size="sm"
                     as="link"
-                    className="group flex items-center gap-2 rounded-full"
+                    className="flex items-center gap-2 rounded-full"
                     href={from === 'home' ? '/#projects' : '/projects'}
-                    aria-label="Back to Projects"
+                    aria-label="Back to projects"
                 >
-                    <LeftArrow className="size-4 transition-transform duration-300 group-hover:-translate-x-1" />
-                    Back to Projects
+                    <LeftArrow className="size-4" />
+                    Back to projects
                 </Button>
             </motion.div>
 
-            <motion.div variants={itemVariants} className="mb-8">
-                <Text
-                    as="h1"
-                    size="text-4xl"
-                    weight="font-bold"
-                    className="mb-4"
-                >
-                    {project.name}
-                </Text>
-                <Text
-                    as="p"
-                    size="lg"
-                    className="text-text-light dark:text-text-dark"
-                >
-                    {project.longDescription}
-                </Text>
-            </motion.div>
-
+            <Text as="h1" size="text-5xl" weight="font-bold" className="mb-6">
+                {project.name.split(' ').map((word, index) => (
+                    <span
+                        key={index}
+                        className="relative inline-flex overflow-hidden"
+                    >
+                        <motion.span
+                            initial={{ y: '110%' }}
+                            animate={{ y: '0%' }}
+                            transition={{
+                                ...SLIDE_UP.transition,
+                                delay: index * 0.1,
+                            }}
+                            className="inline-flex whitespace-pre"
+                        >
+                            {word}
+                            {index !== project.name.split(' ').length - 1
+                                ? ' '
+                                : ''}
+                        </motion.span>
+                    </span>
+                ))}
+            </Text>
             <motion.div
-                variants={itemVariants}
-                className="mb-8 overflow-hidden rounded-xl"
+                initial={{ opacity: 0, x: -25 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{
+                    ...SLIDE_UP.transition,
+                    delay: titleDelay + 0.2,
+                }}
+                className="mb-6 flex items-center gap-4"
             >
-                <div className="relative aspect-video w-full">
-                    <Image
-                        alt={`${project.name} project preview`}
-                        src={project.image || '/placeholder.png'}
-                        fill
-                        sizes="(max-width: 768px) 50vw, 100vw"
-                        placeholder="blur"
-                        blurDataURL="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=="
-                        className="object-cover"
-                    />
+                <div className="flex items-center gap-2">
+                    <Text as="span" size="text-sm">
+                        {new Date(project.date).toLocaleDateString('en-US', {
+                            year: 'numeric',
+                            month: 'short',
+                            day: 'numeric',
+                        })}
+                    </Text>
+                    {project.source && (
+                        <Text as="span" size="text-sm">
+                            •
+                        </Text>
+                    )}
+                    {project.source && (
+                        <div className="flex items-center gap-1">
+                            <Book aria-hidden="true" className="size-4" />
+                            <Text as="span" size="text-sm">
+                                {`${project.readingTime} min read`}
+                            </Text>
+                        </div>
+                    )}
                 </div>
             </motion.div>
-
             <motion.div
-                variants={itemVariants}
-                className="mb-12 flex flex-wrap gap-4"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{
+                    ...FADE_IN.transition,
+                    duration: 1,
+                    delay: titleDelay + 0.5,
+                }}
             >
-                {project.repository && (
-                    <Button
-                        as="a"
-                        href={project.repository}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        variant="outline"
-                        className="flex items-center gap-2"
-                    >
-                        <span>View Source Code</span>
-                        <SourceCode className="size-6" />
-                    </Button>
+                {project.longDescription && (
+                    <Text as="p" size="text-lg" className="mb-8">
+                        {project.longDescription}
+                    </Text>
                 )}
-                {project.demo && (
-                    <Button
-                        as="a"
-                        href={project.demo}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        variant="outline"
-                        className="flex items-center gap-2"
-                    >
-                        <span>View Live Demo</span>
-                        <RightArrow className="size-6" />
-                    </Button>
+
+                {project.image && (
+                    <figure className="relative mb-8">
+                        <Image
+                            alt={`${project.name} project preview`}
+                            src={project.image || '/placeholder.png'}
+                            width={1920}
+                            height={1080}
+                            placeholder="blur"
+                            blurDataURL="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=="
+                            className="rounded-md"
+                        />
+                        <figcaption className="mt-2 text-center text-sm text-gray-600 dark:text-gray-400">
+                            {`${project.name} project preview`}
+                        </figcaption>
+                    </figure>
                 )}
+
+                <div className="mb-12 flex flex-wrap gap-4">
+                    {project.repository && (
+                        <Button
+                            as="a"
+                            href={project.repository}
+                            variant="outline"
+                            className="flex items-center gap-2"
+                        >
+                            <span>View Source Code</span>
+                            <SourceCode className="size-6" />
+                        </Button>
+                    )}
+                    {project.demo && (
+                        <Button
+                            as="a"
+                            href={project.demo}
+                            variant="outline"
+                            className="flex items-center gap-2"
+                        >
+                            <span>View Live Demo</span>
+                            <RightArrow className="size-4" />
+                        </Button>
+                    )}
+                </div>
+                {project.source && <MDX {...project.source} />}
             </motion.div>
-
-            <motion.div variants={itemVariants} className="space-y-12">
-                <div>
-                    <Text
-                        as="h2"
-                        size="text-2xl"
-                        weight="font-semibold"
-                        className="mb-4"
-                    >
-                        Technologies
-                    </Text>
-                    <div className="flex flex-wrap gap-2">
-                        {project.details.technologies.map((tech) => (
-                            <Tag key={tech.name} variant={tech.variant}>
-                                {tech.name}
-                            </Tag>
-                        ))}
-                    </div>
-                </div>
-
-                <div>
-                    <Text
-                        as="h2"
-                        size="text-2xl"
-                        weight="font-semibold"
-                        className="mb-4"
-                    >
-                        Features
-                    </Text>
-                    <ul className="list-inside list-disc space-y-2 text-text-light dark:text-text-dark">
-                        {project.details.features.map((feature, index) => (
-                            <li key={index}>{feature}</li>
-                        ))}
-                    </ul>
-                </div>
-
-                <div>
-                    <Text
-                        as="h2"
-                        size="text-2xl"
-                        weight="font-semibold"
-                        className="mb-4"
-                    >
-                        Challenges & Solutions
-                    </Text>
-                    <ul className="list-inside list-disc space-y-2 text-text-light dark:text-text-dark">
-                        {project.details.challenges.map((challenge, index) => (
-                            <li key={index}>{challenge}</li>
-                        ))}
-                    </ul>
-                </div>
-            </motion.div>
-        </motion.div>
+        </section>
     );
 }

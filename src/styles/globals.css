@@ -2,8 +2,32 @@
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
 
-* {
-    @apply transition-colors duration-200;
+/* TODO: Find a better way to handle the transition light/dark mode */
+[class*='bg-surface-'],
+[class*='bg-background-'],
+[class*='bg-primary-'],
+[class*='bg-accent-'],
+[class*='bg-gray-'] {
+    transition: background-color 0.3s ease-in-out;
+}
+
+[class*='text-text-'],
+[class*='text-primary-'],
+[class*='text-accent-'],
+[class*='text-muted-'],
+[class*='text-gray-'],
+[class*='text-white-'] {
+    transition: color 0.3s ease-in-out;
+}
+
+[class*='border-border-'],
+[class*='border-primary-'],
+[class*='border-accent-'] {
+    transition: border-color 0.3s ease-in-out;
+}
+
+svg {
+    transition: all 0.3s ease-in-out;
 }
 
 html {
@@ -12,4 +36,9 @@ html {
 
 .story-container {
     font-family: var(--font-sora);
+}
+
+::selection {
+    background-color: rgba(180, 42, 42, 0.9);
+    color: #1a1a1a;
 }

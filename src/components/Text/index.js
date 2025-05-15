@@ -1,8 +1,9 @@
+'use client';
+
+import { useMemo } from 'react';
 import clsx from 'clsx';
 import PropTypes from 'prop-types';
-
 import { motion } from 'motion/react';
-
 /**
  * Text component that displays a text with a size, responsive size, weight, align, and class name.
  *
@@ -23,7 +24,10 @@ export default function Text({
     'aria-label': ariaLabel,
     ...props
 }) {
-    const MotionComponent = motion.create(Component);
+    const MotionComponent = useMemo(
+        () => motion.create(Component),
+        [Component]
+    );
 
     return (
         <MotionComponent

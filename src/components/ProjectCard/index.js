@@ -71,11 +71,12 @@ const ProjectCard = ({
                         </Text>
                     </div>
                     <div className="mt-auto flex flex-wrap gap-2">
-                        {tags.map(({ name, variant }) => (
-                            <Tag key={name} variant={variant}>
-                                {name}
-                            </Tag>
-                        ))}
+                        {tags &&
+                            tags.map(({ name, variant }) => (
+                                <Tag key={name} variant={variant}>
+                                    {name}
+                                </Tag>
+                            ))}
                     </div>
                 </div>
             </div>

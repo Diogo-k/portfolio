@@ -1,6 +1,15 @@
 import { Suspense } from 'react';
 import { Projects } from '@/sections';
 import { Loading } from '@/components';
+import { baseMeta } from '@/utils/meta';
+
+export const metadata = {
+    ...baseMeta({
+        title: 'Projects',
+        description:
+            'Projects page displaying all the projects I have worked on.',
+    }),
+};
 
 /**
  * Projects page component

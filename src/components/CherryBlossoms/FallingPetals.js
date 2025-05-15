@@ -5,8 +5,6 @@ import { useThree, useFrame } from '@react-three/fiber';
 import { Instances, Instance, InstancedAttribute } from '@react-three/drei';
 import { Vector3, Euler, MathUtils } from 'three';
 
-const PETAL_COUNT = 100;
-
 function Petal({ index, width, ...props }) {
     const ref = useRef();
 
@@ -117,13 +115,13 @@ function Petal({ index, width, ...props }) {
     return <Instance ref={ref} {...props} />;
 }
 
-export default function FallingPetals({ geometry, material }) {
+export default function FallingPetals({ geometry, material, count = 100 }) {
     const { viewport } = useThree();
     const { width } = viewport;
 
     const petals = useMemo(
         () =>
-            Array.from({ length: PETAL_COUNT }, () => {
+            Array.from({ length: count }, () => {
                 const seed = Math.random();
 
                 return {
@@ -162,8 +160,8 @@ export default function FallingPetals({ geometry, material }) {
 
     return (
         <Instances
-            limit={PETAL_COUNT}
-            range={PETAL_COUNT}
+            limit={count}
+            range={count}
             geometry={geometry}
             material={material}
         >

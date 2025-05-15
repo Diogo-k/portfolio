@@ -3,16 +3,14 @@
 import { useRef, useState, useCallback, useEffect } from 'react';
 import dynamic from 'next/dynamic';
 import { motion, AnimatePresence } from 'motion/react';
-
+import { useDetectGPU } from '@react-three/drei';
 import { Loading, Link } from '@/components';
-
 import {
     bezierFastoutSlowin,
     FADE_IN,
     FADE_IN_SLIDE_DOWN,
     FADE_IN_SLIDE_UP,
 } from '@/constants/animations';
-
 import config from '@/config';
 
 const CherryBlossoms = dynamic(
@@ -30,6 +28,9 @@ const CherryBlossoms = dynamic(
  * @returns {JSX.Element} The Intro section component
  */
 export default function Intro() {
+    const gpu = useDetectGPU(); // TODO: Find another way to handle useDetectGPU on the client side without causing hydration errors
+    const [isClient, setIsClient] = useState(false); //* Temporary solution to prevent useDetectGPU from causing hydration errors
+
     const { name, role } = config;
 
     const introSectionRef = useRef(null);
@@ -60,6 +61,7 @@ export default function Intro() {
             `${config.ascii}\n\n`,
             `Taking a peek? Check out the source code: ${config.repo}\n\n`
         );
+        setIsClient(true);
     }, []);
 
     useEffect(() => {
@@ -84,6 +86,9 @@ export default function Intro() {
 
     const nameLettersDelay = name.length * 0.05;
 
+    const shouldRenderIntro = isIntroCrossedCenter;
+    const shouldRenderScrollIndicator = isIntroCrossedCenter && isIntroVisible;
+
     return (
         <section
             ref={introSectionRef}
@@ -96,9 +101,10 @@ export default function Intro() {
                 isIntroCrossedCenter={isIntroCrossedCenter}
                 setIsIntroCrossedCenter={setIsIntroCrossedCenter}
                 flyingSpeed={flyingSpeed}
+                gpu={isClient && gpu}
             />
 
-            {isIntroCrossedCenter && (
+            {shouldRenderIntro && (
                 <motion.div
                     variants={FADE_IN}
                     initial="hidden"
@@ -234,7 +240,7 @@ export default function Intro() {
                 </motion.div>
             )}
 
-            {isIntroCrossedCenter && isIntroVisible && (
+            {shouldRenderScrollIndicator && (
                 <motion.div
                     variants={FADE_IN}
                     initial="hidden"

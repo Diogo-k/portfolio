@@ -3,26 +3,29 @@
 import React, { useState } from 'react';
 import { Canvas } from '@react-three/fiber';
 import { Preload, useGLTF } from '@react-three/drei';
-
+import usePetalMaterial from './usePetalMaterial';
 import IntroPetals from './IntroPetals';
 import FlyingPetals from './FlyingPetals';
 
-import usePetalMaterial from './usePetalMaterial';
-
-useGLTF.preload('/petal.glb');
+useGLTF.preload('/static/petal.glb');
 
 export default function CherryBlossomsContainer({
     isIntroCrossedCenter,
     setIsIntroCrossedCenter,
     flyingSpeed,
+    gpu,
 }) {
-    const { nodes } = useGLTF('/petal.glb');
+    const { nodes } = useGLTF('/static/petal.glb');
     const material = usePetalMaterial(nodes.petal.material);
 
     const [isIntroComplete, setIsIntroComplete] = useState(false);
 
     return (
         <Canvas
+            gl={{
+                powerPreference: 'high-performance',
+                failIfMajorPerformanceCaveat: true,
+            }}
             camera={{ position: [0, 0, 10], fov: 75 }}
             style={{
                 position: 'absolute',
@@ -46,6 +49,7 @@ export default function CherryBlossomsContainer({
                     setIsIntroCrossedCenter={setIsIntroCrossedCenter}
                     isIntroComplete={isIntroComplete}
                     setIsIntroComplete={setIsIntroComplete}
+                    count={gpu && gpu.isMobile ? 62 : 126}
                 />
             )}
 
@@ -54,6 +58,7 @@ export default function CherryBlossomsContainer({
                     geometry={nodes.petal.geometry}
                     material={material}
                     speed={flyingSpeed}
+                    count={gpu && gpu.isMobile ? 35 : 75}
                 />
             )}
         </Canvas>

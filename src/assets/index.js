@@ -6,8 +6,8 @@ import CherryBlossom from './icons/CherryBlossom';
 import Swipe from './icons/Swipe';
 import LeftArrow from './icons/LeftArrow';
 import RightArrow from './icons/RightArrow';
-import ArrowLink from './icons/ArrowLink';
 import SourceCode from './icons/SourceCode';
+import Book from './icons/Book';
 
 import Github from './icons/Github';
 import LinkedIn from './icons/LinkedIn';
@@ -23,8 +23,8 @@ export {
     Swipe,
     LeftArrow,
     RightArrow,
-    ArrowLink,
     SourceCode,
+    Book,
     Github,
     LinkedIn,
     Mail,

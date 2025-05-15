@@ -5,11 +5,9 @@ import { useThree, useFrame } from '@react-three/fiber';
 import { Instances, Instance, InstancedAttribute } from '@react-three/drei';
 import { Vector3, Euler, MathUtils } from 'three';
 
-const PETAL_COUNT = 75;
-
-const Petal = function Petal({ index, width, height, speed }) {
+const Petal = function Petal({ index, width, height, speed, count }) {
     const ref = useRef();
-    const progress = useRef(index / PETAL_COUNT);
+    const progress = useRef(index / count);
 
     const [data] = useState({
         index,
@@ -41,10 +39,7 @@ const Petal = function Petal({ index, width, height, speed }) {
         progress.current += delta * speed;
 
         //* Animation calculations
-        const t = Math.min(
-            1,
-            Math.max(0, progress.current - index / PETAL_COUNT)
-        );
+        const t = Math.min(1, Math.max(0, progress.current - index / count));
         const eased = 1 - (1 - t) * (1 - t); // easeOutQuad
 
         //* POSITION LOGIC
@@ -93,7 +88,7 @@ const Petal = function Petal({ index, width, height, speed }) {
             position.z = MathUtils.randFloat(-3, 3);
 
             //* Reset animation progress
-            progress.current = index / PETAL_COUNT;
+            progress.current = index / count;
 
             if (geometry.attributes.aOpacity) {
                 geometry.attributes.aOpacity.needsUpdate = true;
@@ -105,7 +100,12 @@ const Petal = function Petal({ index, width, height, speed }) {
     return <Instance ref={ref} {...data} />;
 };
 
-export default function FlyingPetals({ geometry, material, speed }) {
+export default function FlyingPetals({
+    geometry,
+    material,
+    speed,
+    count = 75,
+}) {
     const { viewport } = useThree();
     const { width, height } = viewport;
 
@@ -122,20 +122,21 @@ export default function FlyingPetals({ geometry, material, speed }) {
 
     return (
         <Instances
-            limit={PETAL_COUNT}
-            range={PETAL_COUNT}
+            limit={count}
+            range={count}
             geometry={geometry}
             material={material}
             frustumCulled={true}
         >
             <InstancedAttribute name="aOpacity" defaultValue={0.8} />
-            {Array.from({ length: PETAL_COUNT }, (_, i) => (
+            {Array.from({ length: count }, (_, i) => (
                 <Petal
                     key={i}
                     index={i}
                     width={width}
                     height={height}
                     speed={speed}
+                    count={count}
                 />
             ))}
         </Instances>

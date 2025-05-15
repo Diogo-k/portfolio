@@ -5,8 +5,6 @@ import { useThree, useFrame } from '@react-three/fiber';
 import { Instances, Instance, InstancedAttribute } from '@react-three/drei';
 import { Vector3, Euler, MathUtils } from 'three';
 
-const PETAL_COUNT = 126;
-
 const Petal = function Petal({
     index,
     width,
@@ -15,6 +13,7 @@ const Petal = function Petal({
     setIsIntroCrossedCenter,
     isIntroComplete,
     setIsIntroComplete,
+    count,
     ...props
 }) {
     const ref = useRef();
@@ -41,7 +40,7 @@ const Petal = function Petal({
 
         //* CROSS CENTER LOGIC
         if (
-            index === PETAL_COUNT / 2 - 1 &&
+            index === count / 2 - 1 &&
             position.x > 0 &&
             !isIntroCrossedCenter
         ) {
@@ -50,11 +49,7 @@ const Petal = function Petal({
 
         //* COMPLETE LOGIC
         const rightEdge = width / 2;
-        if (
-            index === PETAL_COUNT - 1 &&
-            position.x > rightEdge &&
-            !isIntroComplete
-        ) {
+        if (index === count - 1 && position.x > rightEdge && !isIntroComplete) {
             setIsIntroComplete(true);
         }
     });
@@ -69,16 +64,17 @@ export default function IntroPetals({
     isIntroCrossedCenter,
     setIsIntroComplete,
     isIntroComplete,
+    count = 126,
 }) {
     const { viewport } = useThree();
     const { width, height } = viewport;
 
     const petals = useMemo(
         () =>
-            Array.from({ length: PETAL_COUNT }, (_, index) => {
+            Array.from({ length: count }, (_, index) => {
                 return {
                     index,
-                    offset: (index / PETAL_COUNT) * 0.5,
+                    offset: (index / count) * 0.5,
                     speed: 0.75,
                     scale: new Vector3().setScalar(
                         MathUtils.randFloat(0.8, 1.2)
@@ -116,8 +112,8 @@ export default function IntroPetals({
 
     return (
         <Instances
-            limit={PETAL_COUNT}
-            range={PETAL_COUNT}
+            limit={count}
+            range={count}
             geometry={geometry}
             material={material}
             frustumCulled={true}
@@ -132,6 +128,7 @@ export default function IntroPetals({
                     setIsIntroCrossedCenter={setIsIntroCrossedCenter}
                     isIntroComplete={isIntroComplete}
                     setIsIntroComplete={setIsIntroComplete}
+                    count={count}
                     {...props}
                 />
             ))}

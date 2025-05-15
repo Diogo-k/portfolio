@@ -11,8 +11,6 @@ import { FADE_IN, FADE_IN_SLIDE_DOWN } from '@/constants/animations';
 
 import config from '@/config';
 
-const MotionButton = motion.create(Button);
-
 /**
  * About section component that displays personal information and skills
  *
@@ -92,13 +90,11 @@ export default function About() {
                             </div>
                         ))}
                     </div>
-                    <MotionButton
+                    <Button
                         whileHover={{ scale: 1.05 }}
                         whileTap={{ scale: 0.95 }}
                         as="a"
                         href="/joao_diogo_paulo_resume.pdf"
-                        target="_blank"
-                        rel="noopener noreferrer"
                         size="md"
                         variant="primary"
                         className="w-fit"
@@ -109,7 +105,7 @@ export default function About() {
                             className="ml-1 size-4"
                             aria-hidden="true"
                         />
-                    </MotionButton>
+                    </Button>
                 </div>
                 <div className="flex flex-col">
                     <ProfileImage />
@@ -128,7 +124,7 @@ export default function About() {
             >
                 <Text
                     as="h3"
-                    size="text-2xl"
+                    size="text-4xl"
                     weight="font-semibold"
                     align="text-center"
                     id="skills-heading"
@@ -149,49 +145,50 @@ export default function About() {
                     duration: 1,
                     delay: 0.9,
                 }}
-                className="mt-8 grid grid-cols-1 justify-center gap-8 md:grid-cols-2 lg:grid-cols-2"
             >
-                <div className="flex flex-col items-center rounded-xl bg-surface-light p-6 dark:bg-surface-dark">
-                    <Text
-                        as="h3"
-                        size="text-xl"
-                        weight="font-semibold"
-                        className="mb-4"
-                    >
-                        Frontend
-                    </Text>
-                    <Skills
-                        skills={skills.frontend}
-                        className="flex flex-wrap justify-center gap-2"
-                    />
-                </div>
-                <div className="flex flex-col items-center rounded-xl bg-surface-light p-6 dark:bg-surface-dark">
-                    <Text
-                        as="h3"
-                        size="text-xl"
-                        weight="font-semibold"
-                        className="mb-4"
-                    >
-                        Backend
-                    </Text>
-                    <Skills
-                        skills={skills.backend}
-                        className="flex flex-wrap justify-center gap-2"
-                    />
-                </div>
-                <div className="flex flex-col items-center rounded-xl bg-surface-light p-6 md:col-span-2 lg:col-span-1 dark:bg-surface-dark">
-                    <Text
-                        as="h3"
-                        size="text-xl"
-                        weight="font-semibold"
-                        className="mb-4"
-                    >
-                        Others
-                    </Text>
-                    <Skills
-                        skills={skills.others}
-                        className="flex flex-wrap justify-center gap-2"
-                    />
+                <div className="mt-8 grid grid-cols-1 justify-center gap-8 md:grid-cols-2 lg:grid-cols-2">
+                    <div className="flex flex-col items-center rounded-xl bg-surface-light p-6 dark:bg-surface-dark">
+                        <Text
+                            as="h3"
+                            size="text-xl"
+                            weight="font-semibold"
+                            className="mb-4"
+                        >
+                            Frontend
+                        </Text>
+                        <Skills
+                            skills={skills.frontend}
+                            className="flex flex-wrap justify-center gap-2"
+                        />
+                    </div>
+                    <div className="flex flex-col items-center rounded-xl bg-surface-light p-6 dark:bg-surface-dark">
+                        <Text
+                            as="h3"
+                            size="text-xl"
+                            weight="font-semibold"
+                            className="mb-4"
+                        >
+                            Expanding to the Backend
+                        </Text>
+                        <Skills
+                            skills={skills.backend}
+                            className="flex flex-wrap justify-center gap-2"
+                        />
+                    </div>
+                    <div className="col-span-full mx-auto flex w-full max-w-2xl flex-col items-center rounded-xl bg-surface-light p-6 md:w-1/2 dark:bg-surface-dark">
+                        <Text
+                            as="h3"
+                            size="text-xl"
+                            weight="font-semibold"
+                            className="mb-4"
+                        >
+                            Others
+                        </Text>
+                        <Skills
+                            skills={skills.others}
+                            className="flex flex-wrap justify-center gap-2"
+                        />
+                    </div>
                 </div>
             </motion.div>
         </section>
