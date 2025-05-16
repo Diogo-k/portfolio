@@ -24,42 +24,6 @@
                     "value": "strict-origin-when-cross-origin"
                 }
             ]
-        },
-        {
-            "source": "/_next/static/(css|chunks)/(.+\\.[0-9a-f]{8,}\\.(css|js))",
-            "headers": [
-                {
-                    "key": "Cache-Control",
-                    "value": "public, max-age=604800"
-                }
-            ]
-        },
-        {
-            "source": "/_next/static/(image|images|media)/(.*)",
-            "headers": [
-                {
-                    "key": "Cache-Control",
-                    "value": "public, max-age=604800"
-                }
-            ]
-        },
-        {
-            "source": "/manifest.json",
-            "headers": [
-                {
-                    "key": "Cache-Control",
-                    "value": "public, max-age=0, must-revalidate"
-                }
-            ]
-        },
-        {
-            "source": "/(robots\\.txt|sitemap\\.xml)",
-            "headers": [
-                {
-                    "key": "Cache-Control",
-                    "value": "public, max-age=604800"
-                }
-            ]
         }
     ]
 }
