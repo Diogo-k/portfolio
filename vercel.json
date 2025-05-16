@@ -26,7 +26,7 @@
             ]
         },
         {
-            "source": "/static/(css|js)/(.+\\.[0-9a-f]{8,}\\.(css|js))",
+            "source": "/_next/static/(css|chunks)/(.+\\.[0-9a-f]{8,}\\.(css|js))",
             "headers": [
                 {
                     "key": "Cache-Control",
@@ -35,7 +35,7 @@
             ]
         },
         {
-            "source": "/static/(images|fonts|icons|svg|videos|static)/(.*)",
+            "source": "/_next/static/(image|images|media)/(.*)",
             "headers": [
                 {
                     "key": "Cache-Control",
