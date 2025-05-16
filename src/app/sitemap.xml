@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://jdiogo.dev/</loc>
+    <priority>1.00</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://jdiogo.dev/projects</loc>
+    <priority>0.80</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://jdiogo.dev/joao_diogo_paulo_resume.pdf</loc>
+    <priority>0.80</priority>
+    <changefreq>yearly</changefreq>
+  </url>
+  <url>
+    <loc>https://jdiogo.dev/humans.txt</loc>
+    <priority>0.80</priority>
+    <changefreq>yearly</changefreq>
+  </url>
+  <url>
+    <loc>https://jdiogo.dev/projects/portfolio</loc>
+    <priority>0.64</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://jdiogo.dev/projects/satyrs-escape</loc>
+    <priority>0.64</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+</urlset>
