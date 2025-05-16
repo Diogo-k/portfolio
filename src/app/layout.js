@@ -1,3 +1,5 @@
+import { Analytics } from '@vercel/analytics/next';
+import { SpeedInsights } from '@vercel/speed-insights/next';
 import { Suspense } from 'react';
 import PropTypes from 'prop-types';
 import { Sora } from 'next/font/google';
@@ -50,6 +52,9 @@ export default function RootLayout({ children }) {
                         <Footer />
                     </ThemeProvider>
                 </MotionConfig>
+
+                <Analytics />
+                <SpeedInsights />
             </body>
         </html>
     );
