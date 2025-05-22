@@ -40,7 +40,7 @@ const About = () => {
             </Text>
             <Text
                 as="h2"
-                size="text-sm"
+                size="text-lg"
                 weight="font-normal"
                 id="about-me-intro-heading"
                 role="heading"
@@ -54,7 +54,7 @@ const About = () => {
                     delay: 0.2,
                 }}
             >
-                Get to know me!
+                Uncover my passion and experience
             </Text>
             <motion.div
                 variants={FADE_IN}
@@ -90,7 +90,7 @@ const About = () => {
                         href="/joao_diogo_paulo_resume.pdf"
                         size="md"
                         variant="primary"
-                        className="w-fit"
+                        className="mt-5 w-fit md:mt-0"
                         aria-label="View CV (joao_diogo_paulo_resume.pdf) in new tab"
                     >
                         View CV

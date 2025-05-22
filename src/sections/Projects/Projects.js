@@ -141,14 +141,14 @@ const ProjectsSection = ({ projects, isProjectRoute = false }) => {
                 </Text>
                 <Text
                     as="h2"
-                    size="text-sm"
+                    size="text-lg"
                     weight="font-normal"
                     id="projects-intro-heading"
                     role="heading"
                     aria-label="Projects section introduction"
                     className="mb-4 sm:mb-6"
                 >
-                    Here you will see my most recent projects
+                    See what I&apos;ve been working on lately
                 </Text>
                 {isProjectRoute && (
                     <div

@@ -1,33 +1,54 @@
 ---
 name: Portfolio
-date: 2025-04-17
-image: /static/placeholder.svg
-thumbnail: /static/placeholder.svg
-description: A modern, responsive portfolio website built with Next.js and Tailwind CSS.
-longDescription: |
-  A modern, responsive portfolio website built with Next.js and Tailwind CSS.
-status: completed
-category: web-app
-details:
-  technologies:
-    - name: Next.js
-      variant: frontend
-    - name: Tailwind CSS
-      variant: frontend
-    - name: Framer Motion
-      variant: frontend
-  features:
-    - Responsive design for all devices
-    - Dark mode support
-  challenges:
-    - Creating a portfolio website
+date: 2025-05-22
+thumbnail: /social_image.png
+description: Behind the scenes of my portfolio. Learnings from using Next.js, Tailwind CSS, Three.js and more.
 tags:
   - name: Next.js
     variant: frontend
   - name: Tailwind CSS
     variant: frontend
+  - name: Three.js
+    variant: frontend
   - name: Frontend
-    variant: others
-repository: https://github.com/Diogo-k/portfolio
-demo: https://jdiogop.dev
+    variant: frontend
+status: completed
+category: web-app
 ---
+# A Look Back at Building jdiogo.dev
+
+Welcome to **jdiogo.dev!** Building this website wasn't just about showcasing my work; it was a deep dive into new technologies and a significant learning experience. Like any project, it came with its share of triumphs and moments where I'd say, "If I did it again..."
+
+Here, I want to share the journey: the process, the tech stack I chose, and some honest reflections on what went well and what I might approach differently next time.
+
+## What's Under the Hood?
+
+For those curious about the technical details, here’s what I used to build this website:
+
+- **Next.js:** I chose Next.js as the React framework. The appeal was its capabilities for performance and SEO, which are always good goals.
+- **Tailwind CSS:** For styling.
+- **Motion:** For animations.
+- **Three.js:** For the 3D animated petal introduction on the homepage.
+- **Integrated MDX:** For content, including the very post you're reading, is powered by MDX, which lets me seamlessly combine Markdown with interactive JSX components.
+
+## Wins & Learnings (The "Pros")
+
+Looking back, there are a few aspects I'm quite pleased with and where I definitely levelled up:
+
+1. **Dipping My Toes into 3D with Three.js:** The animated petal introduction on the homepage was a fun challenge! It was one of my first real hands-on experience with 3D in the browser using Three.js. I learned a lot about performance, especially the importance of instancing to minimize GPU draw calls. My initial idea was much more complex, but I quickly realized I needed to simplify to get a good grasp of the fundamentals first. It was a great lesson in balancing ambition with practical learning steps.
+2. **Structured MDX Content:** I put thought into how I'd manage content with MDX. I created custom components for HTML elements like headings, paragraphs, blockquotes, code blocks, lists and more. This means that when I want to add new content, I can just create a new `.mdx` file. Then Next.js and Vercel will automatically build and deploy the new version, which is a pretty slick workflow.
+3. **Prioritizing Accessibility:** This time, unlike some of my other personal projects, I made a conscious effort to prioritize accessibility. This involved implementing **keyboard navigation**, **focus indicators**, appropriate **`aria-labels`**, and ensuring all images had **`alt` text descriptions**. While there might still be some missing elements, I successfully achieved a 100% Google Lighthouse score for accessibility. It's an ongoing learning process, but it was a priority from the start.
+
+## Hindsight & Reflections (The "Cons")
+
+No project is without its "what I might do differently" moments:
+
+1. **Next.js – Potentially Overkill?:** Next.js is a fantastic framework, and its benefits for SEO and performance are well-known. However, for the relatively simple nature of my portfolio, I wonder if it might have been a bit more than I strictly needed. Looking back, I think a framework like Astro, known for its focus on content-rich sites and shipping minimal JavaScript, might have offered a simpler and more lightweight solution for the final result. It's something I'd definitely explore for a similar project in the future.
+2. **Motion – When Simplicity is Key:** I jumped on the Framer Motion bandwagon, a popular animation library, thinking it would be a game-changer. Turns out, for the straightforward animations in this portfolio, it was more of a burden than a blessing. Having to `import { motion } from 'motion'` and then sprinkle `motion.div`, `motion.p`, and so on throughout countless files quickly became messy. I soon realized I could have achieved the exact same visual effects with plain CSS animations, drastically cutting down on my JavaScript bundle size. What also became clear was that combining Framer Motion with Tailwind CSS meant a lot of my CSS logic and animation code, alongside my component structure, ended up in the same `.js` files, which honestly didn't make for the cleanest code.
+3. **Tailwind CSS – A Personal Mismatch:** While Tailwind CSS is incredibly popular and powerful for rapid UI development, I found myself missing the control and organization of plain CSS
+
+---
+
+### The Journey Continues
+
+Building jdiogo.dev was a valuable experience. It pushed me to learn, to make decisions, and to reflect on what works best for me. The site is live, but like any developer's personal project, it's a perpetual work in progress.

@@ -20,6 +20,7 @@ const ProjectPage = ({ project }) => {
 
     useEffect(() => {
         const hash = window.location.hash;
+
         if (hash) {
             const id = hash.substring(1);
             const element = document.getElementById(id);
@@ -32,9 +33,11 @@ const ProjectPage = ({ project }) => {
                     top: offsetPosition,
                     behavior: 'smooth',
                 });
+
                 return;
             }
         }
+
         window.scrollTo(0, 0);
     }, []);
 
@@ -147,7 +150,7 @@ const ProjectPage = ({ project }) => {
                             className="rounded-md"
                         />
                         <figcaption className="mt-2 text-center text-sm text-gray-600 dark:text-gray-400">
-                            {`${project.name} project preview`}
+                            {`${project.name} Project Preview`}
                         </figcaption>
                     </figure>
                 )}

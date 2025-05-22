@@ -204,7 +204,7 @@ const Contact = () => {
             </Text>
             <Text
                 as="h2"
-                size="text-sm"
+                size="text-lg"
                 weight="font-normal"
                 id="about-me-intro-heading"
                 role="heading"
@@ -217,7 +217,7 @@ const Contact = () => {
                     delay: 0.2,
                 }}
             >
-                Get to know me!
+                Get in touch!
             </Text>
 
             <motion.div

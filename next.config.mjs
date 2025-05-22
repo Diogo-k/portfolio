@@ -2,6 +2,7 @@
 // import withBundleAnalyzer from '@next/bundle-analyzer';
 
 const nextConfig = {
+    transpilePackages: ['next-mdx-remote'],
     serverExternalPackages: ['three', 'react-three/fiber', 'react-three/drei'],
     experimental: {
         optimizePackageImports: ['@icons-pack/react-simple-icons'],

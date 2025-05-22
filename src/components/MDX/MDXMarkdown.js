@@ -52,13 +52,15 @@ const HeadingLink = ({ id, size }) => {
     );
 };
 
+const headingStyles = 'scroll-mt-20 group relative my-6';
+
 const H1 = ({ children, ...props }) => {
     return (
         <Text
             as="h1"
             size="text-4xl"
             weight="font-bold"
-            className="group relative my-6"
+            className={headingStyles}
             {...props}
         >
             <HeadingLink id={props.id} size="h1" />
@@ -73,7 +75,7 @@ const H2 = ({ children, ...props }) => {
             as="h2"
             size="text-3xl"
             weight="font-bold"
-            className="group relative my-6"
+            className={headingStyles}
             {...props}
         >
             <HeadingLink id={props.id} size="h2" />
@@ -87,7 +89,7 @@ const H3 = ({ children, ...props }) => (
         as="h3"
         size="text-2xl"
         weight="font-bold"
-        className="group relative my-6"
+        className={headingStyles}
         {...props}
     >
         <HeadingLink id={props.id} size="h3" />
@@ -100,7 +102,7 @@ const H4 = ({ children, ...props }) => (
         as="h4"
         size="text-xl"
         weight="font-bold"
-        className="group relative my-6"
+        className={headingStyles}
         {...props}
     >
         {children}
@@ -112,7 +114,7 @@ const H5 = ({ children, ...props }) => (
         as="h5"
         size="text-lg"
         weight="font-bold"
-        className="group relative my-6"
+        className={headingStyles}
         {...props}
     >
         {children}
@@ -124,7 +126,7 @@ const H6 = ({ children, ...props }) => (
         as="h6"
         size="text-base"
         weight="font-bold"
-        className="group relative my-6"
+        className={headingStyles}
         {...props}
     >
         {children}
