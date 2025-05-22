@@ -5,6 +5,7 @@ import { usePathname, useSearchParams } from 'next/navigation';
 import { motion, AnimatePresence } from 'motion/react';
 import clsx from 'clsx';
 import { ThemeSwitcher, Button, Link } from '@/components';
+import { Github, LinkedIn } from '@/assets';
 
 const navItems = [
     { name: 'Home', href: '/#home', id: 'nav-home' },
@@ -234,8 +235,26 @@ const Header = () => {
                 </ul>
             </nav>
 
-            <div className="hidden md:block">
-                <ThemeSwitcher className="absolute right-4 top-4" />
+            <div className="hidden md:absolute md:right-4 md:top-1/2 md:flex md:-translate-y-1/2 md:items-center md:space-x-4">
+                <Button
+                    variant="ghost"
+                    as="a"
+                    href="https://github.com/Diogo-k"
+                    ariaLabel="Visit my Github profile"
+                    className="text-primary-light hover:text-primary-dark dark:text-text-dark dark:hover:text-primary-light"
+                >
+                    <Github className="size-7" />
+                </Button>
+                <Button
+                    variant="ghost"
+                    as="a"
+                    href="https://linkedin.com/in/jdiogop"
+                    ariaLabel="Visit my LinkedIn profile"
+                    className="text-primary-light hover:text-primary-dark dark:text-text-dark dark:hover:text-primary-light"
+                >
+                    <LinkedIn className="size-7" />
+                </Button>
+                <ThemeSwitcher />
             </div>
 
             <Button

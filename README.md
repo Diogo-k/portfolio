@@ -3,11 +3,6 @@
 </p>
 <h1 align="center">Personal Portfolio</h1>
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![GitHub issues](https://img.shields.io/github/issues/Diogo-k/portfolio)](https://github.com/Diogo-k/portfolio/issues)
-[![GitHub forks](https://img.shields.io/github/forks/Diogo-k/portfolio)](https://github.com/Diogo-k/portfolio/network)
-[![GitHub stars](https://img.shields.io/github/stars/Diogo-k/portfolio)](https://github.com/Diogo-k/portfolio/stargazers)
-
 ![Social Image](./public/social_image.png)
 
 My portfolio to showcase my projects and skills as a software engineer. It's built with [Next.js](https://nextjs.org/), [Tailwind CSS](https://v3.tailwindcss.com/), [Three.js](https://threejs.org/) and [Motion](https://motion.dev/) This site is for potential employers, collaborators, and anyone interested in my work.
